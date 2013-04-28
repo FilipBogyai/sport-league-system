@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import cz.fi.muni.pa165.hotelbookingmanagerpersistence.entities.Hotel;
 
 /**
  *

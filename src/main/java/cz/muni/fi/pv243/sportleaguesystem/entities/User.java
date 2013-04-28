@@ -2,7 +2,6 @@ package cz.muni.fi.pv243.sportleaguesystem.entities;
 
 import java.util.Objects;
 
-import cz.fi.muni.pa165.hotelbookingmanagerpersistence.entities.Hotel;
 import cz.muni.fi.pv243.sportleaguesystem.RolesEnum;
 
 import javax.persistence.Column;
@@ -41,14 +40,46 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
     
-    @Override
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-
-    @Override
+	
+	@Override
     public boolean equals(Object object) {
         if (!(object instanceof User)) {
             return false;

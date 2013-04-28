@@ -24,7 +24,7 @@ public interface PrincipalDAO {
     * @param loginName of requested principals
     * @return all principals with given loginName or empty list if there are none.    
     */
-   List<Principal> findprincipalsByLoginName(String loginName);
+   Principal get(String loginName);
    
    /**
     * Updates existing principal.
@@ -54,7 +54,7 @@ public interface PrincipalDAO {
     * @return principal of given user 
     * @throws DataAccessException in case of error.
     */
-   Principal findUserByUser(User user);
+   Principal findPrincipalByUser(User user);
    
    
 }

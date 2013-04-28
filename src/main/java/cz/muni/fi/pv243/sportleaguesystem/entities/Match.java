@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import cz.fi.muni.pa165.hotelbookingmanagerpersistence.entities.Hotel;
 
 /**
 *

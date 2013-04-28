@@ -21,13 +21,7 @@ public interface MatchDAO {
      */
     void create(Match Match);
 
-    /**
-     * Removes existing Match it from database
-     *
-     * @param Match Match to remove.    
-     */
-    void delete(Match Match);
-
+    
     /**
      * Returns the Match that has the specified ID.
      *
@@ -36,6 +30,21 @@ public interface MatchDAO {
      */
     Match get(Long id);
 
+    /**
+     * Updates existing Match.
+     *
+     * @param Match Match to update (specified by id) with new attributes.
+     * @throws IllegalArgumentException if parameter is null.   
+     */
+    void update(Match match);
+    
+    /**
+     * Removes existing Match it from database
+     *
+     * @param Match Match to remove.    
+     */
+    void delete(Match Match);
+    
     /**
      * Returns all Matches or null if no match exists
      *

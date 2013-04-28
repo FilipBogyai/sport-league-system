@@ -2,7 +2,6 @@ package cz.muni.fi.pv243.sportleaguesystem.entities;
 
 import java.util.Objects;
 
-import cz.fi.muni.pa165.hotelbookingmanagerpersistence.entities.Hotel;
 import cz.muni.fi.pv243.sportleaguesystem.RolesEnum;
 
 import javax.persistence.Column;
