@@ -22,11 +22,7 @@ public class LeagueDAOImpl implements LeagueDAO{
 	
 	@Override
 	public void create(League league) {
-		if (league != null && league.getId() != null) {
-			throw new IllegalArgumentException("Cannot create entity with set id.");
-		}
-		em.persist(league);
-		
+		em.persist(league);		
 	}
 
 	@Override
@@ -56,25 +52,5 @@ public class LeagueDAOImpl implements LeagueDAO{
 		Query query = em.createQuery("SELECT l FROM League l WHERE UPPER(name) LIKE UPPER(:name)");
 		query.setParameter("name", name + "%");
 		return (List<League>) query.getResultList();
-	}
-
-	@Override
-	public List<League> findLeaguesByUser(User user) {
-		
-	/*
-    * Treba upravit aby to vyhladalo usera v Liste players, ak sa tam nachadza tak pridat do return List<Leagues>
-		Query query = em.createQuery("SELECT l FROM League l WHERE l.User = :User");		
-        query.setParameter("User" , user);		
-        return (List<League>) query.getResultList();	
-    */
-		return null;
-	}
-
-	@Override
-	public List<League> findLeaguesBySport(Sport sport) {
-		Query query = em.createQuery("SELECT l FROM League l WHERE l.Sport = :Sport");		
-        query.setParameter("Sport" , sport);		
-        return (List<League>) query.getResultList();	
-	}
-
+	}	
 }

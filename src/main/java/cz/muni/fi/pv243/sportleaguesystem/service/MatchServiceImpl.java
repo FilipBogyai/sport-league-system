@@ -96,5 +96,22 @@ public class MatchServiceImpl implements MatchService {
 		}
 		return matchDAO.findMatchesByDate(from, to, league);
 	}
+	
+	@Override
+	public List<Match> findByDate(Date from, Date to, User user) {
+		if (from == null) {
+			throw new IllegalArgumentException("null from date");
+		}
+		if (to == null) {
+			throw new IllegalArgumentException("null to date");
+		}
+		if (from.after(to)) {
+			throw new IllegalArgumentException("from date before to date");
+		}
+		if (user == null) {
+			throw new IllegalArgumentException("null user");
+		}
+		return matchDAO.findMatchesByDate(from, to, user);
+	}
 
 }

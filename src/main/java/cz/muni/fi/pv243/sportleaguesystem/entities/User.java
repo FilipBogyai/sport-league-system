@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.sportleaguesystem.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -38,7 +41,10 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
     
-    public Long getId() {
+    @ManyToMany(mappedBy="players")
+    private List<League> leagues;
+            
+	public Long getId() {
 		return id;
 	}
 
@@ -68,6 +74,14 @@ public class User {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public List<League> getLeagues() {
+		return leagues;
+	}
+
+	public void setLeagues(List<League> leagues) {
+		this.leagues = leagues;
 	}
 
 	@Override

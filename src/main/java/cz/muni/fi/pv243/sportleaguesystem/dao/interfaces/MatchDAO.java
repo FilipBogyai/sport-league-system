@@ -78,4 +78,15 @@ public interface MatchDAO {
      * @return Matches withing given date interval in given league.     
      */
     List<Match> findMatchesByDate(Date from, Date to, League league);
+    
+    
+    /**
+     * Return Matches withing given date interval and player.
+     * 
+     * @param from start of the interval
+     * @param to end of the interval
+     * @param user user
+     * @return Matches withing given date interval and player.     
+     */
+    List<Match> findMatchesByDate(Date from, Date to, User user) ;
 }

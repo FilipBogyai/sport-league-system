@@ -73,4 +73,15 @@ public interface MatchService {
      * @return Matches withing given date interval in given league.     
      */
 	List<Match> findByDate(Date from, Date to, League league);
+	
+	/**
+     * Return Matches withing given date interval and player.
+     * 
+     * @param from start of the interval
+     * @param to end of the interval
+     * @param user user
+     * @throws IllegalArgumentException if parameter is null or if from date is after to date.   
+     * @return Matches withing given date interval and player.     
+     */
+	List<Match> findByDate(Date from, Date to, User user);
 }

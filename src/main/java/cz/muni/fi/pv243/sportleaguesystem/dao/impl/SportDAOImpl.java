@@ -18,9 +18,6 @@ public class SportDAOImpl implements SportDAO{
 	
 	@Override
 	public void create(Sport sport) {
-		if (sport != null && sport.getId() != null) {
-			throw new IllegalArgumentException("Cannot create entity with set id.");
-		}
 		em.persist(sport);
 		
 	}

@@ -7,9 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -27,12 +30,18 @@ public class Match {
 	private Long id;
     
     @NotNull
-    @OneToOne
+    @ManyToOne
 	private User player1;
     
     @NotNull
-    @OneToOne
+    @ManyToOne
 	private User player2;
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    @Valid
+    private League league;
     
     @Size(min = 2 , max = 30, message="A match's location must contain between 2 and 30 characters")
     private String location;
@@ -71,7 +80,13 @@ public class Match {
 		return player2;
 	}
 	public void setPlayer2(User player2) {
-		this.player2 = player2;
+		this.player2 = player2;		
+	}	
+	public League getLeague() {
+		return league;
+	}
+	public void setLeague(League league) {
+		this.league = league;
 	}
 	public String getLocation() {
 		return location;

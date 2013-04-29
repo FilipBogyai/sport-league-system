@@ -21,9 +21,6 @@ public class UsersDAOImpl implements UserDAO{
 	
 	@Override
 	public void create(User user) {
-		if (user != null && user.getId() != null) {
-			throw new IllegalArgumentException("Cannot create entity with set id.");
-		}
 		em.persist(user);
 		
 	}

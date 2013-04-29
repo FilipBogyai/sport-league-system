@@ -21,9 +21,6 @@ public class MatchDAOImpl implements MatchDAO{
 	
 	@Override
 	public void create(Match match) {
-		if (match != null && match.getId() != null) {
-			throw new IllegalArgumentException("Cannot create entity with set id.");
-		}
 		em.persist(match);
 	}
 
@@ -64,6 +61,16 @@ public class MatchDAOImpl implements MatchDAO{
         return (List<Match>) query.getResultList();
 	}
 
+	@Override
+	public List<Match> findMatchesByDate(Date from, Date to, User user) {
+		Query query = em.createQuery("SELECT m FROM Match m WHERE m.startTime >= :from AND m.endTime <= :to AND " +
+				"(m.player1 = :user OR m.player2 = :user)");
+        query.setParameter("from" , from);
+        query.setParameter("to" , to);
+        query.setParameter("user" , user);
+        return (List<Match>) query.getResultList();
+	}	
+	
 	@Override
 	public List<Match> findMatchesByDate(Date from, Date to, League league) {
 		Query query = em.createQuery("SELECT m FROM Match m WHERE m.startTime >= :from AND m.endTime <= :to AND m.league = :league");
