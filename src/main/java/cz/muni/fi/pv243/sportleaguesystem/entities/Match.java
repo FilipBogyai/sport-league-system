@@ -7,8 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -22,23 +27,32 @@ public class Match {
 	private Long id;
     
     @NotNull
-    @ManyToOne
+    @OneToOne
 	private User player1;
     
     @NotNull
-    @ManyToOne
+    @OneToOne
 	private User player2;
     
+    @Size(min = 2 , max = 30, message="A match's location must contain between 2 and 30 characters")
     private String location;
     
+    @Future
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
     
+    @Future
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
     
+    @Size(min = 1, max = 3)
+    @Digits(fraction = 0, integer = 3)
     private int scorePlayer1;
     
+    @Size(min = 1, max = 3)
+    @Digits(fraction = 0, integer = 3)
     private int scorePlayer2;
-    
+        
     private boolean approved;
     
 	public Long getId() {

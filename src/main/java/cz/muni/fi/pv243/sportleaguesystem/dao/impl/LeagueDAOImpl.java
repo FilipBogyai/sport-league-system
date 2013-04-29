@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.hibernate.validator.cfg.context.ReturnValueConstraintMappingContext;
+
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
@@ -58,9 +60,14 @@ public class LeagueDAOImpl implements LeagueDAO{
 
 	@Override
 	public List<League> findLeaguesByUser(User user) {
+		
+	/*
+    * Treba upravit aby to vyhladalo usera v Liste players, ak sa tam nachadza tak pridat do return List<Leagues>
 		Query query = em.createQuery("SELECT l FROM League l WHERE l.User = :User");		
         query.setParameter("User" , user);		
         return (List<League>) query.getResultList();	
+    */
+		return null;
 	}
 
 	@Override

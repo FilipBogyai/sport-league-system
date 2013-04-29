@@ -22,11 +22,12 @@ public class Principal {
 
 	@Id
 	@NotNull
-	@Size(min = 1, max = 16)
+	@Size(min = 1, max = 20)
 	@Column(unique = true)
 	private String loginName;
 	
 	@NotNull
+	@Size(min = 1, max = 20)
     private String password;
     
     @Enumerated(EnumType.STRING)

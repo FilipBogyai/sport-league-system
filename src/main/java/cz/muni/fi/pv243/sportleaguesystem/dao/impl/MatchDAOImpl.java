@@ -51,7 +51,7 @@ public class MatchDAOImpl implements MatchDAO{
 
 	@Override
 	public List<Match> findMatchesByUser(User user) {
-		Query query = em.createQuery("SELECT m FROM Match m WHERE m.User = :User");		
+		Query query = em.createQuery("SELECT m FROM Match m WHERE m.player1 = :User OR m.player2=:User");		
         query.setParameter("User" , user);		
         return (List<Match>) query.getResultList();	
 	}	

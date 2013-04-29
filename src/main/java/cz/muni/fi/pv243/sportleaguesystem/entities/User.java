@@ -2,8 +2,6 @@ package cz.muni.fi.pv243.sportleaguesystem.entities;
 
 import java.util.Objects;
 
-import cz.muni.fi.pv243.sportleaguesystem.RolesEnum;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,18 +23,18 @@ public class User {
 	private Long id; 
     
     @NotNull
-    @Size(min = 1, max = 16)
-    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+    @Size(min = 1, max = 20)
+    @Pattern(regexp = "[A-Za-z]+", message = "must contain only letters")
     private String firstName;
     
     @NotNull
-    @Size(min = 1, max = 16)
-    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+    @Size(min = 1, max = 20)
+    @Pattern(regexp = "[A-Za-z]+", message = "must contain only letters")
     private String lastName;
     
     @NotNull
-    @Size(min = 1, max = 12)
-    @Digits(fraction = 0, integer = 12)
+    @Size(min = 1, max = 20)
+    @Digits(fraction = 0, integer = 20)
     @Column(name = "phone_number")
     private String phoneNumber;
     
