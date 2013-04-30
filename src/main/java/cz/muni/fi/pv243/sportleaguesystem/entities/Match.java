@@ -12,11 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+<<<<<<< HEAD
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+=======
+import javax.validation.constraints.*;
+>>>>>>> changed @Size to @Min and @Max
 
 
 /**
@@ -53,12 +57,14 @@ public class Match {
     @Future
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
-    
-    @Size(min = 1, max = 3)
+
+    @Min(value = 1)
+    @Max(value = 3)
     @Digits(fraction = 0, integer = 3)
     private int scorePlayer1;
-    
-    @Size(min = 1, max = 3)
+
+    @Min(value = 1)
+    @Max(value = 3)
     @Digits(fraction = 0, integer = 3)
     private int scorePlayer2;
         
@@ -138,10 +144,7 @@ public class Match {
             return false;
         }
         Match other = (Match) object;
-        if (this.id != null && !Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return !(this.id != null && !Objects.equals(this.id, other.id));
     }
     
 }
