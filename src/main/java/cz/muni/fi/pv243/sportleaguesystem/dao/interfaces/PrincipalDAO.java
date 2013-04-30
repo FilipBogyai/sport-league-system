@@ -51,8 +51,7 @@ public interface PrincipalDAO {
     * Returns principal of given user.
     * 
     * @param user of requested pricipal
-    * @return principal of given user 
-    * @throws DataAccessException in case of error.
+    * @return principal of given user
     */
    Principal findPrincipalByUser(User user);
    

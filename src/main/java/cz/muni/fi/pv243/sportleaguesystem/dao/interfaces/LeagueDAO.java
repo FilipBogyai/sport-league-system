@@ -18,7 +18,7 @@ public interface LeagueDAO {
    /**
     * Adds new League to the database.
     *
-    * @param League League to add.
+    * @param league League to add.
     * @throws IllegalArgumentException if parameter is null or has assigned id.   
     */
    void create(League league);
@@ -34,7 +34,7 @@ public interface LeagueDAO {
    /**
     * Updates existing League.
     *
-    * @param League League to update (specified by id) with new attributes.
+    * @param league League to update (specified by id) with new attributes.
     * @throws IllegalArgumentException if parameter is null.   
     */
    void update(League league);
@@ -42,7 +42,7 @@ public interface LeagueDAO {
    /**
     * Removes existing League.
     *
-    * @param League League to remove (specified by id).
+    * @param league League to remove (specified by id).
     * @throws IllegalArgumentException if parameter is null.   r.
     */
    void delete(League league);

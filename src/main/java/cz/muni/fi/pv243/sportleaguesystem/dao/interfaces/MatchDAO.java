@@ -55,7 +55,7 @@ public interface MatchDAO {
     /**		
      * Return all Matches of given user.		
      *		
-     * @param client client		
+     * @param user user
      * @return Matches of given user.		     	
      */		
     List<Match> findMatchesByUser(User user);

@@ -12,15 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-<<<<<<< HEAD
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-=======
 import javax.validation.constraints.*;
->>>>>>> changed @Size to @Min and @Max
 
 
 /**
