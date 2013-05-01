@@ -57,6 +57,10 @@ img {
 	text-decoration: none;
 }
 
+.button_01 a:active {
+	color: #FFF;	
+}
+
 .header_01 {
 	clear: both;
 	color: #fcd82b;

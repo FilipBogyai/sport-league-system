@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<title>Sport League System</title>
+	<title>Sport League System - #{currentTitle} </title>
 	<meta name="keywords"
 		content="league, match, tennis, football, ping pong, sport" />
 	<meta name="description" content="Awesome page to choose your league" />
@@ -15,12 +16,12 @@
 
 		<div id="templatemo_menu">
 			<ul>
-				<li><h:link value="Home" outcome="/index" styleClass="current" /></li>
-				<li><h:link value="Sports" outcome="/sports/index" /></li>
-				<li><h:link value="My Leagues" outcome="/leagues/index" /></li>
-				<li><h:link value="My Matches" outcome="/matches/index" /></li>
-				<li><h:link value="My Account" outcome="/users/index" /></li>
-				<li><a href="#" class="last">Contact Us</a></li>
+				<li><h:link value="Home" outcome="/index" styleClass="#{currentTitle=='Home' ? 'current' : ''}" /></li>
+				<li><h:link value="Sports" outcome="/sports/index" styleClass="#{currentTitle=='Sports' ? 'current' : ''}" /></li>
+				<li><h:link value="My Leagues" outcome="/leagues/index" styleClass="#{currentTitle=='Leagues' ? 'current' : ''}" /></li>
+				<li><h:link value="My Matches" outcome="/matches/index" styleClass="#{currentTitle=='Matches' ? 'current' : ''}" /></li>
+				<li><h:link value="My Account" outcome="/users/index" styleClass="#{currentTitle=='Users' ? 'current' : ''}" /></li>
+				<li><h:link value="About Us" outcome="/about" styleClass="#{currentTitle=='About' ? 'current last' : 'last'}" /></li>
 			</ul>
 		</div>
 		<!-- end of menu -->
