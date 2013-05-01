@@ -5,12 +5,10 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -18,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 /**
@@ -40,18 +41,19 @@ public class League {
     private String description;
     
     @NotNull
-    @ManyToOne
-    @JoinColumn(nullable = false)
+    @ManyToOne    
     @Valid
 	private Sport sport;
     
     @ManyToMany
     @JoinTable(name = "league_players",
-    		   joinColumns={@JoinColumn(name="league_id",referencedColumnName="id")},
-    		   inverseJoinColumns={@JoinColumn(name="player_id", referencedColumnName="id")})
+    		   joinColumns={@JoinColumn(name="league_id")},
+    		   inverseJoinColumns={@JoinColumn(name="player_id")})
+    @LazyCollection(LazyCollectionOption.FALSE)
 	private List<User> players;
     
     @OneToMany(mappedBy = "league", cascade= CascadeType.ALL )
+    @LazyCollection(LazyCollectionOption.FALSE)
 	private List<Match> matches;
     
 	public Long getId() {

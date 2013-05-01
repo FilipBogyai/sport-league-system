@@ -9,11 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
 *
@@ -42,6 +44,7 @@ public class User {
     private String phoneNumber;
     
     @ManyToMany(mappedBy="players")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<League> leagues;
             
 	public Long getId() {

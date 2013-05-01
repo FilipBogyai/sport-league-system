@@ -9,11 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -55,14 +53,12 @@ public class Match {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 
-    @Min(value = 1)
-    @Max(value = 3)
-    @Digits(fraction = 0, integer = 3)
+    @Min(value = 0)   
+    @Max(value = 200)
     private int scorePlayer1;
 
-    @Min(value = 1)
-    @Max(value = 3)
-    @Digits(fraction = 0, integer = 3)
+    @Min(value = 0)
+    @Max(value = 200)
     private int scorePlayer2;
         
     private boolean approved;

@@ -50,6 +50,14 @@ public interface LeagueService {
      * @throws IllegalArgumentException if parameter is null.   
      * @return Leagues with given name or empty list if there are none.   
      */
-    List<League> findByName(String name);        
+    List<League> findByName(String name);       
+    
+    /**
+     * Returns list of Leagues in given sport
+     *
+     * @throws IllegalArgumentException if parameter is null.   
+     * @return Leagues in given sport or empty list if there are none.   
+     */
+    List<League> findBySport(Sport sport);
     
 }

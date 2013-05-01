@@ -60,4 +60,11 @@ public interface LeagueDAO {
     * @return Leagues with given name or empty list if there are none.   
     */
    List<League> findLeaguesByName(String name);
+   
+   /**
+    * Returns list of Leagues in given sport.
+    *
+    * @return Leagues given sport or empty list if there are none.   
+    */
+   List<League> findLeaguesBySport(Sport sport);
 }
