@@ -34,37 +34,14 @@
 		<div id="tmeplatemo_content">
 
 			<div id="templatemo_side_column">
-				<div class="top"></div>
-
-				<div class="header_01">News &amp; Events</div>
-
-				<div class="news_event_section">
-					<div class="header_02">Lorem ipsum dolor sit amet</div>
-					<img src="images/templatemo_image_01.jpg" alt="photo one" />
-					<p>Donec ut felis libero. Nunc vel libero libero, in dignissim
-						urna. Praesent tempor, arcu at egestas vestibulum, lorem elit
-						viverra velit, sit amet gravida ligula ante et sem.</p>
-					<div class="button_01">
-						<a href="#">Read more</a>
-					</div>
-				</div>
-
-				<div class="news_event_section">
-					<div class="header_02">Integer in magna nec lacus</div>
-					<img src="images/templatemo_image_00.jpg" alt="photo two" />
-					<p>Suspendisse potenti. Aliquam erat volutpat. Mauris tempus
-						massa vitae sem posuere pharetra. Donec eget neque erat, ac
-						venenatis libero. Cras consequat pharetra sem ut imperdiet.</p>
-					<div class="button_01">
-						<a href="#">Read more</a>
-					</div>
-				</div>
-
-				<div class="cleaner"></div>
-				<div class="bottom"></div>
+			
+				<ui:insert name="side_content">
+                    [Template side content will be inserted here]
+         		</ui:insert>
+				
 			</div>
 			<!-- end of side column -->
-
+         		
 			<div id="templatemo_main_column">
 
 				<ui:insert name="content">
@@ -75,6 +52,7 @@
 			<div class="cleaner"></div>
 		</div>
 		<!-- end of content -->
+		
 		<div id="templatemo_footer">
 
 			Copyright © 2048 <a href="#">Your Company Name</a> | Designed by <a
