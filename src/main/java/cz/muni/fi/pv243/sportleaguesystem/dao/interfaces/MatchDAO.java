@@ -33,7 +33,7 @@ public interface MatchDAO {
     /**
      * Updates existing Match.
      *
-     * @param Match Match to update (specified by id) with new attributes.
+     * @param match Match to update (specified by id) with new attributes.
      * @throws IllegalArgumentException if parameter is null.   
      */
     void update(Match match);

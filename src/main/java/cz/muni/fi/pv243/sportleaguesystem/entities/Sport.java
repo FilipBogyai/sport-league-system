@@ -27,7 +27,7 @@ public class Sport {
     @Size(min = 2 , max = 30, message="A sport's name must contain between 2 and 30 characters")
     private String name;
     
-    @OneToMany(mappedBy = "sport", fetch = FetchType.EAGER, cascade= CascadeType.ALL )
+    @OneToMany(mappedBy = "sport", cascade= CascadeType.ALL )
 	private List<League> leagues;
     
 	public Long getId() {

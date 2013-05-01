@@ -51,7 +51,7 @@ public class League {
     		   inverseJoinColumns={@JoinColumn(name="player_id", referencedColumnName="id")})
 	private List<User> players;
     
-    @OneToMany(mappedBy = "league", fetch = FetchType.EAGER, cascade= CascadeType.ALL ) 
+    @OneToMany(mappedBy = "league", cascade= CascadeType.ALL )
 	private List<Match> matches;
     
 	public Long getId() {
