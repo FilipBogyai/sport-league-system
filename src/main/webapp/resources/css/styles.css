@@ -9,7 +9,7 @@ body {
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 12px;
 	color: #d4d1c5;
-	background: #141212 url(images/templatemo_main_bg.jpg) repeat;
+	background: #141212 url(#{request.contextPath}/resources/css/images/templatemo_main_bg.jpg) repeat;
 }
 
 a:link, a:visited { color: #e8c521; text-decoration: none; font-weight: normal; } 
@@ -48,7 +48,7 @@ img {
 	width: 100px;
 	height: 21px;
 	padding-top: 5px;
-	background: url(images/templatemo_button_01.jpg) no-repeat;
+	background: url(#{request.contextPath}/resources/css/images/templatemo_button_01.jpg) no-repeat;
 	
 	color: #000000;
 	font-size: 12px;
@@ -91,7 +91,7 @@ img {
 	clear: both;
 	width: 980px;
 	height: 55px;
-	background: url(images/templatemo_menu_bg.jpg) repeat-x;
+	background: url(#{request.contextPath}/resources/css/images/templatemo_menu_bg.jpg) repeat-x;
 }
 
 #templatemo_menu ul {
@@ -113,7 +113,7 @@ img {
 	width: 100px;
 	height: 40px;
 	padding: 15px 38px 0 0;
-	background: url(images/templatemo_menu_right.jpg) right top no-repeat;
+	background: url(#{request.contextPath}/resources/css/images/templatemo_menu_right.jpg) right top no-repeat;
 	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
@@ -139,7 +139,7 @@ img {
 	clear: both;
 	width: 980px;
 	height: 220px;
-	background:url(images/templatemo_header_bg.jpg) no-repeat;
+	background:url(#{request.contextPath}/resources/css/images/templatemo_header_bg.jpg) no-repeat;
 }
 
 /*----- OR ------*/
@@ -149,7 +149,7 @@ img {
 	width: 980px;
 	height: 220px;
 	text-align: center;	
-	background: url(images/templatemo_header_bg_blank.jpg) no-repeat;
+	background: url(#{request.contextPath}/resources/css/images/templatemo_header_bg_blank.jpg) no-repeat;
 }
 
 #templatemo_header_02 #site_title {
@@ -193,7 +193,7 @@ img {
 	height: 45px;
 	top: 0px;
 	left: 0px;
-	background: url(images/templatemo_side_column_top.jpg) no-repeat;
+	background: url(#{request.contextPath}/resources/css/images/templatemo_side_column_top.jpg) no-repeat;
 }
 
 #templatemo_side_column .bottom {
@@ -202,7 +202,7 @@ img {
 	height: 45px;
 	bottom: 0px;
 	left: 0px;
-	background: url(images/templatemo_side_column_bottom.jpg) no-repeat;
+	background: url(#{request.contextPath}/resources/css/images/templatemo_side_column_bottom.jpg) no-repeat;
 }
 
 #templatemo_side_column img {
@@ -274,7 +274,7 @@ img {
 	width: 880px;
 	padding: 80px 50px 0 50px;
 	margin: 0 auto;
-	background: #332e2e url(images/templatemo_footer_bg.jpg) no-repeat;
+	background: #332e2e url(#{request.contextPath}/resources/css/images/templatemo_footer_bg.jpg) no-repeat;
 	min-height: 130px;
 }
 

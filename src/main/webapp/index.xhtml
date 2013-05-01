@@ -1,71 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:h="http://java.sun.com/jsf/html"
-   template="/WEB-INF/templates/default.xhtml">
-   <ui:define name="content">
-      <h1>Welcome to JBoss!</h1>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<div class="header_01">Welcome to Sport Center</div>
 
-      <div>
-         <p>You have successfully deployed a Java EE 6 web application.</p>
-         <h3>Your application can run on:</h3>
-         <img src="resources/gfx/dualbrand_as7eap.png"/>
-      </div>
+		<div class="section_w480">
+			<div class="image_wrapper fl_img">
+				<img src="images/templatemo_image_02.jpg" alt="photo three" />
+			</div>
+			<p class="em_text">
+				This Free CSS Template is provided by <a
+					href="http://www.templatemo.com" target="_parent">TemplateMo.com</a>.
+				You may use this template in your websites. Credit goes to <a
+					href="http://www.photovaco.com" target="_blank">Free Photos</a> for
+				photos used in this template.
+			</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				Integer vitae metus quis libero consectetur egestas. In hac
+				habitasse platea dictumst. Suspendisse tempus, metus in semper
+				accumsan, dolor purus imperdiet magna, a iaculis quam justo quis
+				purus. Etiam ut erat enim, et aliquet orci.</p>
+			<div class="button_01">
+				<a href="#">Read more</a>
+			</div>
+		</div>
 
-      <h:form id="reg">
-         <h2>Member Registration</h2>
-         <p>Enforces annotation-based constraints defined on the model class.</p>
-         <h:panelGrid columns="3" columnClasses="titleCell">
-            <h:outputLabel for="name" value="Name:"/>
-            <h:inputText id="name" value="#{newMember.name}" />
-            <h:message for="name" errorClass="invalid"/>
+		<div class="section_w480">
 
-            <h:outputLabel for="email" value="Email:"/>
-            <h:inputText id="email" value="#{newMember.email}"/>
-            <h:message for="email" errorClass="invalid"/>
+			<div class="header_01">Our Activities</div>
 
-            <h:outputLabel for="phoneNumber" value="Phone #:"/>
-            <h:inputText id="phoneNumber" value="#{newMember.phoneNumber}"/>
-            <h:message for="phoneNumber" errorClass="invalid"/>
-         </h:panelGrid>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				Integer vitae metus quis libero consectetur egestas. In hac
+				habitasse platea dictumst. Suspendisse tempus, metus in semper
+				accumsan.</p>
 
-         <p>
-            <h:panelGrid columns="2">
-               <h:commandButton id="register" action="#{memberController.register}" value="Register" styleClass="register"/>
-               <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
-                           globalOnly="true"/>
-            </h:panelGrid>
-         </p>
-      </h:form>
-      <h2>Members</h2>
-      <h:panelGroup rendered="#{empty members}">
-         <em>No registered members.</em>
-      </h:panelGroup>
-      <h:dataTable var="_member" value="#{members}" rendered="#{not empty members}" styleClass="simpletablestyle">
-         <h:column>
-            <f:facet name="header">Id</f:facet>
-                #{_member.id}
-            </h:column>
-         <h:column>
-            <f:facet name="header">Name</f:facet>
-                #{_member.name}
-            </h:column>
-         <h:column>
-            <f:facet name="header">Email</f:facet>
-                #{_member.email}
-            </h:column>
-         <h:column>
-            <f:facet name="header">Phone #</f:facet>
-                #{_member.phoneNumber}
-            </h:column>
-         <h:column>
-            <f:facet name="header">REST URL</f:facet>
-            <a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
-         </h:column>
-         <f:facet name="footer">
-            REST URL for all members: <a href="#{request.contextPath}/rest/members">/rest/members</a>
-         </f:facet>
-      </h:dataTable>
-   </ui:define>
+			<div class="margin_bottom_20"></div>
+
+			<div class="section_w160 fl">
+				<div class="image_wrapper">
+					<img src="images/templatemo_image_03.jpg" alt="image" />
+				</div>
+
+			</div>
+
+			<div class="section_w270 fr">
+
+				<ul class="content_list_01">
+					<li>Cras urna nisi, porta et gravida blandit, laoreet ornare
+						nunc.</li>
+					<li>Donec tincidunt sem eget velit cursus sit amet ullamcorper
+						mi vulputate.</li>
+				</ul>
+
+				<div class="margin_bottom_20"></div>
+
+				<div class="button_01">
+					<a href="#">Read more</a>
+				</div>
+			</div>
+
+
+
+			<div class="cleaner"></div>
+		</div>
+	</ui:define>
 </ui:composition>

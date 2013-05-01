@@ -1,43 +1,102 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-   <title>Java EE 6 Starter Application</title>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <h:outputStylesheet name="css/screen.css" />
+	<title>Sport League System</title>
+	<meta name="keywords"
+		content="league, match, tennis, football, ping pong, sport" />
+	<meta name="description" content="Awesome page to choose your league" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<h:outputStylesheet name="css/styles.css" />
 </h:head>
 <h:body>
-   <div id="container">
-      <div class="dualbrand">
-         <img src="resources/gfx/dualbrand_logo.png" />
-      </div>
-      <div id="content">
-         <ui:insert name="content">
+	<div id="tmeplatemo_container">
+
+		<div id="templatemo_menu">
+			<ul>
+				<li><a href="#" class="current">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="http://www.templatemo.com" target="_parent">Templates</a></li>
+				<li><a href="http://www.koflash.com" target="_parent">Gallery</a></li>
+				<li><a href="#">Members</a></li>
+				<li><a href="#" class="last">Contact Us</a></li>
+			</ul>
+		</div>
+		<!-- end of menu -->
+
+		<div id="templatemo_header_02">
+			<div id="site_title">
+				Sport Center<span>Your tagline goes here</span>
+			</div>
+		</div>
+
+		<div id="tmeplatemo_content">
+
+			<div id="templatemo_side_column">
+				<div class="top"></div>
+
+				<div class="header_01">News &amp; Events</div>
+
+				<div class="news_event_section">
+					<div class="header_02">Lorem ipsum dolor sit amet</div>
+					<img src="images/templatemo_image_01.jpg" alt="photo one" />
+					<p>Donec ut felis libero. Nunc vel libero libero, in dignissim
+						urna. Praesent tempor, arcu at egestas vestibulum, lorem elit
+						viverra velit, sit amet gravida ligula ante et sem.</p>
+					<div class="button_01">
+						<a href="#">Read more</a>
+					</div>
+				</div>
+
+				<div class="news_event_section">
+					<div class="header_02">Integer in magna nec lacus</div>
+					<img src="images/templatemo_image_00.jpg" alt="photo two" />
+					<p>Suspendisse potenti. Aliquam erat volutpat. Mauris tempus
+						massa vitae sem posuere pharetra. Donec eget neque erat, ac
+						venenatis libero. Cras consequat pharetra sem ut imperdiet.</p>
+					<div class="button_01">
+						<a href="#">Read more</a>
+					</div>
+				</div>
+
+				<div class="cleaner"></div>
+				<div class="bottom"></div>
+			</div>
+			<!-- end of side column -->
+
+			<div id="templatemo_main_column">
+
+				<ui:insert name="content">
                     [Template content will be inserted here]
-         </ui:insert>
-      </div>
-      <div id="aside">
-         <p>Learn more about JBoss Enterprise Application Platform 6.</p>
-         <ul>
-            <li><a
-               href="http://red.ht/jbeap-6-docs">Documentation</a></li>
-            <li><a href="http://red.ht/jbeap-6">Product Information</a></li>
-         </ul>
-         <p>Learn more about JBoss AS 7.</p>
-         <ul>
-            <li><a
-               href="https://docs.jboss.org/author/display/AS7/Getting+Started+Developing+Applications+Guide">Getting Started Developing Applications Guide</a></li>
-            <li><a href="http://jboss.org/jbossas">Community Project Information</a></li>
-         </ul>            
-      </div>
-      <div id="footer">
-         <p>
-            This project was generated from a Maven archetype from
-            JBoss.<br />
-         </p>
-      </div>
-   </div>
+         		</ui:insert>
+
+			</div>
+			<div class="cleaner"></div>
+		</div>
+		<!-- end of content -->
+		<div id="templatemo_footer">
+
+			Copyright © 2048 <a href="#">Your Company Name</a> | Designed by <a
+				href="http://www.templatemo.com" target="_parent">Free CSS
+				Templates</a>
+
+			<div class="margin_bottom_20"></div>
+
+			<a href="http://validator.w3.org/check?uri=referer"><img
+				style="border: 0; width: 88px; height: 31px"
+				src="http://www.w3.org/Icons/valid-xhtml10"
+				alt="Valid XHTML 1.0 Transitional" width="88" height="31" vspace="8"
+				border="0" /></a> <a
+				href="http://jigsaw.w3.org/css-validator/check/referer"><img
+				style="border: 0; width: 88px; height: 31px"
+				src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+				alt="Valid CSS!" vspace="8" border="0" /></a>
+
+		</div>
+		<!-- end of footer -->
+
+	</div>
+	<!-- end of container -->
 </h:body>
 </html>
