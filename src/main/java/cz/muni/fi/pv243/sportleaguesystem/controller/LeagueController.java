@@ -71,16 +71,11 @@ public class LeagueController {
 	public void populateLeagues() {
 		Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
 		sportId = params.get("sportID");
-		String filterName = params.get("filterName");
 		String leagueId = params.get("leagueID");
 		
 		if (sportId != null) {
 			sport = sportService.getById(Long.parseLong(sportId));
-			
-			if (filterName != null && !"".equals(filterName.trim()))
-				leagues = leagueService.findByName(filterName, sport);
-			else
-				leagues = leagueService.findBySport(sport);
+			leagues = leagueService.findBySport(sport);
 		}
 		
 		if (leagueId != null)

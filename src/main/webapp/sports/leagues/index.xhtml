@@ -55,10 +55,11 @@
 		<div class="section_w480">
 
 			<div class="header_03">All Leagues:</div>
-
-			<ui:insert name="filter">
-				<ui:include src="/WEB-INF/templates/filter.xhtml" />
-			</ui:insert>
+			
+			<div class="button_01">
+			<h:link value="Back to Sports" outcome="/sports/index" />
+			</div>
+			<br />
 
 			<h:panelGroup rendered="#{empty leagues}">
 				<em>No league was found.</em>
@@ -79,7 +80,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
-					<h:link outcome="/sports/edit">
+					<h:link outcome="/sports/leagues/edit">
 						<f:param name="leagueID" value="#{league.id}" />
 						<f:param name="sportID" value="#{leagueController.sportId}" />
 						<img
