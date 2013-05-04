@@ -21,7 +21,7 @@
 					<ui:include src="/sports/formSport.xhtml" />
 				</ui:insert>
 				<p>
-					<h:panelGrid columns="3">
+					<h:panelGrid columns="2">
 						<h:column>
 							<div class="button_01">
 								<h:commandLink id="save" action="#{sportController.save}"
@@ -29,9 +29,6 @@
 									<f:param name="sportID" value="#{newSport.id}" />
 								</h:commandLink>
 							</div>
-						</h:column>
-						<h:column>
-							<h:messages infoClass="valid" globalOnly="true" />
 						</h:column>
 						<h:column>
 							<div class="button_01">

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<div>
+		<f:metadata>
+			<f:viewParam name="filterName" value="#{filter}" />
+		</f:metadata>
+
+		<h:form>
+			<h:panelGrid columns="3">
+				<h:column>
+					<h:outputLabel value="Filter By Name:" for="filterName" />
+				</h:column>
+				<h:column>
+					<h:inputText id="filterName" value="#{filter}" />
+				</h:column>
+				<h:column>
+					<div class="button_01" style="display: inline;">
+						<h:commandLink value="Submit"
+							action="index?faces-redirect=true&amp;includeViewParams=true" />
+					</div>
+				</h:column>
+			</h:panelGrid>
+		</h:form>
+	</div>
+</ui:composition>

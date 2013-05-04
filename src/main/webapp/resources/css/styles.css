@@ -57,6 +57,19 @@ img {
 	text-decoration: none;
 }
 
+input[type="submit"] {
+	clear: both;
+	display: block;
+	width: 100px;
+	height: 21px;
+	padding-top: 5px;
+	background: url(#{request.contextPath}/resources/css/images/templatemo_button_01.jpg) no-repeat;
+	
+	color: #000000;
+	font-size: 12px;
+	font-weight: bold;
+}
+
 .button_01 a:active {
 	color: #FFF;	
 }

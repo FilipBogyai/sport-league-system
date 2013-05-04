@@ -53,7 +53,11 @@
 		<div class="section_w480">
 
 			<div class="header_03">All Sports:</div>
-			
+
+			<ui:insert name="formSport">
+				<ui:include src="/WEB-INF/templates/filter.xhtml" />
+			</ui:insert>
+
 			<h:panelGroup rendered="#{empty sports}">
 				<em>No registered sport.</em>
 			</h:panelGroup>
@@ -68,21 +72,25 @@
 					<h:link value="View leagues" outcome="/leagues/index">
 						<f:param name="sportID" value="#{sport.id}" />
 					</h:link>
-	            </h:column>
+				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:link outcome="/sports/edit">
 						<f:param name="sportID" value="#{sport.id}" />
-						<img src="#{request.contextPath}/resources/css/images/edit_icon.png" alt="Edit" />
+						<img
+							src="#{request.contextPath}/resources/css/images/edit_icon.png"
+							alt="Edit" />
 					</h:link>
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:form>
-					<h:commandLink id="edit" action="#{sportController.remove}">
-						<f:param name="sportID" value="#{sport.id}" />
-						<img src="#{request.contextPath}/resources/css/images/remove_icon.png" alt="Remove" />
-					</h:commandLink>
+						<h:commandLink id="edit" action="#{sportController.remove}">
+							<f:param name="sportID" value="#{sport.id}" />
+							<img
+								src="#{request.contextPath}/resources/css/images/remove_icon.png"
+								alt="Remove" />
+						</h:commandLink>
 					</h:form>
 				</h:column>
 			</h:dataTable>
