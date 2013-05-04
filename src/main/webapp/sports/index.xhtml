@@ -59,10 +59,10 @@
 			</ui:insert>
 
 			<h:panelGroup rendered="#{empty sports}">
-				<em>No registered sport.</em>
+				<em>No sport was found.</em>
 			</h:panelGroup>
 			<h:dataTable var="sport" value="#{sports}"
-				rendered="#{not empty sports}" styleClass="simpletablestyle">
+				rendered="#{not empty sports}" styleClass="simpletablestyle" id="table">
 				<h:column>
 					<f:facet name="header">Name</f:facet>
 	                #{sport.name}
