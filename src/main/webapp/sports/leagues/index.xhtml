@@ -81,6 +81,7 @@
 					<f:facet name="header"></f:facet>
 					<h:link outcome="/sports/edit">
 						<f:param name="leagueID" value="#{league.id}" />
+						<f:param name="sportID" value="#{leagueController.sportId}" />
 						<img
 							src="#{request.contextPath}/resources/css/images/edit_icon.png"
 							alt="Edit" />
@@ -91,6 +92,7 @@
 					<h:form>
 						<h:commandLink id="remove" action="#{leagueController.remove}">
 							<f:param name="leagueID" value="#{league.id}" />
+							<f:param name="sportID" value="#{leagueController.sportId}" />
 							<img
 								src="#{request.contextPath}/resources/css/images/remove_icon.png"
 								alt="Remove" />
