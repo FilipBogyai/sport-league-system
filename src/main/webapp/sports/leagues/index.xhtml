@@ -7,21 +7,23 @@
 	<ui:param name="currentTitle" value="Sports" />
 	<ui:define name="side_content">
 
-		<div class="header_01">New Sport</div>
+		<div class="header_01">New League</div>
 
 		<div class="news_event_section">
-			<p>Here you as an administrator can add new sport to our system</p>
+			<p>Here you as an administrator can add new league to selected sport</p>
 			<div class="cleaner"></div>
 			<h:form id="reg">
-				<ui:insert name="formSport">
-					<ui:include src="/sports/formSport.xhtml" />
+				<ui:insert name="formLeague">
+					<ui:include src="/sports/leagues/formLeague.xhtml" />
 				</ui:insert>
 				<p>
 					<h:panelGrid columns="2">
 						<h:column>
 							<div class="button_01">
-								<h:commandLink id="add" action="#{sportController.add}"
-									value="Submit" />
+								<h:commandLink id="add" action="#{leagueController.add}"
+									value="Submit">
+									<f:param name="sportID" value="#{leagueController.sportId}" />
+								</h:commandLink>
 							</div>
 						</h:column>
 						<h:column>
@@ -35,48 +37,50 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<div class="header_01">Sports management</div>
+		<div class="header_01">Leagues management</div>
 
 		<div class="section_w480">
 			<div class="image_wrapper fl_img">
-				<img src="#{request.contextPath}/resources/css/images/sport.jpg"
-					alt="Sport" />
+				<img src="#{request.contextPath}/resources/css/images/league.jpg"
+					alt="League" />
 			</div>
 			<p class="em_text">On this page below you can find the list of
-				all sports that were ever added to our portal.</p>
-			<p>Please feel free to roam different sports. Should you find
-				certain that is up to your liking please go ahead and select it in
-				order to get the list of all leagues played in it. Once there you
-				can add yourself in it and start butt-kicking ;)</p>
+				all leagues associated with the sport you have selected that were ever added to our portal.</p>
+			<p>Please feel free to roam different leagues. Should you find
+				certain league that is up to your liking please go ahead and select it in
+				order to register in it. Note that different leagues have different difficulties so please be careful upon
+				choosing. Once you are registered you are free to start butt-kicking ;)</p>
 		</div>
 
 		<div class="section_w480">
 
-			<div class="header_03">All Sports:</div>
+			<div class="header_03">All Leagues:</div>
 
 			<ui:insert name="filter">
 				<ui:include src="/WEB-INF/templates/filter.xhtml" />
 			</ui:insert>
 
-			<h:panelGroup rendered="#{empty sports}">
-				<em>No sport was found.</em>
+			<h:panelGroup rendered="#{empty leagues}">
+				<em>No league was found.</em>
 			</h:panelGroup>
-			<h:dataTable var="sport" value="#{sports}"
-				rendered="#{not empty sports}" styleClass="simpletablestyle" id="table">
+			<h:dataTable var="league" value="#{leagues}"
+				rendered="#{not empty leagues}" styleClass="simpletablestyle" id="table">
 				<h:column>
 					<f:facet name="header">Name</f:facet>
-	                #{sport.name}
+	                #{league.name}
 	            </h:column>
 				<h:column>
-					<f:facet name="header">Associated Leagues</f:facet>
-					<h:link value="View leagues" outcome="/sports/leagues/index">
-						<f:param name="sportID" value="#{sport.id}" />
-					</h:link>
+					<f:facet name="header">Description</f:facet>
+					#{league.description}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Description</f:facet>
+					#{league.sport.name}
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:link outcome="/sports/edit">
-						<f:param name="sportID" value="#{sport.id}" />
+						<f:param name="leagueID" value="#{league.id}" />
 						<img
 							src="#{request.contextPath}/resources/css/images/edit_icon.png"
 							alt="Edit" />
@@ -85,8 +89,8 @@
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:form>
-						<h:commandLink id="delete" action="#{sportController.remove}">
-							<f:param name="sportID" value="#{sport.id}" />
+						<h:commandLink id="remove" action="#{leagueController.remove}">
+							<f:param name="leagueID" value="#{league.id}" />
 							<img
 								src="#{request.contextPath}/resources/css/images/remove_icon.png"
 								alt="Remove" />

@@ -1,7 +1,6 @@
 /*
 CSS Credit: http://www.templatemo.com
 */
-
 body {
 	margin: 0;
 	padding: 0;
@@ -9,11 +8,21 @@ body {
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 12px;
 	color: #d4d1c5;
-	background: #141212 url(#{request.contextPath}/resources/css/images/templatemo_main_bg.jpg) repeat;
+	background: #141212
+		url(#{request.contextPath}/resources/css/images/templatemo_main_bg.jpg)
+		repeat;
 }
 
-a:link, a:visited { color: #e8c521; text-decoration: none; font-weight: normal; } 
-a:active, a:hover { color: #e8c521; text-decoration: underline; }
+a:link,a:visited {
+	color: #e8c521;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+a:active,a:hover {
+	color: #e8c521;
+	text-decoration: underline;
+}
 
 p {
 	margin: 0px;
@@ -26,21 +35,77 @@ img {
 	border: none;
 }
 
-.cleaner { clear: both; width: 100%; height: 0px; font-size: 0px;  }
+.cleaner {
+	clear: both;
+	width: 100%;
+	height: 0px;
+	font-size: 0px;
+}
 
-.margin_bottom_10 { clear: both; width: 100%; height: 10px; font-size: 1px;	}
-.margin_bottom_15 { clear: both; width: 100%; height: 15px; font-size: 1px;	}
-.margin_bottom_20 { clear: both; width: 100%; height: 20px; font-size: 1px;	}
-.margin_bottom_30 { clear: both; width: 100%; height: 30px; font-size: 1px;	}
-.margin_bottom_40 { clear: both; width: 100%; height: 40px; font-size: 1px;	}
-.margin_bottom_50 { clear: both; width: 100%; height: 50px; font-size: 1px;	}
-.margin_bottom_60 { clear: both; width: 100%; height: 60px; font-size: 1px;	}
+.margin_bottom_10 {
+	clear: both;
+	width: 100%;
+	height: 10px;
+	font-size: 1px;
+}
 
-.margin_right_40 { margin-right: 40px; }
-.margin_right_70 { margin-right: 70px; }
+.margin_bottom_15 {
+	clear: both;
+	width: 100%;
+	height: 15px;
+	font-size: 1px;
+}
 
-.fl { float: left; }
-.fr { float: right }
+.margin_bottom_20 {
+	clear: both;
+	width: 100%;
+	height: 20px;
+	font-size: 1px;
+}
+
+.margin_bottom_30 {
+	clear: both;
+	width: 100%;
+	height: 30px;
+	font-size: 1px;
+}
+
+.margin_bottom_40 {
+	clear: both;
+	width: 100%;
+	height: 40px;
+	font-size: 1px;
+}
+
+.margin_bottom_50 {
+	clear: both;
+	width: 100%;
+	height: 50px;
+	font-size: 1px;
+}
+
+.margin_bottom_60 {
+	clear: both;
+	width: 100%;
+	height: 60px;
+	font-size: 1px;
+}
+
+.margin_right_40 {
+	margin-right: 40px;
+}
+
+.margin_right_70 {
+	margin-right: 70px;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right
+}
 
 .button_01 a {
 	clear: both;
@@ -48,8 +113,9 @@ img {
 	width: 100px;
 	height: 21px;
 	padding-top: 5px;
-	background: url(#{request.contextPath}/resources/css/images/templatemo_button_01.jpg) no-repeat;
-	
+	background:
+		url(#{request.contextPath}/resources/css/images/templatemo_button_01.jpg)
+		no-repeat;
 	color: #000000;
 	font-size: 12px;
 	font-weight: bold;
@@ -63,15 +129,16 @@ input[type="submit"] {
 	width: 100px;
 	height: 21px;
 	padding-top: 5px;
-	background: url(#{request.contextPath}/resources/css/images/templatemo_button_01.jpg) no-repeat;
-	
+	background:
+		url(#{request.contextPath}/resources/css/images/templatemo_button_01.jpg)
+		no-repeat;
 	color: #000000;
 	font-size: 12px;
 	font-weight: bold;
 }
 
 .button_01 a:active {
-	color: #FFF;	
+	color: #FFF;
 }
 
 .header_01 {
@@ -112,12 +179,13 @@ input[type="submit"] {
 }
 
 /* menu */
-
 #templatemo_menu {
 	clear: both;
 	width: 980px;
 	height: 55px;
-	background: url(#{request.contextPath}/resources/css/images/templatemo_menu_bg.jpg) repeat-x;
+	background:
+		url(#{request.contextPath}/resources/css/images/templatemo_menu_bg.jpg)
+		repeat-x;
 }
 
 #templatemo_menu ul {
@@ -139,43 +207,47 @@ input[type="submit"] {
 	width: 100px;
 	height: 40px;
 	padding: 15px 38px 0 0;
-	background: url(#{request.contextPath}/resources/css/images/templatemo_menu_right.jpg) right top no-repeat;
+	background:
+		url(#{request.contextPath}/resources/css/images/templatemo_menu_right.jpg)
+		right top no-repeat;
 	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
 	text-decoration: none;
-	color: #707070;	
+	color: #707070;
 	outline: none;
 }
 
-#templatemo_menu li a:hover, #templatemo_menu li .current {
+#templatemo_menu li a:hover,#templatemo_menu li .current {
 	color: #000000;
 }
 
 #templatemo_menu li .last {
-	padding-right: 0px;	
+	padding-right: 0px;
 	background: none;
 }
 
 /* end of menu*/
 
 /* header */
-
 #templatemo_header_01 {
 	clear: both;
 	width: 980px;
 	height: 220px;
-	background:url(#{request.contextPath}/resources/css/images/templatemo_header_bg.jpg) no-repeat;
+	background:
+		url(#{request.contextPath}/resources/css/images/templatemo_header_bg.jpg)
+		no-repeat;
 }
 
 /*----- OR ------*/
-
 #templatemo_header_02 {
 	clear: both;
 	width: 980px;
 	height: 220px;
-	text-align: center;	
-	background: url(#{request.contextPath}/resources/css/images/templatemo_header_bg_blank.jpg) no-repeat;
+	text-align: center;
+	background:
+		url(#{request.contextPath}/resources/css/images/templatemo_header_bg_blank.jpg)
+		no-repeat;
 }
 
 #templatemo_header_02 #site_title {
@@ -195,7 +267,6 @@ input[type="submit"] {
 /* end of header */
 
 /* contetn */
-
 #tmeplatemo_content {
 	clear: both;
 	width: 880px;
@@ -204,11 +275,10 @@ input[type="submit"] {
 }
 
 /* side_column */
-
 #templatemo_side_column {
 	float: left;
 	position: relative;
-	width: 260px;	
+	width: 260px;
 	padding: 45px 20px;
 	background: #424038;
 }
@@ -219,7 +289,9 @@ input[type="submit"] {
 	height: 45px;
 	top: 0px;
 	left: 0px;
-	background: url(#{request.contextPath}/resources/css/images/templatemo_side_column_top.jpg) no-repeat;
+	background:
+		url(#{request.contextPath}/resources/css/images/templatemo_side_column_top.jpg)
+		no-repeat;
 }
 
 #templatemo_side_column .bottom {
@@ -228,7 +300,9 @@ input[type="submit"] {
 	height: 45px;
 	bottom: 0px;
 	left: 0px;
-	background: url(#{request.contextPath}/resources/css/images/templatemo_side_column_bottom.jpg) no-repeat;
+	background:
+		url(#{request.contextPath}/resources/css/images/templatemo_side_column_bottom.jpg)
+		no-repeat;
 }
 
 #templatemo_side_column img {
@@ -300,7 +374,9 @@ input[type="submit"] {
 	width: 880px;
 	padding: 80px 50px 0 50px;
 	margin: 0 auto;
-	background: #332e2e url(#{request.contextPath}/resources/css/images/templatemo_footer_bg.jpg) no-repeat;
+	background: #332e2e
+		url(#{request.contextPath}/resources/css/images/templatemo_footer_bg.jpg)
+		no-repeat;
 	min-height: 130px;
 }
 
@@ -309,10 +385,9 @@ input[type="submit"] {
 }
 
 /* end of footer */
-
 .invalid {
 	padding-left: 3px;
-    color: red;
+	color: red;
 }
 
 .valid {
@@ -328,13 +403,13 @@ input[type="submit"] {
 #table {
 	border: 1px solid #e3e3e3;
 	background-color: #f2f2f2;
-        width: 100%;
+	width: 100%;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
 }
 
-#table td, #table th {
+#table td,#table th {
 	padding: 5px;
 	color: #333;
 }
@@ -345,7 +420,8 @@ input[type="submit"] {
 	text-align: left;
 	color: #4B4B4B;
 	background-color: red;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#e3e3e3), color-stop(.6,#B3B3B3));
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2),
+		to(#e3e3e3), color-stop(.6, #B3B3B3));
 	background-image: -moz-linear-gradient(top, #D6D6D6, #B0B0B0, #B3B3B3 90%);
 	border-bottom: solid 1px #999;
 }
@@ -366,6 +442,5 @@ input[type="submit"] {
 	font-size: 12px;
 	border-bottom: 1px solid #fff;
 	border-top: 1px solid #fff;
-        cursor: pointer;
-        text-align: center;
+	text-align: center;
 }

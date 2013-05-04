@@ -19,6 +19,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 /**
@@ -32,11 +33,13 @@ public class League {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
     
-    @NotNull
+    @NotNull(message="Name cannot be null")
+    @NotEmpty(message="Name cannot be empty")
     @Size(min = 2 , max = 30, message="A league's name must contain between 2 and 30 characters")
     private String name;
     
-    @NotNull
+    @NotNull(message="Description cannot be null")
+    @NotEmpty(message="Description cannot be empty")
     @Size(min = 2 , max = 120, message="A league's decription must contain between 2 and 120 characters")
     private String description;
     

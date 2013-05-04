@@ -45,12 +45,12 @@ public interface LeagueService {
     void deleteLeague(League league);
 
     /**
-     * Returns list of Leagues in the database with given name.
+     * Returns list of Leagues in the database with given name in given sport.
      *
      * @throws IllegalArgumentException if parameter is null.   
      * @return Leagues with given name or empty list if there are none.   
      */
-    List<League> findByName(String name);       
+    List<League> findByName(String name, Sport sport);       
     
     /**
      * Returns list of Leagues in given sport

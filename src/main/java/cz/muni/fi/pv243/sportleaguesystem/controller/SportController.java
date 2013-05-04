@@ -20,7 +20,6 @@ import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 
 @Model
-@ManagedBean
 public class SportController {
 	
 	@Inject

@@ -9,7 +9,7 @@
 		</f:metadata>
 
 		<h:form>
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="4">
 				<h:column>
 					<h:outputLabel value="Filter By Name:" for="filterName" />
 				</h:column>
@@ -17,9 +17,15 @@
 					<h:inputText id="filterName" value="#{filter}" />
 				</h:column>
 				<h:column>
-					<div class="button_01" style="display: inline;">
+					<div class="button_01" style="width: 70px;">
 						<h:commandLink value="Filter"
-							action="index?faces-redirect=true&amp;includeViewParams=true" />
+							action="index?faces-redirect=true&amp;includeViewParams=true" style="width: 50px;" />
+					</div>
+				</h:column>
+				<h:column>
+					<div class="button_01" style="width: 70px;">
+						<h:commandLink value="Reset"
+							action="index?faces-redirect=true&amp;includeViewParams=false" style="width: 50px;" />
 					</div>
 				</h:column>
 			</h:panelGrid>

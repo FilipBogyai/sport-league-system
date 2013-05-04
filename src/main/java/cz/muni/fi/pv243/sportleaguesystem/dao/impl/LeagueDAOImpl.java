@@ -49,15 +49,16 @@ public class LeagueDAOImpl implements LeagueDAO{
 	}
 
 	@Override
-	public List<League> findLeaguesByName(String name) {
-		Query query = em.createQuery("SELECT l FROM League l WHERE UPPER(name) LIKE UPPER(:name)");
+	public List<League> findLeaguesByName(String name, Sport sport) {
+		Query query = em.createQuery("SELECT l FROM League l WHERE UPPER(name) LIKE UPPER(:name) AND l.sport=:sport");
 		query.setParameter("name", name + "%");
+		query.setParameter("sport" , sport);
 		return (List<League>) query.getResultList();
 	}
 	@Override
 	public List<League> findLeaguesBySport(Sport sport) {
-		Query query = em.createQuery("SELECT l FROM Match l WHERE l.sport=:sport");		
-        query.setParameter("Sport" , sport);		
+		Query query = em.createQuery("SELECT l FROM League l WHERE l.sport=:sport");		
+        query.setParameter("sport" , sport);		
         return (List<League>) query.getResultList();	
 	}	
 }

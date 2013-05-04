@@ -56,12 +56,15 @@ public class LeagueServiceImpl implements LeagueService {
 	}
 
 	@Override
-	public List<League> findByName(String name) {
+	public List<League> findByName(String name, Sport sport) {
 		if (name == null) {
             throw new IllegalArgumentException("null name");
 	    }
+		if (sport == null) {
+            throw new IllegalArgumentException("null sport");
+	    }
 	
-	    return leagueDAO.findLeaguesByName(name);
+	    return leagueDAO.findLeaguesByName(name, sport);
 	}
 	
 	@Override
