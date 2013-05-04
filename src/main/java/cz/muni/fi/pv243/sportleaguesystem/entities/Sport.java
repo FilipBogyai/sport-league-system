@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
 *
 * @author Filip Bogyai
@@ -19,7 +21,8 @@ public class Sport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
     
-    @NotNull
+    @NotNull(message="Name cannot be null")
+    @NotEmpty(message="Name cannot be empty")
     @Size(min = 2 , max = 30, message="A sport's name must contain between 2 and 30 characters")
     private String name;
     

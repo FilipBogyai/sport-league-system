@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<title>Sport League System - #{currentTitle} </title>
+	<title>Sport League System - #{currentTitle}</title>
 	<meta name="keywords"
 		content="league, match, tennis, football, ping pong, sport" />
 	<meta name="description" content="Awesome page to choose your league" />
@@ -16,44 +16,82 @@
 
 		<div id="templatemo_menu">
 			<ul>
-				<li><h:link value="Home" outcome="/index" styleClass="#{currentTitle=='Home' ? 'current' : ''}" /></li>
-				<li><h:link value="Sports" outcome="/sports/index" styleClass="#{currentTitle=='Sports' ? 'current' : ''}" /></li>
-				<li><h:link value="My Leagues" outcome="/leagues/index" styleClass="#{currentTitle=='Leagues' ? 'current' : ''}" /></li>
-				<li><h:link value="My Matches" outcome="/matches/index" styleClass="#{currentTitle=='Matches' ? 'current' : ''}" /></li>
-				<li><h:link value="My Account" outcome="/users/index" styleClass="#{currentTitle=='Users' ? 'current' : ''}" /></li>
-				<li><h:link value="About Us" outcome="/about" styleClass="#{currentTitle=='About' ? 'current last' : 'last'}" /></li>
+				<li><h:link value="Home" outcome="/index"
+						styleClass="#{currentTitle=='Home' ? 'current' : ''}" /></li>
+				<li><h:link value="Sports" outcome="/sports/index"
+						styleClass="#{currentTitle=='Sports' ? 'current' : ''}" /></li>
+				<li><h:link value="My Leagues" outcome="/leagues/index"
+						styleClass="#{currentTitle=='Leagues' ? 'current' : ''}" /></li>
+				<li><h:link value="My Matches" outcome="/matches/index"
+						styleClass="#{currentTitle=='Matches' ? 'current' : ''}" /></li>
+				<li><h:link value="My Account" outcome="/users/index"
+						styleClass="#{currentTitle=='Users' ? 'current' : ''}" /></li>
+				<li><h:link value="About Us" outcome="/about"
+						styleClass="#{currentTitle=='About' ? 'current last' : 'last'}" /></li>
 			</ul>
 		</div>
 		<!-- end of menu -->
 
 		<div id="templatemo_header_02">
 			<div id="site_title">
-				Sports League System<span>Select, Participate, Compete, Win, Decimate ...</span>
+				Sports League System<span>Select, Participate, Compete, Win,
+					Decimate ...</span>
 			</div>
 		</div>
 
 		<div id="tmeplatemo_content">
 
 			<div id="templatemo_side_column">
-			
-				<ui:insert name="side_content">
-                    [Template side content will be inserted here]
-         		</ui:insert>
+
+				<div class="top"></div>
 				
+				<ui:insert name="side_content">
+         		</ui:insert>
+         		
+				<div class="header_01">News &amp; Events</div>
+
+				<div class="news_event_section">
+					<div class="header_02">Lorem ipsum dolor sit amet</div>
+					<img
+						src="#{request.contextPath}/resources/css/images/templatemo_image_01.jpg"
+						alt="photo one" />
+					<p>Donec ut felis libero. Nunc vel libero libero, in dignissim
+						urna. Praesent tempor, arcu at egestas vestibulum, lorem elit
+						viverra velit, sit amet gravida ligula ante et sem.</p>
+					<div class="button_01">
+						<a href="#">Read more</a>
+					</div>
+				</div>
+
+				<div class="news_event_section">
+					<div class="header_02">Integer in magna nec lacus</div>
+					<img
+						src="#{request.contextPath}/resources/css/images/templatemo_image_00.jpg"
+						alt="photo two" />
+					<p>Suspendisse potenti. Aliquam erat volutpat. Mauris tempus
+						massa vitae sem posuere pharetra. Donec eget neque erat, ac
+						venenatis libero. Cras consequat pharetra sem ut imperdiet.</p>
+					<div class="button_01">
+						<a href="#">Read more</a>
+					</div>
+				</div>
+
+				<div class="cleaner"></div>
+				<div class="bottom"></div>
+
 			</div>
 			<!-- end of side column -->
-         		
+
 			<div id="templatemo_main_column">
 
 				<ui:insert name="content">
-                    [Template content will be inserted here]
          		</ui:insert>
 
 			</div>
 			<div class="cleaner"></div>
 		</div>
 		<!-- end of content -->
-		
+
 		<div id="templatemo_footer">
 
 			Copyright © 2013 <a href="#">Best JBoss Masters</a> | Designed by <a

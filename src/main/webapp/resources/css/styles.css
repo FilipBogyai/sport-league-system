@@ -287,3 +287,18 @@ img {
 }
 
 /* end of footer */
+
+.invalid {
+	padding-left: 3px;
+    color: red;
+}
+
+.valid {
+	list-style-type: none;
+	color: aqua;
+}
+
+.attr_name {
+	font-weight: bold;
+	font-style: italic;
+}

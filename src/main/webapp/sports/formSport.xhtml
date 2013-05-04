@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<table>
+		<tbody>
+			<tr>
+				<td class="titleCell"><h:outputLabel for="name"
+						value="Sport Name:" styleClass="attr_name" /></td>
+				<td><h:inputText id="name" value="#{newSport.name}" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><h:message for="name" errorClass="invalid" /></td>
+			</tr>
+		</tbody>
+	</table>
+</ui:composition>
