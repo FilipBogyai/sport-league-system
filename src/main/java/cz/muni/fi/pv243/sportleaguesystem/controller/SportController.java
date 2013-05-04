@@ -2,12 +2,15 @@ package cz.muni.fi.pv243.sportleaguesystem.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -17,6 +20,7 @@ import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 
 @Model
+@ManagedBean
 public class SportController {
 	
 	@Inject
@@ -44,12 +48,32 @@ public class SportController {
 		sportService.createSport(newSport);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "New Sport added successfully"));
 		facesContext.getExternalContext().redirect("index.xhtml");
-		retrieveAllSports();
+	}
+	
+	public void save() throws IOException {
+		sportService.updateSport(newSport);
+		facesContext.getExternalContext().redirect("index.xhtml");
+	}
+	
+	public void remove() throws IOException {
+		sportService.deleteSport(newSport);
+		facesContext.getExternalContext().redirect("index.xhtml");
 	}
 	
 	@PostConstruct
-	public void retrieveAllSports() {
-		sports = sportService.getAll();
-		newSport = new Sport();
+	public void populateSports() {
+		Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+		String filterName = params.get("filterName");
+		String sportId = params.get("sportID");
+		
+		if (filterName != null && !"".equals(filterName.trim()))
+			sports = sportService.findSportsByName(filterName);
+		else
+			sports = sportService.getAll();
+		
+		if (sportId != null)
+			newSport = sportService.getById(Long.parseLong(sportId));
+		else
+			newSport = new Sport();
 	}
 }

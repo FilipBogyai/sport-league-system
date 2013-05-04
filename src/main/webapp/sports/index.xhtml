@@ -25,7 +25,7 @@
 							</div>
 						</h:column>
 						<h:column>
-							<h:messages	infoClass="valid" globalOnly="true" />
+							<h:messages infoClass="valid" globalOnly="true" />
 						</h:column>
 					</h:panelGrid>
 				</p>
@@ -35,65 +35,57 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<div class="header_01">Welcome to Sport Center</div>
+		<div class="header_01">Sports management</div>
 
 		<div class="section_w480">
 			<div class="image_wrapper fl_img">
-				<img src="images/templatemo_image_02.jpg" alt="photo three" />
+				<img src="#{request.contextPath}/resources/css/images/sport.jpg"
+					alt="Sport" />
 			</div>
-			<p class="em_text">
-				This Free CSS Template is provided by <a
-					href="http://www.templatemo.com" target="_parent">TemplateMo.com</a>.
-				You may use this template in your websites. Credit goes to <a
-					href="http://www.photovaco.com" target="_blank">Free Photos</a> for
-				photos used in this template.
-			</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				Integer vitae metus quis libero consectetur egestas. In hac
-				habitasse platea dictumst. Suspendisse tempus, metus in semper
-				accumsan, dolor purus imperdiet magna, a iaculis quam justo quis
-				purus. Etiam ut erat enim, et aliquet orci.</p>
-			<div class="button_01">
-				<a href="#">Read more</a>
-			</div>
+			<p class="em_text">On this page below you can find the list of
+				all sports that were ever added to our portal.</p>
+			<p>Please feel free to roam different sports. Should you find
+				certain that is up to your liking please go ahead and select it in
+				order to get the list of all leagues played in it. Once there you
+				can add yourself in it and start butt-kicking ;)</p>
 		</div>
 
 		<div class="section_w480">
 
-			<div class="header_01">Our Activities</div>
-
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				Integer vitae metus quis libero consectetur egestas. In hac
-				habitasse platea dictumst. Suspendisse tempus, metus in semper
-				accumsan.</p>
-
-			<div class="margin_bottom_20"></div>
-
-			<div class="section_w160 fl">
-				<div class="image_wrapper">
-					<img src="images/templatemo_image_03.jpg" alt="image" />
-				</div>
-
-			</div>
-
-			<div class="section_w270 fr">
-
-				<ul class="content_list_01">
-					<li>Cras urna nisi, porta et gravida blandit, laoreet ornare
-						nunc.</li>
-					<li>Donec tincidunt sem eget velit cursus sit amet ullamcorper
-						mi vulputate.</li>
-				</ul>
-
-				<div class="margin_bottom_20"></div>
-
-				<div class="button_01">
-					<a href="#">Read more</a>
-				</div>
-			</div>
-
-
-
+			<div class="header_03">All Sports:</div>
+			
+			<h:panelGroup rendered="#{empty sports}">
+				<em>No registered sport.</em>
+			</h:panelGroup>
+			<h:dataTable var="sport" value="#{sports}"
+				rendered="#{not empty sports}" styleClass="simpletablestyle">
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+	                #{sport.name}
+	            </h:column>
+				<h:column>
+					<f:facet name="header">Associated Leagues</f:facet>
+					<h:link value="View leagues" outcome="/leagues/index">
+						<f:param name="sportID" value="#{sport.id}" />
+					</h:link>
+	            </h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:link outcome="/sports/edit">
+						<f:param name="sportID" value="#{sport.id}" />
+						<img src="#{request.contextPath}/resources/css/images/edit_icon.png" alt="Edit" />
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:form>
+					<h:commandLink id="edit" action="#{sportController.remove}">
+						<f:param name="sportID" value="#{sport.id}" />
+						<img src="#{request.contextPath}/resources/css/images/remove_icon.png" alt="Remove" />
+					</h:commandLink>
+					</h:form>
+				</h:column>
+			</h:dataTable>
 			<div class="cleaner"></div>
 		</div>
 	</ui:define>
