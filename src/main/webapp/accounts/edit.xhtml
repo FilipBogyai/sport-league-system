@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:param name="currentTitle" value="Sports" />
+	<ui:define name="content">
+		<div class="header_01">Edit our Profile</div>
+
+		<div class="section_w480">
+			<p class="em_text">On this page below you can edit your profile.</p>
+		</div>
+
+		<div class="section_w480">
+
+			<div class="header_03">Your Profile:</div>
+			<h:form id="reg">
+				<ui:insert name="formPrincipal">
+					<ui:include src="/accounts/formPrincipal.xhtml" />
+				</ui:insert>
+				<p>
+					<h:panelGrid columns="2">
+						<h:column>
+							<div class="button_01">
+								<h:commandLink id="save" action="#{principalController.save}"
+									value="Save Changes">
+								</h:commandLink>
+							</div>
+						</h:column>
+						<h:column>
+							<div class="button_01">
+								<h:link value="Go Back" outcome="/accounts/index" />
+							</div>
+						</h:column>
+					</h:panelGrid>
+				</p>
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

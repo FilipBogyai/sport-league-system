@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<table>
+		<tbody>
+			<tr>
+				<td class="titleCell"><h:outputLabel for="login"
+						value="Login Name:" styleClass="attr_name" /></td>
+				<td><h:inputText id="login" value="#{principal.loginName}" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><h:message for="login" errorClass="invalid" /></td>
+			</tr>
+			<tr>
+				<td class="titleCell"><h:outputLabel for="password"
+						value="Password:" styleClass="attr_name" /></td>
+				<td><h:inputText id="password" value="#{principal.password}" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><h:message for="password" errorClass="invalid" /></td>
+			</tr>
+		</tbody>
+	</table>
+			<div class="cleaner_horizontal_divider">&#160;</div>
+			<div class="cleaner">&#160;</div>
+			<table>
+		<tbody>
+			<tr>
+				<td class="titleCell"><h:outputLabel for="firstName"
+						value="First Name:" styleClass="attr_name" /></td>
+				<td><h:inputText id="firstName" value="#{principal.user.firstName}" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><h:message for="firstName" errorClass="invalid" /></td>
+			</tr>
+			<tr>
+				<td class="titleCell"><h:outputLabel for="lastName"
+						value="Last Name:" styleClass="attr_name" /></td>
+				<td><h:inputText id="lastName" value="#{principal.user.lastName}" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><h:message for="lastName" errorClass="invalid" /></td>
+			</tr>
+			<tr>
+				<td class="titleCell"><h:outputLabel for="phoneNumber"
+						value="Phone Number:" styleClass="attr_name" /></td>
+				<td><h:inputText id="phoneNumber" value="#{principal.user.phoneNumber}" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><h:message for="phoneNumber" errorClass="invalid" /></td>
+			</tr>
+		</tbody>
+	</table>
+</ui:composition>
