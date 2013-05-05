@@ -43,20 +43,20 @@ public class SportController {
 		return sports;
 	}
 	
-	public void add() throws IOException {
+	public String add() throws IOException {
 		sportService.createSport(newSport);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "New Sport added successfully"));
-		facesContext.getExternalContext().redirect("index.xhtml");
+		return "index?faces-redirect=true";
 	}
 	
-	public void save() throws IOException {
+	public String save() throws IOException {
 		sportService.updateSport(newSport);
-		facesContext.getExternalContext().redirect("index.xhtml");
+		return "index?faces-redirect=true";
 	}
 	
-	public void remove() throws IOException {
+	public String remove() throws IOException {
 		sportService.deleteSport(newSport);
-		facesContext.getExternalContext().redirect("index.xhtml");
+		return "index?faces-redirect=true";
 	}
 	
 	@PostConstruct

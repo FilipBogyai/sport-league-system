@@ -50,21 +50,21 @@ public class LeagueController {
 		return leagues;
 	}
 	
-	public void add() throws IOException {
+	public String add() throws IOException {
 		newLeague.setSport(sport);
 		leagueService.createLeague(newLeague);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "New League added successfully"));
-		facesContext.getExternalContext().redirect("index.xhtml?sportID=" + sportId);
+		return "index?faces-redirect=true&sportID=" + sportId;
 	}
 	
-	public void save() throws IOException {
+	public String save() throws IOException {
 		leagueService.updateLeague(newLeague);
-		facesContext.getExternalContext().redirect("index.xhtml?sportID=" + sportId);
+		return "index?faces-redirect=true&sportID=" + sportId;
 	}
 	
-	public void remove() throws IOException {
+	public String remove() throws IOException {
 		leagueService.deleteLeague(newLeague);
-		facesContext.getExternalContext().redirect("index.xhtml?sportID=" + sportId);
+		return "index?faces-redirect=true&sportID=" + sportId;
 	}
 	
 	@PostConstruct
