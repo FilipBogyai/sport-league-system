@@ -1,5 +1,7 @@
 package cz.muni.fi.pv243.sportleaguesystem.service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -27,6 +29,7 @@ public class PrincipalServiceImpl implements PrincipalService {
 		if (principal.getPassword() == null) {
 			throw new IllegalArgumentException("null password");
 		}
+		principal.setPassword(hashPassword(principal.getPassword()));
 		principalDAO.create(principal);
 	}
 
@@ -75,6 +78,26 @@ public class PrincipalServiceImpl implements PrincipalService {
 			throw new IllegalArgumentException("loginName cannot be null");
 		}
 		return principalDAO.get(loginName); 
+	}
+	
+	public String hashPassword(String password){
+		
+		StringBuffer hexString = new StringBuffer();
+		try{
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(password.getBytes());		
+			byte byteData[]= md.digest();		
+						
+	    	for (int i=0;i<byteData.length;i++) {
+	    		String hex=Integer.toHexString(0xff & byteData[i]);
+	   	     	if(hex.length()==1) hexString.append('0');
+	   	     	hexString.append(hex);
+	    	}
+	    	}catch(NoSuchAlgorithmException ex){
+	    		
+	    	}    	
+    	
+		return hexString.toString();
 	}
 
 }
