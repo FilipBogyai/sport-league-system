@@ -2,12 +2,9 @@ package cz.muni.fi.pv243.sportleaguesystem.entities;
 
 import java.util.Objects;
 
-import cz.muni.fi.pv243.sportleaguesystem.RolesEnum;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
@@ -22,18 +19,19 @@ public class Principal {
 
 	@Id
 	@NotNull
-	@Size(min = 1, max = 20)
+	@Size(min = 1, max = 32)
 	@Column(unique = true)
 	private String loginName;
 	
 	@NotNull
-	@Size(min = 1, max = 20)
+	@Size(min = 1, max = 32)
     private String password;
     
-    @Enumerated(EnumType.STRING)
-	private RolesEnum role;
-    
-    @OneToOne
+	@NotNull
+	@Size(min = 1, max = 32)
+	private String role;
+        
+    @OneToOne(cascade=CascadeType.ALL)
 	private User user;
     
 	public String getLoginName() {
@@ -48,10 +46,10 @@ public class Principal {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public RolesEnum getRole() {
+	public String getRole() {
 		return role;
 	}
-	public void setRole(RolesEnum role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 	public User getUser() {

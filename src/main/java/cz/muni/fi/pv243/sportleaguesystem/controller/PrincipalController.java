@@ -47,9 +47,9 @@ public class PrincipalController {
 		principal = new Principal();
 		principal.setLoginName("pepa");
 		principal.setPassword("pepa");
-		principal.setRole(RolesEnum.PLAYER);
+		principal.setRole(RolesEnum.ADMIN.toString());
 		principal.setUser(user);
 		
-//		principalService.create(principal);
+	//	principalService.create(principal);
 	}
 }
