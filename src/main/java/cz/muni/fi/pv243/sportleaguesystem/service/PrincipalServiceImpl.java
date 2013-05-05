@@ -68,5 +68,13 @@ public class PrincipalServiceImpl implements PrincipalService {
 		}
 		return principalDAO.findPrincipalByUser(user);
 	}
+	
+	@Override
+	public Principal findPrincipalByLoginName(String loginName) {
+		if (loginName == null || "".equals(loginName.trim())) {
+			throw new IllegalArgumentException("loginName cannot be null");
+		}
+		return principalDAO.get(loginName); 
+	}
 
 }

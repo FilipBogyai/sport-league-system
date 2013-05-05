@@ -47,4 +47,13 @@ public interface PrincipalService {
     * @throws IllegalArgumentException if parameter is null.  
     */
    Principal findUserByUser(User user);
+
+   /**
+    * Returns principal with given loginName.
+    * 
+    * @param user of requested pricipal
+    * @return principal of given user 
+    * @throws IllegalArgumentException if parameter is null.  
+    */
+   Principal findPrincipalByLoginName(String loginName);
 }

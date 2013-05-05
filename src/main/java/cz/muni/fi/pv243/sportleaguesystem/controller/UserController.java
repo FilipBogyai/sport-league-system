@@ -12,7 +12,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
+import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
+import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.UserService;
 
 @Model
@@ -24,6 +26,9 @@ public class UserController {
 	@Inject
 	private UserService userService;
 	
+	@Inject
+	private PrincipalService principalService;
+	
 	private List<User> users;
 	private User currentUser;
 	
@@ -34,7 +39,8 @@ public class UserController {
 	}
 	
 	public String remove() {
-		userService.deleteUser(currentUser);
+		Principal principal = principalService.findUserByUser(currentUser);
+		principalService.delete(principal);
 		return "index?faces-redirect=true";
 	}
 	
@@ -44,6 +50,7 @@ public class UserController {
 		String filterName = params.get("filterName");
 		String userId = params.get("userID");
 		
+		//TODO remove currently logged user from selection
 		if (filterName != null && !"".equals(filterName.trim()))
 			users = userService.findByName(filterName);
 		else

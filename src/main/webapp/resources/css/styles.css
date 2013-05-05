@@ -204,7 +204,7 @@ input[type="submit"] {
 #templatemo_menu ul li a {
 	float: left;
 	display: block;
-	width: 100px;
+	width: 80px;
 	height: 40px;
 	padding: 15px 38px 0 0;
 	background:
@@ -443,4 +443,25 @@ input[type="submit"] {
 	border-bottom: 1px solid #fff;
 	border-top: 1px solid #fff;
 	text-align: center;
+}
+
+.column_box {
+	float: left;
+	width: 150px;
+	margin-right: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	font-style: italic;
+	padding: 5px;
+}
+
+.details_header {
+    font-variant: small-caps;
+    font-style: normal;
+}
+
+.cleaner_horizontal_divider {
+	clear: both;
+	border-bottom: 1px dashed;
+	margin-bottom: 20px; 
 }
