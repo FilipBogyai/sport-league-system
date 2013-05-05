@@ -6,65 +6,62 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:param name="currentTitle" value="Users" />
 	<ui:define name="content">
-		<div class="header_01">Welcome to Sport Center</div>
+		<div class="header_01">Users management</div>
 
 		<div class="section_w480">
 			<div class="image_wrapper fl_img">
-				<img src="images/templatemo_image_02.jpg" alt="photo three" />
+				<img src="#{request.contextPath}/resources/css/images/user.jpg"
+					alt="Sport" />
 			</div>
-			<p class="em_text">
-				This Free CSS Template is provided by <a
-					href="http://www.templatemo.com" target="_parent">TemplateMo.com</a>.
-				You may use this template in your websites. Credit goes to <a
-					href="http://www.photovaco.com" target="_blank">Free Photos</a> for
-				photos used in this template.
-			</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				Integer vitae metus quis libero consectetur egestas. In hac
-				habitasse platea dictumst. Suspendisse tempus, metus in semper
-				accumsan, dolor purus imperdiet magna, a iaculis quam justo quis
-				purus. Etiam ut erat enim, et aliquet orci.</p>
-			<div class="button_01">
-				<a href="#">Read more</a>
-			</div>
+			<p class="em_text">On this page below you as an administrator can view
+			all users using this portal and also learn all details about them.</p>
+			<p>Additionally if you feel that certain user denies fair-play or no longer visits this portal
+			you might want to remove him or her from this portal, which is also being done on this page.</p>
 		</div>
 
 		<div class="section_w480">
 
-			<div class="header_01">Our Activities</div>
+			<div class="header_03">All Users:</div>
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				Integer vitae metus quis libero consectetur egestas. In hac
-				habitasse platea dictumst. Suspendisse tempus, metus in semper
-				accumsan.</p>
+			<ui:insert name="filter">
+				<ui:include src="/WEB-INF/templates/filter.xhtml" />
+			</ui:insert>
 
-			<div class="margin_bottom_20"></div>
-
-			<div class="section_w160 fl">
-				<div class="image_wrapper">
-					<img src="images/templatemo_image_03.jpg" alt="image" />
-				</div>
-
-			</div>
-
-			<div class="section_w270 fr">
-
-				<ul class="content_list_01">
-					<li>Cras urna nisi, porta et gravida blandit, laoreet ornare
-						nunc.</li>
-					<li>Donec tincidunt sem eget velit cursus sit amet ullamcorper
-						mi vulputate.</li>
-				</ul>
-
-				<div class="margin_bottom_20"></div>
-
-				<div class="button_01">
-					<a href="#">Read more</a>
-				</div>
-			</div>
-
-
-
+			<h:panelGroup rendered="#{empty users}">
+				<em>No user was found.</em>
+			</h:panelGroup>
+			<h:dataTable var="user" value="#{users}"
+				rendered="#{not empty users}" styleClass="simpletablestyle" id="table">
+				<h:column>
+					<f:facet name="header">First Name</f:facet>
+	                #{user.firstName}
+	            </h:column>
+	            <h:column>
+					<f:facet name="header">Last Name</f:facet>
+	                #{user.lastName}
+	            </h:column>
+	            <h:column>
+					<f:facet name="header">Phone Number</f:facet>
+	                #{user.phoneNumber}
+	            </h:column>
+				<!-- <h:column>
+					<f:facet name="header">Associated Leagues</f:facet>
+					<h:link value="View leagues" outcome="/users/leagues/index">
+						<f:param name="userID" value="#{user.id}" />
+					</h:link>
+				</h:column> -->
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:form>
+						<h:commandLink id="delete" action="#{userController.remove}">
+							<f:param name="userID" value="#{user.id}" />
+							<img
+								src="#{request.contextPath}/resources/css/images/remove_icon.png"
+								alt="Remove" />
+						</h:commandLink>
+					</h:form>
+				</h:column>
+			</h:dataTable>
 			<div class="cleaner"></div>
 		</div>
 	</ui:define>

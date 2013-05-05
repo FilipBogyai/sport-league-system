@@ -50,19 +50,19 @@ public class LeagueController {
 		return leagues;
 	}
 	
-	public String add() throws IOException {
+	public String add() {
 		newLeague.setSport(sport);
 		leagueService.createLeague(newLeague);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "New League added successfully"));
 		return "index?faces-redirect=true&sportID=" + sportId;
 	}
 	
-	public String save() throws IOException {
+	public String save() {
 		leagueService.updateLeague(newLeague);
 		return "index?faces-redirect=true&sportID=" + sportId;
 	}
 	
-	public String remove() throws IOException {
+	public String remove() {
 		leagueService.deleteLeague(newLeague);
 		return "index?faces-redirect=true&sportID=" + sportId;
 	}

@@ -43,18 +43,18 @@ public class SportController {
 		return sports;
 	}
 	
-	public String add() throws IOException {
+	public String add() {
 		sportService.createSport(newSport);
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "New Sport added successfully"));
 		return "index?faces-redirect=true";
 	}
 	
-	public String save() throws IOException {
+	public String save() {
 		sportService.updateSport(newSport);
 		return "index?faces-redirect=true";
 	}
 	
-	public String remove() throws IOException {
+	public String remove() {
 		sportService.deleteSport(newSport);
 		return "index?faces-redirect=true";
 	}
