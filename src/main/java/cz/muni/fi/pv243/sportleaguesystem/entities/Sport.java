@@ -57,5 +57,9 @@ public class Sport {
         }
         return true;
     }
+	@Override
+	public String toString() {
+		return "Sport [id=" + id + ", name=" + name + "]";
+	}
     
 }

@@ -138,5 +138,11 @@ public class Match {
         Match other = (Match) object;
         return !(this.id != null && !Objects.equals(this.id, other.id));
     }
+	@Override
+	public String toString() {
+		return "Match [id=" + id + ", player1=" + player1 + ", player2="
+				+ player2 + ", league=" + league + ", location=" + location
+				 + "]";
+	}
     
 }

@@ -37,8 +37,11 @@ public class MatchDAOImpl implements MatchDAO{
 
 	@Override
 	public void delete(Match match) {
-		em.remove(em.merge(match));
-		
+		em.merge(match);
+		League league = em.find(League.class, match.getLeague().getId());
+		league.getMatches().remove(match);
+		em.merge(league);	
+		em.remove(em.merge(match));		
 	}
 
 	@Override

@@ -114,6 +114,11 @@ public class League {
         }
         return true;
     }
+	@Override
+	public String toString() {
+		return "League [id=" + id + ", name=" + name + ", description="
+				+ description + ", sport=" + sport + "]";
+	}
     
 	
     
