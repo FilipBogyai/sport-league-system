@@ -22,7 +22,7 @@ public class SportDAOImpl implements SportDAO{
 	@Inject
 	private EntityManager em;
 	
-	@RolesAllowed("ADMIN")
+	//@RolesAllowed("ADMIN")
 	@Override
 	public void create(Sport sport) {
 		em.persist(sport);
@@ -34,13 +34,13 @@ public class SportDAOImpl implements SportDAO{
 		return em.find(Sport.class, id);
 	}
 	
-	@RolesAllowed("ADMIN")
+	//@RolesAllowed("ADMIN")
 	@Override
 	public void update(Sport sport) {
 		em.merge(sport);		
 	}
 	
-	@RolesAllowed("ADMIN")
+	//@RolesAllowed("ADMIN")
 	@Override
 	public void delete(Sport sport) {
 		em.remove(em.merge(sport));		
