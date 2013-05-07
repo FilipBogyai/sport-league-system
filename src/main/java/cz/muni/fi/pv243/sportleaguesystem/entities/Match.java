@@ -9,12 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.validation.constraints.*;
 
 
@@ -23,6 +21,7 @@ import javax.validation.constraints.*;
 * @author Filip Bogyai
 */
 @Entity
+@Table(name="Game")
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
