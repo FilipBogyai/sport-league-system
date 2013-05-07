@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.sportleaguesystem.service.interfaces;
 
+import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 
 import java.util.List;
@@ -59,4 +60,13 @@ public interface UserService {
      * @return all Users with given name or empty list if there are none.  
      */
     List<User> findByName(String name);
+    
+    /**
+     * Registers user into the given league
+     * 
+     * @param User user who will be registered into league
+     * @param League league in which user will play
+     * @throws IllegalArgumentException if parameters is null.   
+     */
+    void registerToLeague(User user, League league);
 }
