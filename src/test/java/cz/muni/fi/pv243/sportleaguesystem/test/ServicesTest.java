@@ -20,17 +20,22 @@ import static org.junit.Assert.*;
 
 import cz.muni.fi.pv243.sportleaguesystem.dao.impl.LeagueDAOImpl;
 import cz.muni.fi.pv243.sportleaguesystem.dao.impl.MatchDAOImpl;
+import cz.muni.fi.pv243.sportleaguesystem.dao.impl.PrincipalDAOImpl;
 import cz.muni.fi.pv243.sportleaguesystem.dao.impl.SportDAOImpl;
 import cz.muni.fi.pv243.sportleaguesystem.dao.impl.UsersDAOImpl;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.MatchDAO;
+import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.PrincipalDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.SportDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.UserDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
+import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
+import cz.muni.fi.pv243.sportleaguesystem.service.PrincipalServiceImpl;
 import cz.muni.fi.pv243.sportleaguesystem.service.UserServiceImpl;
+import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.UserService;
 import cz.muni.fi.pv243.sportleaguesystem.util.Resources;
 
@@ -41,7 +46,8 @@ public class ServicesTest {
 		 return ShrinkWrap.create(WebArchive.class,"test.war")
 				 .addClasses(Sport.class,League.class,Resources.class,SportDAOImpl.class,SportDAO.class,
 						 LeagueDAO.class,LeagueDAOImpl.class,Match.class,User.class,MatchDAO.class,MatchDAOImpl.class,
-						 UserDAO.class,UsersDAOImpl.class, UserService.class, UserServiceImpl.class)
+						 UserDAO.class,UsersDAOImpl.class, PrincipalDAO.class, PrincipalDAOImpl.class , Principal.class,
+						 UserService.class, UserServiceImpl.class, PrincipalService.class, PrincipalServiceImpl.class)
 				 .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
 				 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				// Deploy our test datasource
@@ -58,8 +64,15 @@ public class ServicesTest {
 	 @Inject
 	 UserService userService;
 	 
+	 @Inject
+	 PrincipalService principalService;
+	 
 	 @Inject 
 	 MatchDAO matchDAO;
+	 
+	 @Inject
+	 PrincipalDAO principalDAO; 
+	 
 	 
 	 @Test
 	 public void testRegisteringToLeague() throws Exception{
@@ -85,7 +98,11 @@ public class ServicesTest {
 	 @Test
 	 public void testDeleteUser() {
 	    	User user1 = buildUser("Jozko", "Mrkvicka","0903123456");
-	        userService.createUser(user1);
+	    	//cascaduje sa create
+	        //userService.createUser(user1);
+	    	Principal principal = buildPrincipal("Pepa", "autobus");
+	        principal.setUser(user1);
+	        principalDAO.create(principal);	  	                  
 
 	        User user2 = buildUser("Ferko", "Slany","0903654321");
 	        userService.createUser(user2);
@@ -98,12 +115,40 @@ public class ServicesTest {
 	        
 	        //create Match with User1
 	        Match match1 = buildMatch(user1, user2, league, "telocvicna");	        
-	        matchDAO.create(match1);
+	        matchDAO.create(match1);     
 	        
 	        //register User1 to League
-	        userService.registerToLeague(user1, league);               
+	        userService.registerToLeague(user1, league);   
 	        
 	        userService.deleteUser(user1);
+	        
+	 }
+	 
+	 @Test
+	 public void testDeletePrincipal() {
+	    	User user1 = buildUser("Jozko", "Mrkvicka","0903123456");	        
+	    	Principal principal = buildPrincipal("Johny", "autobus");
+	        principal.setUser(user1);
+	        principalService.create(principal);   	                      
+
+	        User user2 = buildUser("Ferko", "Slany","0903654321");
+	        userService.createUser(user2);
+	        
+	        Sport sport = buildSport("tenis");
+	        sportDAO.create(sport);
+	        
+	        League league = buildLeague("extra", "tenisova" , sport);
+	        leagueDAO.create(league);
+	        
+	        //create Match with User1
+	        Match match1 = buildMatch(user1, user2, league, "telocvicna");	        
+	        matchDAO.create(match1);     
+	        
+	        //register User1 to League
+	        userService.registerToLeague(user1, league);
+	        
+	        principalService.delete(principal);
+	        
 	 }
 	 
 	 public static User buildUser(String firstName,String lastName, String phoneNumber){
@@ -136,6 +181,14 @@ public class ServicesTest {
 			Sport sport = new Sport();
 			sport.setName(name);
 			return sport;		
+		}
+		
+		public static Principal buildPrincipal(String loginName,String password){
+			Principal principal = new Principal();
+			principal.setLoginName(loginName);
+			principal.setPassword(password);
+			principal.setRole("ADMIN");
+			return principal;
 		}
 
 }

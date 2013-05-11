@@ -48,9 +48,9 @@ public class PrincipalDAOImpl implements PrincipalDAO{
 
 	@Override
 	public Principal findPrincipalByUser(User user) {
-		Query query = em.createQuery("SELECT p FROM Principal p WHERE p.User = :User");		
+		Query query = em.createQuery("SELECT p FROM Principal p WHERE p.user = :User");		
         query.setParameter("User" , user);		
-        return (Principal) query.getResultList();	
+        return (Principal) query.getResultList().get(0);	
 	}
 	
 }

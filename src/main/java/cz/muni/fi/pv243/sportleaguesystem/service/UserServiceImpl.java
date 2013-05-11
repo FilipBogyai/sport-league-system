@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.MatchDAO;
+import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.PrincipalDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.UserDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Inject
 	private LeagueDAO leagueDAO;
+	
+	@Inject
+	private PrincipalDAO principalDAO;
 	
 	@Override
 	public void createUser(User user) {
@@ -66,6 +70,8 @@ public class UserServiceImpl implements UserService {
 		if (user == null) {
 			throw new IllegalArgumentException("null league");
 		}
+		
+		
 		List<Match> userMatches = matchDAO.findMatchesByUser(user);
 		for(Match match : userMatches){
 			matchDAO.delete(match);
@@ -76,7 +82,9 @@ public class UserServiceImpl implements UserService {
 			league.getPlayers().remove(user);
 			leagueDAO.update(league);
 		}
-		userDAO.delete(user);
+		principalDAO.delete(principalDAO.findPrincipalByUser(user));
+		// Object principal cascaduje delete a preto vymaze zaroven aj usera
+		//userDAO.delete(user);
 	}
 
 	@Override

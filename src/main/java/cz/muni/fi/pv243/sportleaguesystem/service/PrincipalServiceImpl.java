@@ -7,7 +7,12 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
+import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.MatchDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.PrincipalDAO;
+import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.UserDAO;
+import cz.muni.fi.pv243.sportleaguesystem.entities.League;
+import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
@@ -17,6 +22,15 @@ public class PrincipalServiceImpl implements PrincipalService {
 
 	@Inject
 	private PrincipalDAO principalDAO;
+	
+	@Inject
+	private MatchDAO matchDAO;
+	
+	@Inject
+	private UserDAO userDAO;
+	
+	@Inject
+	LeagueDAO leagueDAO;
 	
 	@Override
 	public void create(Principal principal) {
@@ -56,6 +70,17 @@ public class PrincipalServiceImpl implements PrincipalService {
 		if (principal == null) {
 			throw new IllegalArgumentException("null principal");
 		}
+		User user = principal.getUser();
+		List<Match> userMatches = matchDAO.findMatchesByUser(user);
+		for(Match match : userMatches){
+			matchDAO.delete(match);
+		}
+		user = userDAO.get(user.getId());
+		List<League> registeredLeagues = user.getLeagues();
+		for(League league : registeredLeagues){			
+			league.getPlayers().remove(user);
+			leagueDAO.update(league);
+		}		
 		principalDAO.delete(principal);
 	}
 
