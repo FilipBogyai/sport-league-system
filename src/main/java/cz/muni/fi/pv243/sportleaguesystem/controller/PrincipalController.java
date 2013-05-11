@@ -28,18 +28,31 @@ public class PrincipalController {
 	public Principal getPrincipal() {
 		return principal;
 	}
+	
+	public String register() {
+		principalService.create(principal);
+		return "/index?faces-redirect=true";
+	}
 
 	public String save() {
+		principalService.update(principal);
 		return "index?faces-redirect=true";
 	}
 	
 	@PostConstruct
 	public void populatePrincipal() {
-//		String remote = facesContext.getExternalContext().getRemoteUser();
-//		principal = principalService.findPrincipalByLoginName(remote);
+		String remote = facesContext.getExternalContext().getRemoteUser();
+		if (remote != null || !"".equals(remote.trim())) {
+			principal = principalService.findPrincipalByLoginName(remote);
+		}
+		else {
+			User user = new User();
+			principal = new Principal();
+			principal.setUser(user);
+		}
 		
 		// temporary
-		User user = new User();
+		/*User user = new User();
 		user.setFirstName("Pepa");
 		user.setLastName("Vomacka");
 		user.setPhoneNumber("123");
@@ -48,8 +61,6 @@ public class PrincipalController {
 		principal.setLoginName("pepa");
 		principal.setPassword("pepa");
 		principal.setRole(RolesEnum.ADMIN.toString());
-		principal.setUser(user);
-		
-	//	principalService.create(principal);
+		principal.setUser(user);*/
 	}
 }

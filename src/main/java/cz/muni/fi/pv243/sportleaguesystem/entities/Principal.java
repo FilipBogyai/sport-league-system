@@ -7,8 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
 *
@@ -18,20 +21,24 @@ import javax.validation.constraints.Size;
 public class Principal {
 
 	@Id
-	@NotNull
-	@Size(min = 1, max = 32)
+	@NotNull(message = "Login Name cannot be null")
+	@NotEmpty(message = "Login Name cannot be empty")
+	@Size(min = 3, max = 32, message = "Login Name must contain between 3 to 32 characters")
 	@Column(unique = true)
 	private String loginName;
 	
-	@NotNull
-	@Size(min = 1, max = 32)
+	@NotNull(message = "Password cannot be null")
+	@NotEmpty(message = "Password cannot be empty")
+	@Size(min = 3, max = 32, message = "Message must contain between 3 to 32 characters")
     private String password;
     
-	@NotNull
-	@Size(min = 1, max = 32)
+	@NotNull(message = "Role cannot be null")
+	@NotEmpty(message = "Role cannot be empty")
+	@Size(min = 3, max = 32, message = "Role must contain between 3 to 32 characters")
 	private String role;
         
     @OneToOne(cascade=CascadeType.ALL)
+    @Valid
 	private User user;
     
 	public String getLoginName() {
