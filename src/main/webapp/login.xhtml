@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:param name="currentTitle" value="Login" />
+	<ui:define name="side_content">
+		<div class="login_container">
+			<div class="header_01">Login</div>
+
+			<div>
+				<p>In order to start using this page you need to be logged in.
+					Please do so here or just create your account if you haven't done
+					it yet.</p>
+				<div class="cleaner"></div>
+				<form name="loginForm" action="j_security_check" method="post">
+					<h:panelGrid>
+						<h:column rendered="#{requestScope['javax.servlet.forward.servlet_path'] == '/j_security_check'}">
+							<h:outputText value="Invalid user name or password. Please try again..." styleClass="invalid" />
+						</h:column>
+						<h:column>
+							<h:outputLabel for="j_username" value="Your user name:"
+								styleClass="attr_name" />
+							<h:inputText id="j_username" name="j_username" />
+						</h:column>
+						<h:column>
+							<h:outputLabel for="j_password" value="Your password:"
+								styleClass="attr_name" />
+							<h:inputSecret id="j_password" name="j_password" />
+						</h:column>
+					</h:panelGrid>
+					<div class="cleaner"></div>
+					<h:panelGrid columns="3">
+						<h:column>
+							<div class="button_01">
+								<h:commandButton id="login" value="Log in" />
+							</div>
+						</h:column>
+						<h:column>
+							<span style="margin-left: 5px">or</span>
+						</h:column>
+						<h:column>
+							<span style="margin-left: 5px"><h:link value="Register" /></span>
+						</h:column>
+					</h:panelGrid>
+				</form>
+			</div>
+		</div>
+
+	</ui:define>
+
+	<ui:define name="content">
+		<ui:insert name="main_content">
+			<ui:include src="/WEB-INF/templates/homeContent.xhtml" />
+		</ui:insert>
+	</ui:define>
+</ui:composition>

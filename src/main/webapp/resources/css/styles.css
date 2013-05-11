@@ -127,14 +127,21 @@ input[type="submit"] {
 	clear: both;
 	display: block;
 	width: 100px;
-	height: 21px;
-	padding-top: 5px;
+	height: 30px;
+	margin-top: 4px;
+	padding-bottom: 5px;
+	cursor: pointer;
+	border: 0;
 	background:
 		url(#{request.contextPath}/resources/css/images/templatemo_button_01.jpg)
 		no-repeat;
 	color: #000000;
 	font-size: 12px;
 	font-weight: bold;
+}
+
+input[type="submit"]:active {
+	color: #FFF;
 }
 
 .button_01 a:active {
@@ -464,4 +471,11 @@ input[type="submit"] {
 	clear: both;
 	border-bottom: 1px dashed;
 	margin-bottom: 20px; 
+}
+
+.login_container {
+	background: dimgrey;
+	padding: 15px;
+	border-radius: 15px;
+	margin-bottom: 30px;
 }
