@@ -30,7 +30,7 @@
 						styleClass="#{currentTitle=='Users' ? 'current' : ''}" /></li>
 				<!-- <li><h:link value="About Us" outcome="/about"
 						styleClass="#{currentTitle=='About' ? 'current last' : 'last'}" /></li> -->
-				<li><h:link value="Logout" styleClass="last" /></li>
+				<li><h:form><h:commandLink action="#{loginController.logout}" value="Logout" styleClass="last" /></h:form></li>
 			</ul>
 		</div>
 		<!-- end of menu -->

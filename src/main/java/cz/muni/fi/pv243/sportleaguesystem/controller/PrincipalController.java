@@ -1,8 +1,11 @@
 package cz.muni.fi.pv243.sportleaguesystem.controller;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,6 +24,9 @@ public class PrincipalController {
 	@Inject
 	private PrincipalService principalService;
 	
+	@Inject
+	private LoginController loginModule;
+	
 	@Produces
 	@Named
 	private Principal principal;
@@ -28,10 +34,18 @@ public class PrincipalController {
 	public Principal getPrincipal() {
 		return principal;
 	}
-	
+
 	public String register() {
-		principalService.create(principal);
-		return "/index?faces-redirect=true";
+		String password = principal.getPassword();
+		try {
+			principalService.create(principal);
+		} catch (EJBTransactionRolledbackException e) {
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login name already exists", "This login is taken, please try another"));
+			return "";
+		}
+		loginModule.setLoginName(principal.getLoginName());
+		loginModule.setPassword(password);
+		return loginModule.login();
 	}
 
 	public String save() {
@@ -42,25 +56,14 @@ public class PrincipalController {
 	@PostConstruct
 	public void populatePrincipal() {
 		String remote = facesContext.getExternalContext().getRemoteUser();
-		if (remote != null || !"".equals(remote.trim())) {
+		if (remote != null && !"".equals(remote.trim())) {
 			principal = principalService.findPrincipalByLoginName(remote);
 		}
 		else {
 			User user = new User();
 			principal = new Principal();
 			principal.setUser(user);
+			principal.setRole(RolesEnum.PLAYER.toString());
 		}
-		
-		// temporary
-		/*User user = new User();
-		user.setFirstName("Pepa");
-		user.setLastName("Vomacka");
-		user.setPhoneNumber("123");
-		
-		principal = new Principal();
-		principal.setLoginName("pepa");
-		principal.setPassword("pepa");
-		principal.setRole(RolesEnum.ADMIN.toString());
-		principal.setUser(user);*/
 	}
 }

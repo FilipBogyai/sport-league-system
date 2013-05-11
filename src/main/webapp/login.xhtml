@@ -14,27 +14,27 @@
 					Please do so here or just create your account if you haven't done
 					it yet.</p>
 				<div class="cleaner"></div>
-				<form name="loginForm" action="j_security_check" method="post">
+				<h:form name="loginForm">
 					<h:panelGrid>
-						<h:column rendered="#{requestScope['javax.servlet.forward.servlet_path'] == '/j_security_check'}">
+						<h:column rendered="#{param['error'] == 'true'}">
 							<h:outputText value="Invalid user name or password. Please try again..." styleClass="invalid" />
 						</h:column>
 						<h:column>
 							<h:outputLabel for="j_username" value="Your user name:"
 								styleClass="attr_name" />
-							<h:inputText id="j_username" name="j_username" />
+							<h:inputText id="j_username" name="j_username" value="#{loginController.loginName}" />
 						</h:column>
 						<h:column>
 							<h:outputLabel for="j_password" value="Your password:"
 								styleClass="attr_name" />
-							<h:inputSecret id="j_password" name="j_password" />
+							<h:inputSecret id="j_password" name="j_password" value="#{loginController.password}" />
 						</h:column>
 					</h:panelGrid>
 					<div class="cleaner"></div>
 					<h:panelGrid columns="3">
 						<h:column>
 							<div class="button_01">
-								<h:commandButton id="login" value="Log in" />
+								<h:commandButton id="login" value="Log in" action="#{loginController.login}" />
 							</div>
 						</h:column>
 						<h:column>
@@ -44,7 +44,7 @@
 							<span style="margin-left: 5px"><h:link value="Register" outcome="/register" /></span>
 						</h:column>
 					</h:panelGrid>
-				</form>
+				</h:form>
 			</div>
 		</div>
 

@@ -395,6 +395,7 @@ input[type="submit"]:active {
 .invalid {
 	padding-left: 3px;
 	color: red;
+	list-style-type: none;
 }
 
 .valid {

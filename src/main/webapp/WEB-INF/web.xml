@@ -13,7 +13,7 @@
 
 	<!-- Welcome page -->
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>login.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<!-- JSF mapping -->
@@ -40,7 +40,19 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-	
+
+	<security-constraint>
+		<display-name>allowed content</display-name>
+		<web-resource-collection>
+			<web-resource-name>allowed</web-resource-name>
+			<url-pattern>/javax.faces.resource/*</url-pattern>
+			<url-pattern>/resources/*</url-pattern>
+			<url-pattern>/login*</url-pattern>
+			<url-pattern>/register*</url-pattern>
+			<url-pattern>/accounts/formPrincipal.xhtml</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
 	<security-constraint>
 		<display-name>users section</display-name>
 		<web-resource-collection>
@@ -51,16 +63,18 @@
 			<role-name>ADMIN</role-name>
 		</auth-constraint>
 	</security-constraint>
+
 	
+
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<realm-name>SportLeagueSystem</realm-name>
 		<form-login-config>
 			<form-login-page>/login.xhtml</form-login-page>
 			<form-error-page>/login.xhtml</form-error-page>
-		</form-login-config>	
+		</form-login-config>
 	</login-config>
-	
+
 	<security-role>
 		<role-name>PLAYER</role-name>
 	</security-role>

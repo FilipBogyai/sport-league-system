@@ -22,8 +22,9 @@
 
 		<div class="section_w480">
 
-			<div class="header_03">Your Profile:</div>
+			<div class="header_03">Your New Account:</div>
 			<h:form id="reg">
+				<h:messages globalOnly="true" errorClass="invalid" />
 				<ui:insert name="formPrincipal">
 					<ui:include src="/accounts/formPrincipal.xhtml" />
 				</ui:insert>

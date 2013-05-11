@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
 *
@@ -27,19 +28,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; 
     
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Pattern(regexp = "[A-Za-z]+", message = "must contain only letters")
+    @NotNull(message = "First name cannot be null")
+    @NotEmpty(message = "First name cannot be empty")
+    @Size(min = 1, max = 20, message = "First name must contain between 1 to 20 characters")
+    @Pattern(regexp = "[A-Za-z]+", message = "First name must contain only letters")
     private String firstName;
     
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Pattern(regexp = "[A-Za-z]+", message = "must contain only letters")
+    @NotNull(message = "Last name cannot be null")
+    @NotEmpty(message = "Last name cannot be empty")
+    @Size(min = 1, max = 20, message = "Last name must contain between 1 to 20 characters")
+    @Pattern(regexp = "[A-Za-z]+", message = "Last name must contain only letters")
     private String lastName;
     
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Digits(fraction = 0, integer = 20)
+    @NotNull(message = "Phone number cannot be null")
+    @NotEmpty(message = "Phone number cannot be empty")
+    @Size(min = 1, max = 20, message = "Phone number must contain between 1 to 20 characters")
+    @Digits(fraction = 0, integer = 20, message = "Phone number can only contain digits")
     @Column(name = "phone_number")
     private String phoneNumber;
     
