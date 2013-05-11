@@ -13,7 +13,7 @@
 
 	<!-- Welcome page -->
 	<welcome-file-list>
-		<welcome-file>login.xhtml</welcome-file>
+		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<!-- JSF mapping -->
@@ -47,8 +47,6 @@
 			<web-resource-name>allowed</web-resource-name>
 			<url-pattern>/javax.faces.resource/*</url-pattern>
 			<url-pattern>/resources/*</url-pattern>
-			<url-pattern>/login*</url-pattern>
-			<url-pattern>/register*</url-pattern>
 			<url-pattern>/accounts/formPrincipal.xhtml</url-pattern>
 		</web-resource-collection>
 	</security-constraint>
@@ -64,7 +62,23 @@
 		</auth-constraint>
 	</security-constraint>
 
-	
+	<security-constraint>
+		<display-name>authorized sections</display-name>
+		<web-resource-collection>
+			<web-resource-name>authorized</web-resource-name>
+			<url-pattern>/sports/*</url-pattern>
+			<url-pattern>/leagues/*</url-pattern>
+			<url-pattern>/accounts/*</url-pattern>
+			<url-pattern>/matches/*</url-pattern>
+			<url-pattern>/index.xhtml</url-pattern>
+			<url-pattern>/index.jsf</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMIN</role-name>
+			<role-name>LEAGUE_SUPERVISOR</role-name>
+			<role-name>PLAYER</role-name>
+		</auth-constraint>
+	</security-constraint>
 
 	<login-config>
 		<auth-method>FORM</auth-method>

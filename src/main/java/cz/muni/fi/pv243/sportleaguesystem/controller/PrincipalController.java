@@ -27,6 +27,9 @@ public class PrincipalController {
 	@Inject
 	private LoginController loginModule;
 	
+	@Inject
+	private SecurityHelper securityHelper;
+	
 	@Produces
 	@Named
 	private Principal principal;
@@ -55,7 +58,7 @@ public class PrincipalController {
 	
 	@PostConstruct
 	public void populatePrincipal() {
-		String remote = facesContext.getExternalContext().getRemoteUser();
+		String remote = securityHelper.getRemoteUser();
 		if (remote != null && !"".equals(remote.trim())) {
 			principal = principalService.findPrincipalByLoginName(remote);
 		}

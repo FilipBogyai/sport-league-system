@@ -17,20 +17,20 @@
 		<div id="templatemo_menu">
 			<ul>
 				<li><h:link value="Home" outcome="/index"
-						styleClass="#{currentTitle=='Home' ? 'current' : ''}" /></li>
+						styleClass="#{currentTitle=='Home' ? 'current' : ''}" rendered="#{securityHelper.authorized}" /></li>
 				<li><h:link value="Sports" outcome="/sports/index"
-						styleClass="#{currentTitle=='Sports' ? 'current' : ''}" /></li>
+						styleClass="#{currentTitle=='Sports' ? 'current' : ''}" rendered="#{securityHelper.authorized}" /></li>
 				<li><h:link value="My Leagues" outcome="/leagues/index"
-						styleClass="#{currentTitle=='Leagues' ? 'current' : ''}" /></li>
+						styleClass="#{currentTitle=='Leagues' ? 'current' : ''}" rendered="#{securityHelper.authorized}" /></li>
 				<li><h:link value="My Matches" outcome="/matches/index"
-						styleClass="#{currentTitle=='Matches' ? 'current' : ''}" /></li>
+						styleClass="#{currentTitle=='Matches' ? 'current' : ''}" rendered="#{securityHelper.authorized}" /></li>
 				<li><h:link value="My Account" outcome="/accounts/index"
-						styleClass="#{currentTitle=='Account' ? 'current' : ''}" /></li>		
+						styleClass="#{currentTitle=='Account' ? 'current' : ''}" rendered="#{securityHelper.authorized}" /></li>		
 				<li><h:link value="Users" outcome="/users/index"
-						styleClass="#{currentTitle=='Users' ? 'current' : ''}" /></li>
-				<!-- <li><h:link value="About Us" outcome="/about"
-						styleClass="#{currentTitle=='About' ? 'current last' : 'last'}" /></li> -->
-				<li><h:form><h:commandLink action="#{loginController.logout}" value="Logout" styleClass="last" /></h:form></li>
+						styleClass="#{currentTitle=='Users' ? 'current' : ''}" rendered="#{securityHelper.isInRole('ADMIN')}" /></li>
+				<li><h:link value="About Us" outcome="/about"
+						styleClass="#{currentTitle=='About' ? 'current' : ''}" rendered="#{securityHelper.isInRoles('PLAYER', 'LEAGUE_SUPERVISOR')}"  /></li>
+				<li><h:form><h:commandLink action="#{loginController.logout}" value="Logout" styleClass="last" rendered="#{securityHelper.authorized}" /></h:form></li>
 			</ul>
 		</div>
 		<!-- end of menu -->
