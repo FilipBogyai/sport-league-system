@@ -60,4 +60,21 @@ public interface LeagueService {
      */
     List<League> findBySport(Sport sport);
     
+    /**
+     * Registers user into the given league
+     * 
+     * @param User user who will be registered into league
+     * @param League league in which user will play
+     * @throws IllegalArgumentException if parameters is null.   
+     */
+    void addPlayer(User user, League league);
+    
+    /**
+     * Creates new round of matches for players registered into league
+     *     
+     * @param League league in which matches will be generated
+     * @throws IllegalArgumentException if parameters is null.   
+     */
+    void generateMatches(League league);
+    
 }

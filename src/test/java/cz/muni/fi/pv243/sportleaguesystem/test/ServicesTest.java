@@ -1,6 +1,7 @@
 package cz.muni.fi.pv243.sportleaguesystem.test;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -33,8 +34,10 @@ import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
+import cz.muni.fi.pv243.sportleaguesystem.service.LeagueServiceImpl;
 import cz.muni.fi.pv243.sportleaguesystem.service.PrincipalServiceImpl;
 import cz.muni.fi.pv243.sportleaguesystem.service.UserServiceImpl;
+import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.LeagueService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.UserService;
 import cz.muni.fi.pv243.sportleaguesystem.util.Resources;
@@ -47,7 +50,8 @@ public class ServicesTest {
 				 .addClasses(Sport.class,League.class,Resources.class,SportDAOImpl.class,SportDAO.class,
 						 LeagueDAO.class,LeagueDAOImpl.class,Match.class,User.class,MatchDAO.class,MatchDAOImpl.class,
 						 UserDAO.class,UsersDAOImpl.class, PrincipalDAO.class, PrincipalDAOImpl.class , Principal.class,
-						 UserService.class, UserServiceImpl.class, PrincipalService.class, PrincipalServiceImpl.class)
+						 UserService.class, UserServiceImpl.class, PrincipalService.class, PrincipalServiceImpl.class,
+						 LeagueService.class, LeagueServiceImpl.class)
 				 .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
 				 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				// Deploy our test datasource
@@ -67,11 +71,17 @@ public class ServicesTest {
 	 @Inject
 	 PrincipalService principalService;
 	 
+	 @Inject
+	 LeagueService leagueService;
+	 
 	 @Inject 
 	 MatchDAO matchDAO;
 	 
 	 @Inject
 	 PrincipalDAO principalDAO; 
+	 
+	 @Inject
+	 Logger logger;
 	 
 	 
 	 @Test
@@ -94,7 +104,29 @@ public class ServicesTest {
 		assertEquals(1, user.getLeagues().size());
 		assertEquals(1, league.getPlayers().size());
 		
-		}
+	 }
+	 
+	 @Test
+	 public void testAddPlayer() {
+		 
+		    User user =  buildUser("Vlado", "Vostinar", "4124213");
+			userService.createUser(user);
+			
+			Sport sport = buildSport("tenis");
+			sportDAO.create(sport);
+			
+			League league = buildLeague("tenis A", "top liga", sport);
+			leagueService.createLeague(league);
+			
+			leagueService.addPlayer(user, league);			
+			
+			user = userService.getById(user.getId());
+			league = leagueService.getById(league.getId());
+			
+			assertEquals(1, user.getLeagues().size());
+			assertEquals(1, league.getPlayers().size());			
+	 }
+	 
 	 @Test
 	 public void testDeleteUser() {
 	    	User user1 = buildUser("Jozko", "Mrkvicka","0903123456");
@@ -150,6 +182,61 @@ public class ServicesTest {
 	        principalService.delete(principal);
 	        
 	 }
+	 
+	 @Test
+	 public void testGenerateMatches(){
+		 User user1 =  buildUser("Vlado", "Vostinar", "4124213");
+		 userService.createUser(user1);
+		 User user2 = buildUser("Ferko", "Slany","0903654321");
+	     userService.createUser(user2);
+	     User user3 = buildUser("Jozko", "Mrkvicka","0903123456");
+	     userService.createUser(user3);
+	     User user4 = buildUser("Ivan", "Velky","0903123456");
+	     userService.createUser(user4);
+	     User user5 = buildUser("Lojzo", "Fasirka","0903123456");
+	     userService.createUser(user5);
+	     User user6 = buildUser("Marketa", "Mandlova","0903123456");
+	     userService.createUser(user6);
+	     
+	     Sport sport = buildSport("tenis");
+	     sportDAO.create(sport);
+	        
+	     League league = buildLeague("extra", "tenisova" , sport);
+	     leagueService.createLeague(league);
+	     
+	     league = leagueService.getById(league.getId());
+	     assertEquals(0, league.getPlayers().size());
+	    	     
+	     leagueService.addPlayer(user1, league);
+	     leagueService.addPlayer(user2, league);
+	     leagueService.addPlayer(user3, league);
+	     leagueService.addPlayer(user4, league);
+	     leagueService.addPlayer(user5, league);
+	     leagueService.addPlayer(user6, league);
+	     	     
+	     league = leagueService.getById(league.getId());
+	     assertEquals(6, league.getPlayers().size());
+	     assertEquals(0, league.getMatches().size());
+	    	     
+	     leagueService.generateMatches(league);	 
+	     league = leagueService.getById(league.getId());
+	     assertEquals(6, league.getPlayers().size());
+	     assertEquals(3, league.getMatches().size());   
+	          
+	     leagueService.generateMatches(league);	 
+	     league = leagueService.getById(league.getId());
+	     assertEquals(6, league.getMatches().size());
+	     
+	     for(int i =0 ; i< 6; i++){
+	    	 logger.info(league.getMatches().get(i).toString());	    	 
+	     }
+	     
+	     
+	     
+	     
+	     
+	 }
+	 
 	 
 	 public static User buildUser(String firstName,String lastName, String phoneNumber){
 			User user = new User();
