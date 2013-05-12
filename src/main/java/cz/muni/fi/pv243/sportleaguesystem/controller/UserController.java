@@ -30,7 +30,13 @@ public class UserController {
 	private PrincipalService principalService;
 	
 	private List<User> users;
-	private User currentUser;
+	private Principal currentUser;
+	
+	@Produces
+	@Named
+	public Principal getCurrentUser() {
+		return currentUser;
+	}
 	
 	@Produces
 	@Named
@@ -38,9 +44,13 @@ public class UserController {
 		return users;
 	}
 	
+	public String save() {
+		principalService.update(currentUser);
+		return "index?faces-redirect=true";
+	}
+	
 	public String remove() {
-		Principal principal = principalService.findUserByUser(currentUser);
-		principalService.delete(principal);
+		principalService.delete(currentUser);
 		return "index?faces-redirect=true";
 	}
 	
@@ -56,7 +66,9 @@ public class UserController {
 		else
 			users = userService.getAll();
 		
-		if (userId != null)
-			currentUser = userService.getById(Long.parseLong(userId));
+		if (userId != null) {
+			User user = userService.getById(Long.parseLong(userId));
+			currentUser = principalService.findUserByUser(user);
+		}
 	}
 }

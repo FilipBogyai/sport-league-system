@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:param name="currentTitle" value="Sports" />
+	<ui:define name="content">
+		<div class="header_01">Edit User Account Type</div>
+
+		<div class="section_w480">
+			<p class="em_text">On this page below you as an administrator can
+				change privileges for other users.</p>
+			<p>You can decide whether this user will be next administrator
+				and thus gets rights to create, update and delete sports, leagues
+				and other users. Or you can decide that this user should be a league
+				supervisor and thus responsible for league and match management.</p>
+		</div>
+
+		<div class="section_w480">
+
+			<div class="header_03">Edit #{currentUser.user.firstName}
+				#{currentUser.user.lastName}:</div>
+			<h:form id="reg">
+				<h:outputLabel for="role" value="User Role:" styleClass="attr_name" />
+				<h:selectOneMenu id="role" value="#{currentUser.role}" style="margin-left: 10px;">
+					<f:selectItem itemValue="ADMIN" itemLabel="Admininstrator Role" />
+					<f:selectItem itemValue="PLAYER" itemLabel="Player Role" />
+					<f:selectItem itemValue="LEAGUE_SUPERVISOR"
+						itemLabel="League Supervisor Role" />
+				</h:selectOneMenu>
+				<p>
+					<h:panelGrid columns="2">
+						<h:column>
+							<div class="button_01">
+								<h:commandLink id="save" action="#{userController.save}"
+									value="Save Changes">
+									<f:param name="userID" value="#{currentUser.user.id}" />
+								</h:commandLink>
+							</div>
+						</h:column>
+						<h:column>
+							<div class="button_01">
+								<h:link value="Go Back" outcome="/users/index" />
+							</div>
+						</h:column>
+					</h:panelGrid>
+				</p>
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

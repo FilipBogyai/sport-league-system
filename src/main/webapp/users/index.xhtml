@@ -52,6 +52,15 @@
 				</h:column> -->
 				<h:column>
 					<f:facet name="header"></f:facet>
+					<h:link outcome="/users/edit">
+						<f:param name="userID" value="#{user.id}" />
+						<img
+							src="#{request.contextPath}/resources/css/images/edit_icon.png"
+							alt="Edit" />
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
 					<h:form>
 						<h:commandLink id="delete" action="#{userController.remove}">
 							<f:param name="userID" value="#{user.id}" />
