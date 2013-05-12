@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:param name="currentTitle" value="Sports" />
 	<ui:define name="side_content">
+		<c:if test="#{securityHelper.isInRole('ADMIN')}">
+			<div class="header_01">New Sport</div>
 
-		<div class="header_01">New Sport</div>
-
-		<div class="news_event_section">
-			<p>Here you as an administrator can add new sport to our system</p>
-			<div class="cleaner"></div>
-			<h:form id="reg">
-				<ui:insert name="formSport">
-					<ui:include src="/sports/formSport.xhtml" />
-				</ui:insert>
-				<p>
-					<h:panelGrid columns="2">
-						<h:column>
-							<div class="button_01">
-								<h:commandLink id="add" action="#{sportController.add}"
-									value="Submit" />
-							</div>
-						</h:column>
-						<h:column>
-							<h:messages infoClass="valid" globalOnly="true" />
-						</h:column>
-					</h:panelGrid>
-				</p>
-			</h:form>
-		</div>
-
+			<div class="news_event_section">
+				<p>Here you as an administrator can add new sport to our system</p>
+				<div class="cleaner"></div>
+				<h:form id="reg">
+					<ui:insert name="formSport">
+						<ui:include src="/sports/formSport.xhtml" />
+					</ui:insert>
+					<p>
+						<h:panelGrid columns="2">
+							<h:column>
+								<div class="button_01">
+									<h:commandLink id="add" action="#{sportController.add}"
+										value="Submit" />
+								</div>
+							</h:column>
+							<h:column>
+								<h:messages infoClass="valid" globalOnly="true" />
+							</h:column>
+						</h:panelGrid>
+					</p>
+				</h:form>
+			</div>
+		</c:if>
 	</ui:define>
 
 	<ui:define name="content">
@@ -62,7 +63,8 @@
 				<em>No sport was found.</em>
 			</h:panelGroup>
 			<h:dataTable var="sport" value="#{sports}"
-				rendered="#{not empty sports}" styleClass="simpletablestyle" id="table">
+				rendered="#{not empty sports}" styleClass="simpletablestyle"
+				id="table">
 				<h:column>
 					<f:facet name="header">Name</f:facet>
 	                #{sport.name}
@@ -73,26 +75,28 @@
 						<f:param name="sportID" value="#{sport.id}" />
 					</h:link>
 				</h:column>
-				<h:column>
-					<f:facet name="header"></f:facet>
-					<h:link outcome="/sports/edit">
-						<f:param name="sportID" value="#{sport.id}" />
-						<img
-							src="#{request.contextPath}/resources/css/images/edit_icon.png"
-							alt="Edit" />
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header"></f:facet>
-					<h:form>
-						<h:commandLink id="delete" action="#{sportController.remove}">
+				<c:if test="#{securityHelper.isInRole('ADMIN')}">
+					<h:column>
+						<f:facet name="header"></f:facet>
+						<h:link outcome="/sports/edit">
 							<f:param name="sportID" value="#{sport.id}" />
 							<img
-								src="#{request.contextPath}/resources/css/images/remove_icon.png"
-								alt="Remove" />
-						</h:commandLink>
-					</h:form>
-				</h:column>
+								src="#{request.contextPath}/resources/css/images/edit_icon.png"
+								alt="Edit" />
+						</h:link>
+					</h:column>
+					<h:column>
+						<f:facet name="header"></f:facet>
+						<h:form>
+							<h:commandLink id="delete" action="#{sportController.remove}">
+								<f:param name="sportID" value="#{sport.id}" />
+								<img
+									src="#{request.contextPath}/resources/css/images/remove_icon.png"
+									alt="Remove" />
+							</h:commandLink>
+						</h:form>
+					</h:column>
+				</c:if>
 			</h:dataTable>
 			<div class="cleaner"></div>
 		</div>

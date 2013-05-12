@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:param name="currentTitle" value="Sports" />
 	<ui:define name="side_content">
-
+		<c:if test="#{securityHelper.isInRole('ADMIN')}">
 		<div class="header_01">New League</div>
 
 		<div class="news_event_section">
@@ -33,7 +34,7 @@
 				</p>
 			</h:form>
 		</div>
-
+		</c:if>
 	</ui:define>
 
 	<ui:define name="content">
@@ -75,9 +76,10 @@
 					#{league.description}
 				</h:column>
 				<h:column>
-					<f:facet name="header">Description</f:facet>
+					<f:facet name="header">Sport</f:facet>
 					#{league.sport.name}
 				</h:column>
+				<c:if test="#{securityHelper.isInRole('ADMIN')}">
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:link outcome="/sports/leagues/edit">
@@ -100,6 +102,7 @@
 						</h:commandLink>
 					</h:form>
 				</h:column>
+				</c:if>
 			</h:dataTable>
 			<div class="cleaner"></div>
 		</div>
