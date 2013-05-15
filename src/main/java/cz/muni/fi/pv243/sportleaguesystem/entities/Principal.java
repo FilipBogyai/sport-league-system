@@ -29,7 +29,7 @@ public class Principal {
 	
 	@NotNull(message = "Password cannot be null")
 	@NotEmpty(message = "Password cannot be empty")
-	@Size(min = 3, max = 32, message = "Message must contain between 3 to 32 characters")
+	@Size(min = 3, max = 32, message = "Password must contain between 3 to 32 characters")
     private String password;
     
 	@NotNull(message = "Role cannot be null")

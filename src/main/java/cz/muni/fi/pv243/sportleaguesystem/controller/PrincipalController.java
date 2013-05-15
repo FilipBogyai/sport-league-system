@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Size;
 
 import cz.muni.fi.pv243.sportleaguesystem.RolesEnum;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
@@ -34,12 +35,23 @@ public class PrincipalController {
 	@Named
 	private Principal principal;
 	
+	@Produces
+	private String temporaryPassword;
+	
+	public String getTemporaryPassword() {
+		return temporaryPassword;
+	}
+	
+	public void setTemporaryPassword(String temporaryPassword) {
+		this.temporaryPassword = temporaryPassword;
+	}
+
 	public Principal getPrincipal() {
 		return principal;
 	}
 
 	public String register() {
-		String password = principal.getPassword();
+		temporaryPassword = principal.getPassword();
 		try {
 			principalService.create(principal);
 		} catch (EJBTransactionRolledbackException e) {
@@ -47,11 +59,18 @@ public class PrincipalController {
 			return "";
 		}
 		loginModule.setLoginName(principal.getLoginName());
-		loginModule.setPassword(password);
+		loginModule.setPassword(temporaryPassword);
 		return loginModule.login();
 	}
 
 	public String save() {
+		if (temporaryPassword != null && !"".equals(temporaryPassword.trim())) {
+			if (temporaryPassword.length() < 3 || temporaryPassword.length() > 32) {
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password must contain between 3 to 32 characters", "Password must contain between 3 to 32 characters"));
+				return "";
+			}
+			principal.setPassword(temporaryPassword);
+		}
 		principalService.update(principal);
 		return "index?faces-redirect=true";
 	}

@@ -61,6 +61,9 @@ public class PrincipalServiceImpl implements PrincipalService {
 		if (principalDAO.get(principal.getLoginName()) == null) {
 			throw new IllegalArgumentException("nonexistent principal");
 		}
+		Principal tempPrincipal = findPrincipalByLoginName(principal.getLoginName());
+		if (!tempPrincipal.getPassword().equals(principal.getPassword()))
+			principal.setPassword(hashPassword(principal.getPassword()));
 		principalDAO.update(principal);
 
 	}
