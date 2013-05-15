@@ -8,32 +8,33 @@
 	<ui:param name="currentTitle" value="Sports" />
 	<ui:define name="side_content">
 		<c:if test="#{securityHelper.isInRole('ADMIN')}">
-		<div class="header_01">New League</div>
+			<div class="header_01">New League</div>
 
-		<div class="news_event_section">
-			<p>Here you as an administrator can add new league to selected sport</p>
-			<div class="cleaner"></div>
-			<h:form id="reg">
-				<ui:insert name="formLeague">
-					<ui:include src="/sports/leagues/formLeague.xhtml" />
-				</ui:insert>
-				<p>
-					<h:panelGrid columns="2">
-						<h:column>
-							<div class="button_01">
-								<h:commandLink id="add" action="#{leagueController.add}"
-									value="Submit">
-									<f:param name="sportID" value="#{leagueController.sportId}" />
-								</h:commandLink>
-							</div>
-						</h:column>
-						<h:column>
-							<h:messages infoClass="valid" globalOnly="true" />
-						</h:column>
-					</h:panelGrid>
-				</p>
-			</h:form>
-		</div>
+			<div class="news_event_section">
+				<p>Here you as an administrator can add new league to selected
+					sport</p>
+				<div class="cleaner"></div>
+				<h:form id="reg">
+					<ui:insert name="formLeague">
+						<ui:include src="/sports/leagues/formLeague.xhtml" />
+					</ui:insert>
+					<p>
+						<h:panelGrid columns="2">
+							<h:column>
+								<div class="button_01">
+									<h:commandLink id="add" action="#{leagueController.add}"
+										value="Submit">
+										<f:param name="sportID" value="#{leagueController.sportId}" />
+									</h:commandLink>
+								</div>
+							</h:column>
+							<h:column>
+								<h:messages infoClass="valid" globalOnly="true" />
+							</h:column>
+						</h:panelGrid>
+					</p>
+				</h:form>
+			</div>
 		</c:if>
 	</ui:define>
 
@@ -46,77 +47,94 @@
 					alt="League" />
 			</div>
 			<p class="em_text">On this page below you can find the list of
-				all leagues associated with the sport you have selected that were ever added to our portal.</p>
+				all leagues associated with the sport you have selected that were
+				ever added to our portal.</p>
 			<p>Please feel free to roam different leagues. Should you find
-				certain league that is up to your liking please go ahead and select it in
-				order to register in it. Note that different leagues have different difficulties so please be careful upon
-				choosing. Once you are registered you are free to start butt-kicking ;)</p>
+				certain league that is up to your liking please go ahead and select
+				it in order to register in it. Note that different leagues have
+				different difficulties so please be careful upon choosing. Once you
+				are registered you are free to start butt-kicking ;)</p>
 		</div>
 
 		<div class="section_w480">
 
 			<div class="header_03">All Leagues:</div>
-			
+
 			<div class="button_01">
-			<h:link value="Back to Sports" outcome="/sports/index" />
+				<h:link value="Back to Sports" outcome="/sports/index" />
 			</div>
 			<br />
 
-			<h:panelGroup rendered="#{empty leagues}">
-				<em>No league was found.</em>
-			</h:panelGroup>
-			<h:dataTable var="league" value="#{leagues}"
-				rendered="#{not empty leagues}" styleClass="simpletablestyle" id="table">
-				<h:column>
-					<f:facet name="header">Name</f:facet>
-	                #{league.name}
-	            </h:column>
-				<h:column>
-					<f:facet name="header">Description</f:facet>
-					#{league.description}
-				</h:column>
-				<h:column>
-					<f:facet name="header">Sport</f:facet>
-					#{league.sport.name}
-				</h:column>
-				<h:column rendered="#{leagueController.userInLeague(league.name)}">
-					<f:facet name="header"></f:facet>
-					<img src="#{request.contextPath}/resources/css/images/success_icon.png" alt="Signed In" />
-				</h:column>
-				<h:column rendered="#{!leagueController.userInLeague(league.name)}">
-					<f:facet name="header"></f:facet>
-					<h:form>
-						<h:commandLink id="signin" action="#{leagueController.signIn}" value="Sign In">
-							<f:param name="leagueID" value="#{league.id}" />
-							<f:param name="sportID" value="#{leagueController.sportId}" />
-						</h:commandLink>
-					</h:form>
-				</h:column>
-				<c:if test="#{securityHelper.isInRole('ADMIN')}">
-				<h:column>
-					<f:facet name="header"></f:facet>
-					<h:link outcome="/sports/leagues/edit">
-						<f:param name="leagueID" value="#{league.id}" />
-						<f:param name="sportID" value="#{leagueController.sportId}" />
-						<img
-							src="#{request.contextPath}/resources/css/images/edit_icon.png"
-							alt="Edit" />
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header"></f:facet>
-					<h:form>
-						<h:commandLink id="remove" action="#{leagueController.remove}">
-							<f:param name="leagueID" value="#{league.id}" />
-							<f:param name="sportID" value="#{leagueController.sportId}" />
-							<img
-								src="#{request.contextPath}/resources/css/images/remove_icon.png"
-								alt="Remove" />
-						</h:commandLink>
-					</h:form>
-				</h:column>
-				</c:if>
-			</h:dataTable>
+			<c:choose>
+				<c:when test="#{empty leagues}">
+					<em>No league was found.</em>
+				</c:when>
+				<c:otherwise>
+					<table id="table">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Sport</th>
+								<th></th>
+								<c:if test="#{securityHelper.isInRole('ADMIN')}">
+									<th></th>
+									<th></th>
+								</c:if>
+							</tr>
+						</thead>
+						<c:forEach items="#{leagues}" var="wrapper">
+							<tr>
+								<td>#{wrapper.league.name}</td>
+								<td>#{wrapper.league.description}</td>
+								<td>#{wrapper.league.sport.name}</td>
+								<td>
+									<c:choose>
+										<c:when test="#{wrapper.isUserLogged}">
+											<img
+												src="#{request.contextPath}/resources/css/images/success_icon.png"
+												alt="Signed In" />
+										</c:when>
+										<c:otherwise>
+											<h:form>
+												<h:commandLink id="signin"
+													action="#{leagueController.signIn}" value="Sign In">
+													<f:param name="leagueID" value="#{wrapper.league.id}" />
+													<f:param name="sportID" value="#{leagueController.sportId}" />
+												</h:commandLink>
+											</h:form>
+										</c:otherwise>>
+									</c:choose>
+								</td>
+								<c:if test="#{securityHelper.isInRole('ADMIN')}">
+									<td>
+										<h:link outcome="/sports/leagues/edit">
+											<f:param name="leagueID" value="#{wrapper.league.id}" />
+											<f:param name="sportID" value="#{leagueController.sportId}" />
+											<img
+												src="#{request.contextPath}/resources/css/images/edit_icon.png"
+												alt="Edit" />
+										</h:link>
+									</td>
+									<td>
+										<h:form>
+											<h:commandLink id="remove"
+												action="#{leagueController.remove}">
+												<f:param name="leagueID" value="#{wrapper.league.id}" />
+												<f:param name="sportID" value="#{leagueController.sportId}" />
+												<img
+													src="#{request.contextPath}/resources/css/images/remove_icon.png"
+													alt="Remove" />
+											</h:commandLink>
+										</h:form>
+									</td>
+								</c:if>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:otherwise>
+			</c:choose>
+
 			<div class="cleaner"></div>
 		</div>
 	</ui:define>

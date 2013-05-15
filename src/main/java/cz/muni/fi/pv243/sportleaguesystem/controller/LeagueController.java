@@ -38,8 +38,7 @@ public class LeagueController {
 	@Inject
 	private PrincipalService principalService;
 	
-	private List<League> leagues;
-	private Map<League, Boolean> principalLeagues;
+	private List<LeagueWrapper> leagues;
 	private League newLeague;
 	private String sportId;
 	private Sport sport;	
@@ -57,7 +56,7 @@ public class LeagueController {
 
 	@Produces
 	@Named
-	public List<League> getLeagues() {
+	public List<LeagueWrapper> getLeagues() {
 		return leagues;
 	}
 
@@ -83,30 +82,58 @@ public class LeagueController {
 		return "index?faces-redirect=true&sportID=" + sportId;
 	}
 	
-	public Boolean userInLeague(String currentLeague) {
-		League currLeague = leagueService.getById(Long.parseLong(currentLeague));
-		return principalLeagues.get(currLeague);
-	}
-	
 	@PostConstruct
 	public void populateLeagues() {
 		Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
 		sportId = params.get("sportID");
 		String leagueId = params.get("leagueID");
 		
-		String remote = securityHelper.getRemoteUser();
-		principal = principalService.findPrincipalByLoginName(remote);
-		leagues = new ArrayList<League>();
-		
-		if (sportId != null) {
-			sport = sportService.getById(Long.parseLong(sportId));
-			principalLeagues = leagueService.findByUser(principal.getUser(), sport);
-			leagues.addAll(principalLeagues.keySet());
-		}
+		createLeagueList();
 		
 		if (leagueId != null)
 			newLeague = leagueService.getById(Long.parseLong(leagueId));
 		else
 			newLeague = new League();
+	}
+
+	private void createLeagueList() {
+		String remote = securityHelper.getRemoteUser();
+		principal = principalService.findPrincipalByLoginName(remote);
+		
+		leagues = new ArrayList<LeagueWrapper>();
+		
+		if (sportId != null) {
+			sport = sportService.getById(Long.parseLong(sportId));
+			Map<League, Boolean> principalLeagues = leagueService.findByUser(principal.getUser(), sport);
+			for (League league : principalLeagues.keySet()) {
+				LeagueWrapper wrapper = new LeagueWrapper();
+				wrapper.setLeague(league);
+				wrapper.setIsUserLogged(principalLeagues.get(league).booleanValue());
+				leagues.add(wrapper);
+			}
+		}
+	}
+	
+	public class LeagueWrapper {
+		private League league;
+		private boolean isUserLogged;
+		
+		@Produces
+		public League getLeague() {
+			return league;
+		}
+		
+		public void setLeague(League league) {
+			this.league = league;
+		}
+		
+		@Produces
+		public boolean getIsUserLogged() {
+			return isUserLogged;
+		}
+		
+		public void setIsUserLogged(boolean isUserLogged) {
+			this.isUserLogged = isUserLogged;
+		}
 	}
 }
