@@ -1,7 +1,9 @@
 package cz.muni.fi.pv243.sportleaguesystem.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -59,15 +61,24 @@ public class LeagueServiceImpl implements LeagueService {
 	}
 
 	@Override
-	public List<League> findByName(String name, Sport sport) {
-		if (name == null) {
-            throw new IllegalArgumentException("null name");
+	public Map<League, Boolean> findByUser(User user, Sport sport) {
+		if (user == null) {
+            throw new IllegalArgumentException("null user");
 	    }
 		if (sport == null) {
             throw new IllegalArgumentException("null sport");
 	    }
-	
-	    return leagueDAO.findLeaguesByName(name, sport);
+		
+		Map<League, Boolean> leagueMap = new HashMap<League, Boolean>();
+	    List<League> allLeagues = findBySport(sport);
+	    for (League league : allLeagues) {
+			if (user.getLeagues().contains(league)) {
+				leagueMap.put(league, true);
+			} else {
+				leagueMap.put(league, false);
+			}
+		}
+	    return leagueMap;
 	}
 	
 	@Override

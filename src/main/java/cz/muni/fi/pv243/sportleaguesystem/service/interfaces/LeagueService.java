@@ -5,6 +5,7 @@ import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -45,12 +46,13 @@ public interface LeagueService {
     void deleteLeague(League league);
 
     /**
-     * Returns list of Leagues in the database with given name in given sport.
+     * Returns map of Leagues in the database with in given sport with boolean value whether given user belongs
+     * to these leagues.
      *
      * @throws IllegalArgumentException if parameter is null.   
-     * @return Leagues with given name or empty list if there are none.   
+     * @return Leagues and boolean values with given user or empty map if there are none.   
      */
-    List<League> findByName(String name, Sport sport);       
+    Map<League, Boolean> findByUser(User user, Sport sport);       
     
     /**
      * Returns list of Leagues in given sport

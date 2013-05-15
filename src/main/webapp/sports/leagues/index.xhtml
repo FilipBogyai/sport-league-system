@@ -79,6 +79,19 @@
 					<f:facet name="header">Sport</f:facet>
 					#{league.sport.name}
 				</h:column>
+				<h:column rendered="#{leagueController.userInLeague(league.name)}">
+					<f:facet name="header"></f:facet>
+					<img src="#{request.contextPath}/resources/css/images/success_icon.png" alt="Signed In" />
+				</h:column>
+				<h:column rendered="#{!leagueController.userInLeague(league.name)}">
+					<f:facet name="header"></f:facet>
+					<h:form>
+						<h:commandLink id="signin" action="#{leagueController.signIn}" value="Sign In">
+							<f:param name="leagueID" value="#{league.id}" />
+							<f:param name="sportID" value="#{leagueController.sportId}" />
+						</h:commandLink>
+					</h:form>
+				</h:column>
 				<c:if test="#{securityHelper.isInRole('ADMIN')}">
 				<h:column>
 					<f:facet name="header"></f:facet>
