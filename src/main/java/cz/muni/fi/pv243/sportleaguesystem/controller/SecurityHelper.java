@@ -20,11 +20,13 @@ public class SecurityHelper {
 	}
 
 	public boolean isInRole(String role) {
-		return hasRoles(role);
+		String[] roles = { role };
+		return hasRoles(roles);
 	}
 
 	public boolean isInRoles(String role1, String role2) {
-		return hasRoles(role1, role2);
+		String[] roles = { role1, role2 };
+		return hasRoles(roles);
 	}
 
 	public boolean isAuthorized() {
