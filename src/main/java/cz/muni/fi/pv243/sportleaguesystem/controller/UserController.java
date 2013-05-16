@@ -29,6 +29,9 @@ public class UserController {
 	@Inject
 	private PrincipalService principalService;
 	
+	@Inject
+	private SecurityHelper securityHelper;
+	
 	private List<User> users;
 	private Principal currentUser;
 	
@@ -60,11 +63,15 @@ public class UserController {
 		String filterName = params.get("filterName");
 		String userId = params.get("userID");
 		
+		String remote = securityHelper.getRemoteUser();
+		Principal principal = principalService.findPrincipalByLoginName(remote);
+		
 		//TODO remove currently logged user from selection
 		if (filterName != null && !"".equals(filterName.trim()))
 			users = userService.findByName(filterName);
 		else
 			users = userService.getAll();
+		users.remove(principal.getUser());
 		
 		if (userId != null) {
 			User user = userService.getById(Long.parseLong(userId));
