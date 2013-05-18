@@ -13,7 +13,7 @@
 
 			<c:choose>
 				<c:when test="#{empty userLeagues}">
-					<em>No league was found.</em>
+					<em>No matches found.</em>
 				</c:when>
 				<c:otherwise>
 					<table id="table">
@@ -22,7 +22,7 @@
 								<th>Name</th>
 								<th>Description</th>
 								<th>Sport</th>
-                                <th>League matches</th>
+                                <th>League Matches</th>
 							</tr>
 						</thead>
 						<c:forEach items="#{userLeagues}" var="league">

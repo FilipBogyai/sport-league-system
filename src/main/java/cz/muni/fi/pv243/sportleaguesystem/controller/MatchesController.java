@@ -2,11 +2,8 @@ package cz.muni.fi.pv243.sportleaguesystem.controller;
 
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
-import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.LeagueService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.MatchService;
-import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
-import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -22,24 +19,17 @@ import java.util.*;
 @Model
 public class MatchesController {
 
-	@Inject
-	private FacesContext facesContext;
+    @Inject
+    private FacesContext facesContext;
 
     @Inject
     private MatchService matchService;
 
-	@Inject
-	private LeagueService leagueService;
-	
-	@Inject
-	private SecurityHelper securityHelper;
-	
-	@Inject
-	private PrincipalService principalService;
-	
-	private Map<Date, List<MatchWrapper>> matches;
+    @Inject
+    private LeagueService leagueService;
+
+    private Map<Date, List<MatchWrapper>> matches;
     private League league;
-	private Principal principal;
 
     @Produces
     @Named
@@ -48,13 +38,13 @@ public class MatchesController {
     }
 
     @Produces
-	@Named
-	public Map<Date, List<MatchWrapper>> getMatches() {
-		return matches;
-	}
-	
-	@PostConstruct
-	public void populateMatches() throws ParseException {
+    @Named
+    public Map<Date, List<MatchWrapper>> getMatches() {
+        return matches;
+    }
+
+    @PostConstruct
+    public void populateMatches() throws ParseException {
         Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
         String leagueId = params.get("leagueID");
 
@@ -75,11 +65,7 @@ public class MatchesController {
                 matches.get(key).add(wrapper);
             }
         }
-
-        // TODO
-        String remote = securityHelper.getRemoteUser();
-		principal = principalService.findPrincipalByLoginName(remote);
-	}
+    }
 
     private String getMatchDateString(Match match) throws ParseException {
         Date startTime = match.getStartTime();
