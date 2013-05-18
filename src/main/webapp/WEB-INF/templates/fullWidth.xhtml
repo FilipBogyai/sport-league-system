@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Sport League System - #{currentTitle}</title>
+    <meta name="keywords"
+          content="league, match, tennis, football, ping pong, sport"/>
+    <meta name="description" content="Awesome page to choose your league"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <h:outputStylesheet name="css/styles.css"/>
+</h:head>
+<h:body>
+    <div id="tmeplatemo_container">
+
+        <ui:include src="header.xhtml"/>
+
+        <div id="tmeplatemo_content">
+
+            <ui:insert name="content">
+            </ui:insert>
+
+            <div class="cleaner"></div>
+        </div>
+        <!-- end of content -->
+
+        <ui:include src="footer.xhtml"/>
+
+    </div>
+    <!-- end of container -->
+</h:body>
+</html>
