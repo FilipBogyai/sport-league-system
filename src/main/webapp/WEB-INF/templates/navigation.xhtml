@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <div id="templatemo_menu">
+        <ul>
+            <li>
+                <h:link value="Home" outcome="/index"
+                        styleClass="#{currentTitle=='Home' ? 'current' : ''}" rendered="#{securityHelper.authorized}"/>
+            </li>
+            <li>
+                <h:link value="Sports" outcome="/sports/index"
+                        styleClass="#{currentTitle=='Sports' ? 'current' : ''}"
+                        rendered="#{securityHelper.authorized}"/>
+            </li>
+            <li>
+                <h:link value="My Leagues" outcome="/leagues/index"
+                        styleClass="#{currentTitle=='Leagues' ? 'current' : ''}"
+                        rendered="#{securityHelper.authorized}"/>
+            </li>
+            <li>
+                <h:link value="My Matches" outcome="/matches/index"
+                        styleClass="#{currentTitle=='Matches' ? 'current' : ''}"
+                        rendered="#{securityHelper.authorized}"/>
+            </li>
+            <li>
+                <h:link value="My Account" outcome="/accounts/index"
+                        styleClass="#{currentTitle=='Account' ? 'current' : ''}"
+                        rendered="#{securityHelper.authorized}"/>
+            </li>
+            <li>
+                <h:link value="Users" outcome="/users/index"
+                        styleClass="#{currentTitle=='Users' ? 'current' : ''}"
+                        rendered="#{securityHelper.isInRole('ADMIN')}"/>
+            </li>
+            <li>
+                <h:link value="About Us" outcome="/about"
+                        styleClass="#{currentTitle=='About' ? 'current' : ''}"
+                        rendered="#{securityHelper.isInRoles('PLAYER', 'LEAGUE_SUPERVISOR')}"/></li>
+            <li>
+                <h:form>
+                    <h:commandLink action="#{loginController.logout}" value="Logout" styleClass="last"
+                                   rendered="#{securityHelper.authorized}"/>
+                </h:form>
+            </li>
+        </ul>
+    </div>
+    <!-- end of menu -->
+</ui:composition>
