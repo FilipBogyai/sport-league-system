@@ -3,15 +3,7 @@ package cz.muni.fi.pv243.sportleaguesystem.entities;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -54,11 +46,11 @@ public class Match {
 
     @Min(value = 0)   
     @Max(value = 200)
-    private int scorePlayer1;
+    private Integer scorePlayer1;
 
     @Min(value = 0)
     @Max(value = 200)
-    private int scorePlayer2;
+    private Integer scorePlayer2;
         
     private boolean approved;
     
@@ -104,16 +96,16 @@ public class Match {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	public int getScorePlayer1() {
+	public Integer getScorePlayer1() {
 		return scorePlayer1;
 	}
-	public void setScorePlayer1(int scorePlayer1) {
+	public void setScorePlayer1(Integer scorePlayer1) {
 		this.scorePlayer1 = scorePlayer1;
 	}
-	public int getScorePlayer2() {
+	public Integer getScorePlayer2() {
 		return scorePlayer2;
 	}
-	public void setScorePlayer2(int scorePlayer2) {
+	public void setScorePlayer2(Integer scorePlayer2) {
 		this.scorePlayer2 = scorePlayer2;
 	}
 	public boolean isApproved() {
