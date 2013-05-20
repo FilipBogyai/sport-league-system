@@ -72,4 +72,11 @@
         </tr>
         </tbody>
     </table>
+    <script>
+        var pickerSettings = {
+            dateFormat: 'yy-mm-dd'
+        };
+        $('input[id*=startTime]').datetimepicker(pickerSettings);
+        $('input[id*=endTime]').datetimepicker(pickerSettings);
+    </script>
 </ui:composition>
