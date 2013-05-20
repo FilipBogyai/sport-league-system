@@ -10,11 +10,21 @@
         <div>
 
             <div class="header_03">Matches:</div>
+            <h:messages infoClass="valid" globalOnly="true"/>
 
             <div class="button_01">
-                <h:link value="Back to My Leagues" outcome="/leagues/index" />
+                <h:link value="Back to My Leagues" outcome="/leagues/index"/>
             </div>
-            <br />
+            <c:if test="#{securityHelper.isInRole('LEAGUE_SUPERVISOR')}">
+                <div class="button_01">
+                    <h:form>
+                        <h:commandLink id="add" action="#{matchesController.generateMatches}" value="Generate matches">
+                            <f:param name="leagueID" value="#{matchesController.league.id}"/>
+                        </h:commandLink>
+                    </h:form>
+                </div>
+            </c:if>
+            <br/>
 
             <c:choose>
                 <c:when test="#{empty matches}">
@@ -33,11 +43,7 @@
                         </thead>
                         <c:forEach items="#{matches}" var="matchesMap">
                             <tr class="matches-date-row">
-                                <td>
-                                    <h:outputText value="#{matchesMap.key}">
-                                        <f:convertDateTime pattern="yyyy-MM-dd" />
-                                    </h:outputText>
-                                </td>
+                                <td>#{matchesMap.key}</td>
                                 <td colspan="4"></td>
                             </tr>
                             <c:forEach items="#{matchesMap.value}" var="wrapper">

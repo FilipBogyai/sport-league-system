@@ -8,6 +8,7 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.MatchService;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,7 +29,7 @@ public class MatchesController {
     @Inject
     private LeagueService leagueService;
 
-    private Map<Date, List<MatchWrapper>> matches;
+    private Map<String, List<MatchWrapper>> matches;
     private League league;
 
     @Produces
@@ -39,8 +40,13 @@ public class MatchesController {
 
     @Produces
     @Named
-    public Map<Date, List<MatchWrapper>> getMatches() {
+    public Map<String, List<MatchWrapper>> getMatches() {
         return matches;
+    }
+
+    public void generateMatches() {
+        leagueService.generateMatches(league);
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Matches generated successfully.", "Matches generated successfully"));
     }
 
     @PostConstruct
@@ -48,15 +54,16 @@ public class MatchesController {
         Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
         String leagueId = params.get("leagueID");
 
+        matches = new TreeMap<String, List<MatchWrapper>>();
+        if (leagueId == null) return;
         league = leagueService.getById(Long.parseLong(leagueId));
-        matches = new TreeMap<Date, List<MatchWrapper>>();
 
         for (Match match : league.getMatches()) {
             MatchWrapper wrapper = new MatchWrapper();
             wrapper.setMatch(match);
             wrapper.setDate(getMatchDateString(match));
 
-            Date key = getDateKey(match.getStartTime());
+            String key = getDateKey(match.getStartTime());
             if (!matches.containsKey(key)) {
                 List<MatchWrapper> dayMatches = new ArrayList<MatchWrapper>();
                 dayMatches.add(wrapper);
@@ -73,6 +80,8 @@ public class MatchesController {
 
         DateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
+        if (startTime == null && endTime == null)
+            return "";
         if (endTime == null)
             return timeFormat.format(startTime);
 
@@ -90,9 +99,10 @@ public class MatchesController {
         return builder.toString();
     }
 
-    private Date getDateKey(Date date) throws ParseException {
+    private String getDateKey(Date date) throws ParseException {
+        if (date == null) return "Date not set";
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        return formatter.parse(formatter.format(date));
+        return formatter.format(date);
     }
 
     public class MatchWrapper {
