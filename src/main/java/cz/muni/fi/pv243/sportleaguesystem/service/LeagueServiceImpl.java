@@ -113,7 +113,7 @@ public class LeagueServiceImpl implements LeagueService {
 		List<User> players = new ArrayList<User>(league.getPlayers());
 		int count = players.size();
 		Random randomGenerator = new Random();
-		for(int i =0; i< count/2 ; i++){
+		for(int i = 0; i < count/2 ; i++){
 			int randomInt = randomGenerator.nextInt(count - 2*i);
 			User player1 = players.get(randomInt);
 			players.remove(randomInt);

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <table>
+        <tbody>
+        <tr>
+            <td class="titleCell">
+                <h:outputLabel for="startTime" value="Start time:" styleClass="attr_name"/>
+            </td>
+            <td>
+                <h:inputText id="startTime" value="#{match.startTime}">
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+                </h:inputText>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><h:message for="startTime" errorClass="invalid"/></td>
+        </tr>
+
+        <tr>
+            <td class="titleCell">
+                <h:outputLabel for="endTime" value="End time:" styleClass="attr_name"/>
+            </td>
+            <td>
+                <h:inputText id="endTime" value="#{match.endTime}">
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+                </h:inputText>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><h:message for="endTime" errorClass="invalid"/></td>
+        </tr>
+
+        <tr>
+            <td class="titleCell">
+                <h:outputLabel for="location" value="Location:" styleClass="attr_name"/>
+            </td>
+            <td>
+                <h:inputText id="location" value="#{match.location}"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><h:message for="location" errorClass="invalid"/></td>
+        </tr>
+
+        <tr>
+            <td class="titleCell">
+                <h:outputLabel for="score1" value="#{match.player1.firstName} #{match.player1.lastName}'s score:" styleClass="attr_name"/>
+            </td>
+            <td>
+                <h:inputText id="score1" value="#{match.scorePlayer1}"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><h:message for="score1" errorClass="invalid"/></td>
+        </tr>
+
+        <tr>
+            <td class="titleCell">
+                <h:outputLabel for="score2" value="#{match.player2.firstName} #{match.player2.lastName}'s score:" styleClass="attr_name"/>
+            </td>
+            <td>
+                <h:inputText id="score2" value="#{match.scorePlayer2}"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><h:message for="score2" errorClass="invalid"/></td>
+        </tr>
+        </tbody>
+    </table>
+</ui:composition>

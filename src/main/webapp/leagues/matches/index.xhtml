@@ -39,6 +39,7 @@
                             <th style="width: 100px">Score</th>
                             <th style="width: 180px">Player 2</th>
                             <th>Location</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <c:forEach items="#{matches}" var="matchesMap">
@@ -53,6 +54,16 @@
                                     <td>#{wrapper.match.scorePlayer1} - #{wrapper.match.scorePlayer2}</td>
                                     <td class="left">#{wrapper.match.player2.firstName} #{wrapper.match.player2.lastName}</td>
                                     <td>#{wrapper.match.location}</td>
+                                    <td>
+                                        <c:if test="#{wrapper.canEdit}">
+                                            <h:link outcome="/leagues/matches/edit">
+                                                <f:param name="leagueID" value="#{wrapper.match.league.id}"/>
+                                                <f:param name="matchID" value="#{wrapper.match.id}"/>
+                                                <img src="#{request.contextPath}/resources/css/images/edit_icon.png"
+                                                     alt="Edit"/>
+                                            </h:link>
+                                        </c:if>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </c:forEach>

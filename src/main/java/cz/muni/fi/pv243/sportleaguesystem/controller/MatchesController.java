@@ -1,9 +1,13 @@
 package cz.muni.fi.pv243.sportleaguesystem.controller;
 
+import cz.muni.fi.pv243.sportleaguesystem.RolesEnum;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
+import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
+import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.LeagueService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.MatchService;
+import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -29,8 +33,22 @@ public class MatchesController {
     @Inject
     private LeagueService leagueService;
 
+    @Inject
+    private PrincipalService principalService;
+
+    @Inject
+    private SecurityHelper securityHelper;
+
     private Map<String, List<MatchWrapper>> matches;
+    private Match match;
     private League league;
+    private Principal principal;
+
+    @Produces
+    @Named
+    public Match getMatch() {
+        return match;
+    }
 
     @Produces
     @Named
@@ -50,18 +68,43 @@ public class MatchesController {
     }
 
     @PostConstruct
-    public void populateMatches() throws ParseException {
+    public void init() throws ParseException {
         Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
         String leagueId = params.get("leagueID");
+        String matchId = params.get("matchID");
 
-        matches = new TreeMap<String, List<MatchWrapper>>();
+        String remote = securityHelper.getRemoteUser();
+        principal = principalService.findPrincipalByLoginName(remote);
+
         if (leagueId == null) return;
         league = leagueService.getById(Long.parseLong(leagueId));
+
+        if (matchId == null) {
+            createMatchesList();
+        } else {
+            Match tmpMatch = matchService.getById(Long.parseLong(matchId));
+            if (!tmpMatch.getLeague().equals(league)) return;
+            match = tmpMatch;
+        }
+    }
+
+    public String save() {
+        matchService.updateMatch(match);
+        return "index?faces-redirect=true&leagueID=" + league.getId();
+    }
+
+    private void createMatchesList() throws ParseException {
+        matches = new TreeMap<String, List<MatchWrapper>>();
 
         for (Match match : league.getMatches()) {
             MatchWrapper wrapper = new MatchWrapper();
             wrapper.setMatch(match);
             wrapper.setDate(getMatchDateString(match));
+            User user = principal.getUser();
+            if (securityHelper.isInRoles(RolesEnum.ADMIN.toString(), RolesEnum.LEAGUE_SUPERVISOR.toString()) ||
+                    user.equals(match.getPlayer1()) || user.equals(match.getPlayer2())) {
+                wrapper.setCanEdit(true);
+            }
 
             String key = getDateKey(match.getStartTime());
             if (!matches.containsKey(key)) {
@@ -78,7 +121,7 @@ public class MatchesController {
         Date startTime = match.getStartTime();
         Date endTime = match.getEndTime();
 
-        DateFormat timeFormat = new SimpleDateFormat("hh:mm");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
         if (startTime == null && endTime == null)
             return "";
@@ -91,7 +134,7 @@ public class MatchesController {
             builder.append(" - ");
             builder.append(timeFormat.format(endTime));
         } else {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             builder.append(dateFormat.format(startTime));
             builder.append(" - ");
             builder.append(dateFormat.format(endTime));
@@ -108,6 +151,7 @@ public class MatchesController {
     public class MatchWrapper {
         private Match match;
         private String date;
+        private boolean canEdit;
 
         @Produces
         public Match getMatch() {
@@ -125,6 +169,15 @@ public class MatchesController {
 
         public void setDate(String date) {
             this.date = date;
+        }
+
+        @Produces
+        public boolean isCanEdit() {
+            return canEdit;
+        }
+
+        public void setCanEdit(boolean canEdit) {
+            this.canEdit = canEdit;
         }
     }
 }
