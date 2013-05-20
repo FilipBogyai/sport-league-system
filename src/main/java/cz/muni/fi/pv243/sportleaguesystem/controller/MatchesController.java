@@ -39,6 +39,8 @@ public class MatchesController {
     @Inject
     private SecurityHelper securityHelper;
 
+    private Map<String, String> params;
+
     private Map<String, List<MatchWrapper>> matches;
     private Match match;
     private League league;
@@ -48,6 +50,18 @@ public class MatchesController {
     @Named
     public Match getMatch() {
         return match;
+    }
+
+    @Produces
+    @Named
+    public String getPlayer1Name() {
+        return match.getPlayer1().getFirstName() + " " + match.getPlayer1().getLastName();
+    }
+
+    @Produces
+    @Named
+    public String getPlayer2Name() {
+        return match.getPlayer2().getFirstName() + " " + match.getPlayer2().getLastName();
     }
 
     @Produces
@@ -64,12 +78,13 @@ public class MatchesController {
 
     public void generateMatches() {
         leagueService.generateMatches(league);
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Matches generated successfully.", "Matches generated successfully"));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Matches generated successfully.", "Matches generated successfully"));
     }
 
     @PostConstruct
     public void init() throws ParseException {
-        Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+        params = facesContext.getExternalContext().getRequestParameterMap();
         String leagueId = params.get("leagueID");
         String matchId = params.get("matchID");
 
@@ -89,6 +104,10 @@ public class MatchesController {
     }
 
     public String save() {
+        // get data from HTML input
+        match.setScorePlayer1(getScoreFromParameter("match-edit:scorePlayer1"));
+        match.setScorePlayer2(getScoreFromParameter("match-edit:scorePlayer2"));
+
         matchService.updateMatch(match);
         return "index?faces-redirect=true&leagueID=" + league.getId();
     }
@@ -146,6 +165,11 @@ public class MatchesController {
         if (date == null) return "Date not set";
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(date);
+    }
+
+    private Integer getScoreFromParameter(String param) {
+        String scoreStr = params.get(param);
+        return (!scoreStr.trim().equals("")) ? new Integer(scoreStr) : null;
     }
 
     public class MatchWrapper {

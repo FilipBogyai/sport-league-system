@@ -47,10 +47,11 @@
 
         <tr>
             <td class="titleCell">
-                <h:outputLabel for="score1" value="#{match.player1.firstName} #{match.player1.lastName}'s score:" styleClass="attr_name"/>
+                <h:outputLabel for="score1" value="#{player1Name}'s score:" styleClass="attr_name"/>
             </td>
             <td>
-                <h:inputText id="score1" value="#{match.scorePlayer1}"/>
+                <input type="number" id="match-edit:scorePlayer1" min="0" max="200"
+                       name="match-edit:scorePlayer1" value="#{match.scorePlayer1}" />
             </td>
         </tr>
         <tr>
@@ -59,10 +60,11 @@
 
         <tr>
             <td class="titleCell">
-                <h:outputLabel for="score2" value="#{match.player2.firstName} #{match.player2.lastName}'s score:" styleClass="attr_name"/>
+                <h:outputLabel for="score2" value="#{player2Name}'s score:" styleClass="attr_name"/>
             </td>
             <td>
-                <h:inputText id="score2" value="#{match.scorePlayer2}"/>
+                <input type="number" id="match-edit:scorePlayer2" min="0" max="200"
+                       name="match-edit:scorePlayer2" value="#{match.scorePlayer2}" />
             </td>
         </tr>
         <tr>

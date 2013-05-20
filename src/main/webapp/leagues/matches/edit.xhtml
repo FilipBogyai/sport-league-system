@@ -6,21 +6,19 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:param name="currentTitle" value="Sports" />
 	<ui:define name="content">
-		<div class="header_01">Edit League</div>
+		<div class="header_01">Edit #{matchesController.league.name} Match</div>
 
 		<div class="section_w480">
-			<p class="em_text">On this page below you can edit the league you
+			<p class="em_text">On this page below you can edit the match you
 				have selected on the previous page.</p>
 		</div>
 
 		<div class="section_w480">
 
-			<div class="header_03">Edit #{matchesController.league.name} match:</div>
-			<h:form id="reg">
-				<ui:insert name="formLeague">
-					<ui:include src="/leagues/matches/formMatch.xhtml" />
-				</ui:insert>
-				<p>
+			<div class="header_03">#{player1Name} <span style="font: normal; color: #B0B0B0;">vs</span> #{player2Name}</div>
+			<h:form id="match-edit">
+				<ui:include src="/leagues/matches/formMatch.xhtml" />
+				<div>
 					<h:panelGrid columns="2">
 						<h:column>
 							<div class="button_01">
@@ -39,7 +37,7 @@
 							</div>
 						</h:column>
 					</h:panelGrid>
-				</p>
+				</div>
 			</h:form>
 		</div>
 
