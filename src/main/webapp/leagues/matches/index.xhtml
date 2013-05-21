@@ -34,12 +34,12 @@
                     <table id="table">
                         <thead>
                         <tr>
-                            <th style="width: 200px;">Time</th>
-                            <th style="width: 180px">Player 1</th>
-                            <th style="width: 100px">Score</th>
-                            <th style="width: 180px">Player 2</th>
-                            <th>Location</th>
-                            <th></th>
+                            <th><div style="width: 180px;">Time</div></th>
+                            <th><div style="width: 175px">Player 1</div></th>
+                            <th><div style="width: 80px">Score</div></th>
+                            <th><div style="width: 175px">Player 2</div></th>
+                            <th><div style="width: 154px">Location</div></th>
+                            <th><div style="width: 40px; height: 1px;"> </div></th>
                         </tr>
                         </thead>
                         <c:forEach items="#{matchesController.matches}" var="matchesMap">
@@ -71,7 +71,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <div class="cleaner"></div>
+            <div class="margin_bottom_50"></div>
         </div>
     </ui:define>
 </ui:composition>
