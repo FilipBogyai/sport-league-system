@@ -9,7 +9,7 @@
     <ui:define name="content">
         <div>
 
-            <div class="header_03">Matches:</div>
+            <div class="header_01">Matches in #{matchesController.league.name}:</div>
             <h:messages infoClass="valid" globalOnly="true"/>
 
             <div class="button_01">
@@ -27,8 +27,8 @@
             <br/>
 
             <c:choose>
-                <c:when test="#{empty matches}">
-                    <em>No league was found.</em>
+                <c:when test="#{empty matchesController.matches}">
+                    <em>No match was found.</em>
                 </c:when>
                 <c:otherwise>
                     <table id="table">
@@ -42,7 +42,7 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <c:forEach items="#{matches}" var="matchesMap">
+                        <c:forEach items="#{matchesController.matches}" var="matchesMap">
                             <tr class="matches-date-row">
                                 <td>#{matchesMap.key}</td>
                                 <td colspan="4"></td>
