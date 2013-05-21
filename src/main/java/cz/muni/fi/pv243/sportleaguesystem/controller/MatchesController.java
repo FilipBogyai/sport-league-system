@@ -91,14 +91,19 @@ public class MatchesController {
         String remote = securityHelper.getRemoteUser();
         principal = principalService.findPrincipalByLoginName(remote);
 
-        if (leagueId == null) return;
-        league = leagueService.getById(Long.parseLong(leagueId));
+        if (leagueId != null) {
+            league = leagueService.getById(Long.parseLong(leagueId));
+        }
 
         if (matchId == null) {
-            createMatchesList();
+            if (league != null) {
+                createMatchesList(league.getMatches());
+            } else {
+                createMatchesList(matchService.findByUser(principal.getUser()));
+            }
         } else {
             Match tmpMatch = matchService.getById(Long.parseLong(matchId));
-            if (!tmpMatch.getLeague().equals(league)) return;
+            if (league != null && !tmpMatch.getLeague().equals(league)) return;
             if (!isUserAuthorizedForMatch(principal.getUser(), tmpMatch)) return;
 
             match = tmpMatch;
@@ -111,13 +116,15 @@ public class MatchesController {
         match.setScorePlayer2(getScoreFromParameter("match-edit:scorePlayer2"));
 
         matchService.updateMatch(match);
-        return "index?faces-redirect=true&leagueID=" + league.getId();
+
+        String urlParams = (league != null) ? "&leagueID=" + league.getId() : "";
+        return "index?faces-redirect=true" + urlParams;
     }
 
-    private void createMatchesList() throws ParseException {
+    private void createMatchesList(List<Match> matchesList) throws ParseException {
         matches = new TreeMap<String, List<MatchWrapper>>();
 
-        for (Match match : league.getMatches()) {
+        for (Match match : matchesList) {
             MatchWrapper wrapper = new MatchWrapper();
             wrapper.setMatch(match);
             wrapper.setDate(getMatchDateString(match));
