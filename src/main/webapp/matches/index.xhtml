@@ -7,6 +7,19 @@
                 template="/WEB-INF/templates/fullWidth.xhtml">
     <ui:param name="currentTitle" value="My matches"/>
     <ui:define name="content">
+        <div class="header_01">My matches</div>
+
+        <div class="section_w480">
+            <div class="image_wrapper fl_img">
+                <img src="#{request.contextPath}/resources/css/images/match.jpg"
+                     alt="Match" />
+            </div>
+            <p class="em_text">On this page below you can find the list of
+                matches you played, or you are supposed to play.
+                You can also edit date, location, or score of your matches.</p>
+        </div>
+
+        <div class="header_03">List of my matches:</div>
 
         <c:choose>
             <c:when test="#{empty matches}">
@@ -52,6 +65,6 @@
             </c:otherwise>
         </c:choose>
 
-        <div class="cleaner"></div>
+        <div class="margin_bottom_50"></div>
     </ui:define>
 </ui:composition>
