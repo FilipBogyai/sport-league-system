@@ -34,6 +34,7 @@
 								<th>Description</th>
 								<th>Sport</th>
                                 <th>League Matches</th>
+                                <th>League Players</th>
 							</tr>
 						</thead>
 						<c:forEach items="#{userLeagues}" var="league">
@@ -43,6 +44,11 @@
 								<td>#{league.sport.name}</td>
                                 <td>
                                     <h:link value="View matches" outcome="/leagues/matches/index">
+                                        <f:param name="leagueID" value="#{league.id}" />
+                                    </h:link>
+                                </td>
+                                <td>
+                                    <h:link value="View players" outcome="/leagues/players/index">
                                         <f:param name="leagueID" value="#{league.id}" />
                                     </h:link>
                                 </td>
