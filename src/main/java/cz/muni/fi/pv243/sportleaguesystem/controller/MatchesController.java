@@ -76,10 +76,11 @@ public class MatchesController {
         return matches;
     }
 
-    public void generateMatches() {
+    public String generateMatches() {
         leagueService.generateMatches(league);
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "Matches generated successfully.", "Matches generated successfully"));
+        return "index?faces-redirect=true&leagueID=" + league.getId();
     }
 
     @PostConstruct
