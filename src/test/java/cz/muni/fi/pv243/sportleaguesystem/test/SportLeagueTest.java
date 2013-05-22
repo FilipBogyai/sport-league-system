@@ -106,7 +106,7 @@ public class SportLeagueTest {
 		
 		league.getPlayers().add(player1);
 		leagueDAO.update(league);
-		//player1.getLeagues().add(league);
+		//player1.getSportLeagues().add(league);
 		//userDAO.update(player1);
 		
 		Match match = new Match();

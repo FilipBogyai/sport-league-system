@@ -1,6 +1,5 @@
 package cz.muni.fi.pv243.sportleaguesystem.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,7 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 
 @Model
-public class LeagueController {
+public class SportLeaguesController {
 
 	@Inject
 	private FacesContext facesContext;
@@ -38,7 +37,7 @@ public class LeagueController {
 	@Inject
 	private PrincipalService principalService;
 	
-	private List<LeagueWrapper> leagues;
+	private List<LeagueWrapper> sportLeagues;
 	private League newLeague;
 	private String sportId;
 	private Sport sport;	
@@ -56,8 +55,8 @@ public class LeagueController {
 
 	@Produces
 	@Named
-	public List<LeagueWrapper> getLeagues() {
-		return leagues;
+	public List<LeagueWrapper> getSportLeagues() {
+		return sportLeagues;
 	}
 
 	public String add() {
@@ -100,7 +99,7 @@ public class LeagueController {
 		String remote = securityHelper.getRemoteUser();
 		principal = principalService.findPrincipalByLoginName(remote);
 		
-		leagues = new ArrayList<LeagueWrapper>();
+		sportLeagues = new ArrayList<LeagueWrapper>();
 		
 		if (sportId != null) {
 			sport = sportService.getById(Long.parseLong(sportId));
@@ -109,7 +108,7 @@ public class LeagueController {
 				LeagueWrapper wrapper = new LeagueWrapper();
 				wrapper.setLeague(league);
 				wrapper.setIsUserLogged(principalLeagues.get(league).booleanValue());
-				leagues.add(wrapper);
+				sportLeagues.add(wrapper);
 			}
 		}
 	}

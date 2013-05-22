@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <div class="header_03">#{player1Name} <span style="font: normal; color: #B0B0B0;">vs</span> #{player2Name}
+    </div>
+    <h:form id="match-edit">
+        <ui:include src="/matches/formMatch.xhtml"/>
+
+        <div>
+            <h:panelGrid columns="2">
+                <h:column>
+                    <div class="button_01">
+                        <h:commandLink id="save" action="#{matchesController.save}"
+                                       value="Save Changes">
+                            <f:param name="leagueID" value="#{matchesController.league.id}"/>
+                            <f:param name="matchID" value="#{match.id}"/>
+                        </h:commandLink>
+                    </div>
+                </h:column>
+                <h:column>
+                    <div class="button_01">
+                        <h:link value="Go Back" outcome="#{actionBase}/matches/index">
+                            <f:param name="leagueID" value="#{matchesController.league.id}"/>
+                        </h:link>
+                    </div>
+                </h:column>
+            </h:panelGrid>
+        </div>
+    </h:form>
+</ui:composition>

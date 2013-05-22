@@ -62,12 +62,24 @@
 		</auth-constraint>
 	</security-constraint>
 
+    <security-constraint>
+        <display-name>leagues section</display-name>
+        <web-resource-collection>
+            <web-resource-name>leagues</web-resource-name>
+            <url-pattern>/leagues/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>LEAGUE_SUPERVISOR</role-name>
+        </auth-constraint>
+    </security-constraint>
+
 	<security-constraint>
 		<display-name>authorized sections</display-name>
 		<web-resource-collection>
 			<web-resource-name>authorized</web-resource-name>
 			<url-pattern>/sports/*</url-pattern>
 			<url-pattern>/leagues/*</url-pattern>
+			<url-pattern>/userleagues/*</url-pattern>
 			<url-pattern>/accounts/*</url-pattern>
 			<url-pattern>/matches/*</url-pattern>
 			<url-pattern>/index.xhtml</url-pattern>

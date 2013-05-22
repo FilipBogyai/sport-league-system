@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import cz.muni.fi.pv243.sportleaguesystem.RolesEnum;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
@@ -21,16 +22,13 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 
 @Model
-public class UserLeaguesController {
+public class LeaguesController {
 
 	@Inject
 	private FacesContext facesContext;
 	
 	@Inject
 	private LeagueService leagueService;
-	
-	@Inject
-	private SportService sportService;
 	
 	@Inject
 	private SecurityHelper securityHelper;
@@ -43,15 +41,23 @@ public class UserLeaguesController {
 
 	@Produces
 	@Named
-	public List<League> getUserLeagues() {
+	public List<League> getLeagues() {
 		return leagues;
 	}
 	
 	@PostConstruct
 	public void populateLeagues() {
-		String remote = securityHelper.getRemoteUser();
-		principal = principalService.findPrincipalByLoginName(remote);
-		
-		leagues = principal.getUser().getLeagues();
+        if (facesContext.getViewRoot().getViewId().startsWith("/userleagues")) {
+            String remote = securityHelper.getRemoteUser();
+            principal = principalService.findPrincipalByLoginName(remote);
+
+            leagues = principal.getUser().getLeagues();
+        } else if (securityHelper.isInRole(RolesEnum.LEAGUE_SUPERVISOR.toString())) {
+            // TODO: get all leagues
+            String remote = securityHelper.getRemoteUser();
+            principal = principalService.findPrincipalByLoginName(remote);
+
+            leagues = principal.getUser().getLeagues();
+        }
 	}
 }

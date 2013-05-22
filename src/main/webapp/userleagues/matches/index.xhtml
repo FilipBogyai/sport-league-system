@@ -2,10 +2,10 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/WEB-INF/templates/fullWidth.xhtml">
-    <ui:param name="currentTitle" value="Leagues"/>
+    <ui:param name="currentTitle" value="My leagues"/>
     <ui:define name="content">
-        <ui:include src="list.xhtml">
-            <ui:param name="actionBase" value="/leagues"/>
+        <ui:include src="/leagues/matches/list.xhtml">
+            <ui:param name="actionBase" value="/userleagues"/>
         </ui:include>
     </ui:define>
 </ui:composition>

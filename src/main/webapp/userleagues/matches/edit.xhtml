@@ -4,7 +4,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 template="/WEB-INF/templates/default.xhtml">
-    <ui:param name="currentTitle" value="Leagues"/>
+    <ui:param name="currentTitle" value="My leagues"/>
     <ui:define name="content">
         <div class="header_01">Edit match in #{matchesController.league.name}</div>
 
@@ -15,8 +15,8 @@
 
         <div class="section_w480">
 
-            <ui:include src="editComponent.xhtml">
-                <ui:param name="actionBase" value="/leagues"/>
+            <ui:include src="/leagues/matches/editComponent.xhtml">
+                <ui:param name="actionBase" value="/userleagues"/>
             </ui:include>
 
         </div>
