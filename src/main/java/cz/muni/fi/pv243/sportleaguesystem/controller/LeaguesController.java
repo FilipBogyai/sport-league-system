@@ -53,11 +53,8 @@ public class LeaguesController {
 
             leagues = principal.getUser().getLeagues();
         } else if (securityHelper.isInRole(RolesEnum.LEAGUE_SUPERVISOR.toString())) {
-            // TODO: get all leagues
-            String remote = securityHelper.getRemoteUser();
-            principal = principalService.findPrincipalByLoginName(remote);
-
-            leagues = principal.getUser().getLeagues();
+            
+            leagues = leagueService.findAll();
         }
 	}
 }

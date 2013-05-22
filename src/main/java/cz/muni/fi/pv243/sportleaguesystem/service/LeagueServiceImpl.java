@@ -82,6 +82,11 @@ public class LeagueServiceImpl implements LeagueService {
 	}
 	
 	@Override
+	public List<League> findAll(){
+		return leagueDAO.findAll();		
+	}
+	
+	@Override
 	public List<League> findBySport(Sport sport) {
 		if (sport == null) {
             throw new IllegalArgumentException("null sport");

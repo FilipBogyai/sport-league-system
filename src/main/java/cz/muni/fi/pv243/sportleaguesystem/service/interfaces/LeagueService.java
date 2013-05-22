@@ -55,6 +55,13 @@ public interface LeagueService {
     Map<League, Boolean> findByUser(User user, Sport sport);       
     
     /**
+     * Returns list of all leagues.
+     * 
+     * @return all leagues or empty list if there are none.   
+     */
+    List<League> findAll();
+    
+    /**
      * Returns list of Leagues in given sport
      *
      * @throws IllegalArgumentException if parameter is null.   
