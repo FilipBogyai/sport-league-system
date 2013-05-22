@@ -22,9 +22,9 @@
 						<h:panelGrid columns="2">
 							<h:column>
 								<div class="button_01">
-									<h:commandLink id="add" action="#{leagueController.add}"
+									<h:commandLink id="add" action="#{sportLeaguesController.add}"
 										value="Submit">
-										<f:param name="sportID" value="#{leagueController.sportId}" />
+										<f:param name="sportID" value="#{sportLeaguesController.sportId}" />
 									</h:commandLink>
 								</div>
 							</h:column>
@@ -98,9 +98,9 @@
 										<c:otherwise>
 											<h:form>
 												<h:commandLink id="signin"
-													action="#{leagueController.signIn}" value="Sign In">
+													action="#{sportLeaguesController.signIn}" value="Sign In">
 													<f:param name="leagueID" value="#{wrapper.league.id}" />
-													<f:param name="sportID" value="#{leagueController.sportId}" />
+													<f:param name="sportID" value="#{sportLeaguesController.sportId}" />
 												</h:commandLink>
 											</h:form>
 										</c:otherwise>>
@@ -110,7 +110,7 @@
 									<td>
 										<h:link outcome="/sports/leagues/edit">
 											<f:param name="leagueID" value="#{wrapper.league.id}" />
-											<f:param name="sportID" value="#{leagueController.sportId}" />
+											<f:param name="sportID" value="#{sportLeaguesController.sportId}" />
 											<img
 												src="#{request.contextPath}/resources/css/images/edit_icon.png"
 												alt="Edit" />
@@ -119,9 +119,9 @@
 									<td>
 										<h:form>
 											<h:commandLink id="remove"
-												action="#{leagueController.remove}">
+												action="#{sportLeaguesController.remove}">
 												<f:param name="leagueID" value="#{wrapper.league.id}" />
-												<f:param name="sportID" value="#{leagueController.sportId}" />
+												<f:param name="sportID" value="#{sportLeaguesController.sportId}" />
 												<img
 													src="#{request.contextPath}/resources/css/images/remove_icon.png"
 													alt="Remove" />
