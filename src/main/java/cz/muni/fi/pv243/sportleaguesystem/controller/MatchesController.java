@@ -105,7 +105,7 @@ public class MatchesController {
         } else {
             Match tmpMatch = matchService.getById(Long.parseLong(matchId));
             if (league != null && !tmpMatch.getLeague().equals(league)) return;
-            if (!isUserAuthorizedForMatch(principal.getUser(), tmpMatch)) return;
+            if (!securityHelper.isUserAuthorizedForMatch(principal.getUser(), tmpMatch)) return;
 
             match = tmpMatch;
         }
@@ -129,7 +129,7 @@ public class MatchesController {
             MatchWrapper wrapper = new MatchWrapper();
             wrapper.setMatch(match);
             wrapper.setDate(getMatchDateString(match));
-            wrapper.setCanEdit(isUserAuthorizedForMatch(principal.getUser(), match));
+            wrapper.setCanEdit(securityHelper.isUserAuthorizedForMatch(principal.getUser(), match));
 
             String key = getDateKey(match.getStartTime());
             if (!matches.containsKey(key)) {
@@ -165,11 +165,6 @@ public class MatchesController {
             builder.append(dateFormat.format(endTime));
         }
         return builder.toString();
-    }
-
-    private boolean isUserAuthorizedForMatch(User user, Match match) {
-        return securityHelper.isInRoles(RolesEnum.ADMIN.toString(), RolesEnum.LEAGUE_SUPERVISOR.toString()) ||
-                user.equals(match.getPlayer1()) || user.equals(match.getPlayer2());
     }
 
     private String getDateKey(Date date) throws ParseException {
