@@ -118,11 +118,19 @@ public class LeagueServiceImpl implements LeagueService {
 	public void addPlayer(User user, League league){
 		
 		if (user == null ){
-			logger.error("Trying to add a null player to a league");
-			throw new IllegalArgumentException("null league");
+			logger.error("Adding a null player to a league");
+			throw new IllegalArgumentException("null user");
 		}
 		if (user.getId() == null ){
-			logger.error("Trying to add a nonexistent player to a league");
+			logger.error("Adding a player with null id to a league");
+			throw new IllegalArgumentException("null user id");
+		}
+		if (league == null) {
+			logger.error("Adding a player to a null league");
+			throw new IllegalArgumentException("null league");
+		}
+		if (league.getId() == null) {
+			logger.error("Adding a player to a league with null id");
 			throw new IllegalArgumentException("null league id");
 		}
 		
