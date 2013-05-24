@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import cz.muni.fi.pv243.sportleaguesystem.RolesEnum;
+import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
+import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 
 @Model
 public class SecurityHelper {
@@ -33,6 +35,11 @@ public class SecurityHelper {
 				RolesEnum.PLAYER.toString());
 	}
 
+	public boolean isUserAuthorizedForMatch(User user, Match match) {
+        return isInRoles(RolesEnum.ADMIN.toString(), RolesEnum.LEAGUE_SUPERVISOR.toString()) ||
+                user.equals(match.getPlayer1()) || user.equals(match.getPlayer2());
+    }
+	
 	private boolean hasRoles(String... roles) {
 		HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
 		if (request.getRemoteUser() != null) {
