@@ -38,7 +38,7 @@ public class LeagueServiceImpl implements LeagueService {
                 throw new IllegalArgumentException("league id already set");
         }
         leagueDAO.create(league);
-        logger.info("Created league. Id: " + league.getId() + " Sport: " + league.getSport());
+        logger.info("Created league. Id: " + league.getId() + " Name " + league.getName() + " Sport: " + league.getSport());
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class LeagueServiceImpl implements LeagueService {
 	        throw new IllegalArgumentException("league does not exist");
 	    }
 	    leagueDAO.update(league);
-	    logger.info("Updated league: Id: " + league.getId() + " Sport: " + league.getSport());
+	    logger.info("Updated league: Id: " + league.getId() + " Name: " + league.getName() + " Sport: " + league.getSport());
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class LeagueServiceImpl implements LeagueService {
             throw new IllegalArgumentException("null league");
 	    }
 	    leagueDAO.delete(league);
-		logger.info("Deleted league. Id: " + league.getId() + " Sport: " + league.getSport());
+		logger.info("Deleted league. Id: " + league.getId() + " Name: " + league.getName() + " Sport: " + league.getSport());
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class LeagueServiceImpl implements LeagueService {
 				leagueMap.put(league, false);
 			}
 		}
-	    logger.info("Returning leagues found for user: " + user.getFirstName() + " " + user.getLastName());
+	    logger.info("Returning leagues found for user - Id: " + user.getId() + " Name: " + user.getFirstName() + " " + user.getLastName());
 	    return leagueMap;
 	}
 	
