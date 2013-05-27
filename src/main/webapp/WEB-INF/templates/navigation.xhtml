@@ -1,54 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html">
-    <div id="templatemo_menu">
-        <ul>
-            <li>
-                <h:link value="Home" outcome="/index"
-                        styleClass="#{currentTitle=='Home' ? 'current' : ''}" rendered="#{securityHelper.authorized}"/>
-            </li>
-            <li>
-                <h:link value="Sports" outcome="/sports/index"
-                        styleClass="#{currentTitle=='Sports' ? 'current' : ''}"
-                        rendered="#{securityHelper.authorized}"/>
-            </li>
-            <li>
-                <h:link value="My Leagues" outcome="/userleagues/index"
-                        styleClass="#{currentTitle=='My leagues' ? 'current' : ''}"
-                        rendered="#{securityHelper.authorized}"/>
-            </li>
-            <li>
-                <h:link value="My Matches" outcome="/matches/index"
-                        styleClass="#{currentTitle=='My matches' ? 'current' : ''}"
-                        rendered="#{securityHelper.authorized}"/>
-            </li>
-            <li>
-                <h:link value="My Account" outcome="/accounts/index"
-                        styleClass="#{currentTitle=='Account' ? 'current' : ''}"
-                        rendered="#{securityHelper.authorized}"/>
-            </li>
-            <li>
-                <h:link value="Users" outcome="/users/index"
-                        styleClass="#{currentTitle=='Users' ? 'current' : ''}"
-                        rendered="#{securityHelper.isInRole('ADMIN')}"/>
-            </li>
-            <li>
-                <h:link value="Leagues" outcome="/leagues/index"
-                        styleClass="#{currentTitle=='Leagues' ? 'current' : ''}"
-                        rendered="#{securityHelper.isInRole('LEAGUE_SUPERVISOR')}"/>
-            </li>
-            <li>
-                <h:link value="About Us" outcome="/about"
-                        styleClass="#{currentTitle=='About' ? 'current' : ''}"
-                        rendered="#{securityHelper.isInRole('PLAYER')}"/></li>
-            <li>
-                <h:form>
-                    <h:commandLink action="#{loginController.logout}" value="Logout" styleClass="last"
-                                   rendered="#{securityHelper.authorized}"/>
-                </h:form>
-            </li>
-        </ul>
-    </div>
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core" >
+     <c:if test="#{securityHelper.authorized}">           
+	    <div id="templatemo_menu">
+	        <ul>
+	            <li>
+	                <h:link value="Home" outcome="/index"
+	                        styleClass="#{currentTitle=='Home' ? 'current' : ''}" />
+	            </li>
+	            <li>
+	                <h:link value="Sports" outcome="/sports/index"
+	                        styleClass="#{currentTitle=='Sports' ? 'current' : ''}"/>
+	            </li>
+	            <li>
+	                <h:link value="My Leagues" outcome="/userleagues/index"
+	                        styleClass="#{currentTitle=='My leagues' ? 'current' : ''}"/>
+	            </li>
+	            <li>
+	                <h:link value="My Matches" outcome="/matches/index"
+	                        styleClass="#{currentTitle=='My matches' ? 'current' : ''}"/>
+	            </li>
+	            <li>
+	                <h:link value="My Account" outcome="/accounts/index"
+	                        styleClass="#{currentTitle=='Account' ? 'current' : ''}"/>
+	            </li>
+	            <li>
+	                <h:link value="Users" outcome="/users/index"
+	                        styleClass="#{currentTitle=='Users' ? 'current' : ''}"
+	                        rendered="#{securityHelper.isInRole('ADMIN')}"/>
+	            </li>
+	            <li>
+	                <h:link value="Leagues" outcome="/leagues/index"
+	                        styleClass="#{currentTitle=='Leagues' ? 'current' : ''}"
+	                        rendered="#{securityHelper.isInRole('LEAGUE_SUPERVISOR')}"/>
+	            </li>
+	            <li>
+	                <h:link value="About Us" outcome="/about"
+	                        styleClass="#{currentTitle=='About' ? 'current' : ''}"
+	                        rendered="#{securityHelper.isInRole('PLAYER')}"/></li>
+	            <li>
+	                <h:form>
+	                    <h:commandLink action="#{loginController.logout}" value="Logout" styleClass="last"/>
+	                </h:form>
+	            </li>
+	        </ul>
+	    </div>
+	</c:if>
     <!-- end of menu -->
 </ui:composition>
