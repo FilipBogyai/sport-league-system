@@ -1,12 +1,16 @@
 package cz.muni.fi.pv243.sportleaguesystem.test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
+import javax.validation.constraints.AssertTrue;
+
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -14,11 +18,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.*;
 
+import cz.muni.fi.pv243.sportleaguesystem.LoggerProducer;
 import cz.muni.fi.pv243.sportleaguesystem.dao.impl.LeagueDAOImpl;
 import cz.muni.fi.pv243.sportleaguesystem.dao.impl.MatchDAOImpl;
 import cz.muni.fi.pv243.sportleaguesystem.dao.impl.PrincipalDAOImpl;
@@ -31,6 +33,7 @@ import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.SportDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.UserDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
+import cz.muni.fi.pv243.sportleaguesystem.entities.PlayerResult;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
@@ -47,12 +50,13 @@ public class ServicesTest {
 	 @Deployment
 	 public static Archive<?> createTestArchive() {
 		 return ShrinkWrap.create(WebArchive.class,"test.war")
-				 .addClasses(Sport.class,League.class,Resources.class,SportDAOImpl.class,SportDAO.class,
+				 .addClasses(LoggerProducer.class, Sport.class,League.class,Resources.class,SportDAOImpl.class,SportDAO.class,
 						 LeagueDAO.class,LeagueDAOImpl.class,Match.class,User.class,MatchDAO.class,MatchDAOImpl.class,
 						 UserDAO.class,UsersDAOImpl.class, PrincipalDAO.class, PrincipalDAOImpl.class , Principal.class,
 						 UserService.class, UserServiceImpl.class, PrincipalService.class, PrincipalServiceImpl.class,
-						 LeagueService.class, LeagueServiceImpl.class)
+						 LeagueService.class, LeagueServiceImpl.class, PlayerResult.class)
 				 .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+				 .addAsResource("log4j.properties","log4j.properties")
 				 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				// Deploy our test datasource
 		        .addAsWebInfResource("test-ds.xml", "test-ds.xml");
@@ -184,6 +188,7 @@ public class ServicesTest {
 	 }
 	 
 	 @Test
+	 @InSequence(1)
 	 public void testGenerateMatches(){
 		 User user1 =  buildUser("Vlado", "Vostinar", "4124213");
 		 userService.createUser(user1);
@@ -231,11 +236,67 @@ public class ServicesTest {
 	    	 logger.info(league.getMatches().get(i).toString());	    	 
 	     }
 	     
-	     
-	     
-	     
-	     
 	 }
+	 
+	 @Test	
+	 public void testEvaluateLeague(){
+		 
+		 User user1 =  buildUser("Pepek", "Namornik", "4124213");
+		 userService.createUser(user1);
+		 
+		 User user2 = buildUser("Ferko", "Slany","0903654321");
+	     userService.createUser(user2);
+		 
+	     User user3 = buildUser("Jozko", "Mrkvicka","0903123456");
+	     userService.createUser(user3);
+	     
+		 Sport sport = buildSport("streetball");
+	     sportDAO.create(sport);
+	        
+	     League league = buildLeague("poulicny", "dedinska liga" , sport);
+	     leagueService.createLeague(league);
+	     
+	     leagueService.addPlayer(user1, league);
+	     leagueService.addPlayer(user2, league);
+	     leagueService.addPlayer(user3, league);
+	     
+	     
+	     Match match1 = buildMatch(user1, user2, league, "za domom");
+	     match1.setScorePlayer1(2);
+	     match1.setScorePlayer2(0);
+	     
+	     Match match2 = buildMatch(user1, user2, league, "pred domom");
+	     match2.setScorePlayer1(3);
+	     match2.setScorePlayer2(0);
+	     
+	     Match match3 = buildMatch(user2, user3, league, "za domom");
+	     match3.setScorePlayer1(0);
+	     match3.setScorePlayer2(3);
+	     
+	     Match match4 = buildMatch(user1, user3, league, "pred domom");
+	     match4.setScorePlayer1(3);
+	     match4.setScorePlayer2(0);
+	     
+	     matchDAO.create(match1);
+	     matchDAO.create(match2);
+	     matchDAO.create(match3);
+	     matchDAO.create(match4);
+	     
+	     league = leagueService.getById(league.getId());
+	     int previos = Integer.MAX_VALUE;
+	     List<PlayerResult> leagueResults = leagueService.evaluateLeague(league);
+	     for(PlayerResult playerResult : leagueResults){
+	    	 logger.info(playerResult.toString());
+	    	 assertTrue(playerResult.getPoints()<previos);
+	    	 previos=playerResult.getPoints();
+	    	 
+	     }
+	     
+	     
+     }
+	     
+	     
+
 	 
 	 
 	 public static User buildUser(String firstName,String lastName, String phoneNumber){

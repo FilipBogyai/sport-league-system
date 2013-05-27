@@ -1,6 +1,7 @@
 package cz.muni.fi.pv243.sportleaguesystem.service;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -216,10 +217,10 @@ public class LeagueServiceImpl implements LeagueService {
 						playerResult.setLostCount(playerResult.getLostCount()+1);					
 									
 				}
-			results.add(playerResult);
 			}
-			Collections.sort(results);
+			results.add(playerResult);
 		}
+		Collections.sort(results);
 		return results;
 	}
 }
