@@ -1,6 +1,7 @@
 package cz.muni.fi.pv243.sportleaguesystem.service.interfaces;
 
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
+import cz.muni.fi.pv243.sportleaguesystem.entities.PlayerResult;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 
@@ -85,5 +86,14 @@ public interface LeagueService {
      * @throws IllegalArgumentException if parameters is null.   
      */
     void generateMatches(League league);
+    
+    /**
+     * Return list of  player's results sorted by their points descending 
+     *     
+     * @param League league which will be evaluated
+     * @throws IllegalArgumentException if parameters is null.
+     * @return list of players sorted by their point   
+     */
+    List<PlayerResult> evaluateLeague(League league);
     
 }

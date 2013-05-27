@@ -1,10 +1,12 @@
 package cz.muni.fi.pv243.sportleaguesystem.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,6 +16,7 @@ import org.apache.log4j.Logger;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
+import cz.muni.fi.pv243.sportleaguesystem.entities.PlayerResult;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.LeagueService;
@@ -23,13 +26,12 @@ public class LeagueServiceImpl implements LeagueService {
 
 	@Inject
 	private Logger logger;
-	
 	@Inject
 	private LeagueDAO leagueDAO;
 		
 	@Override
 	public void createLeague(League league) {
-        if (league == null) {
+        if (league == null) {        		
         		logger.error("Creating a null league.");
                 throw new IllegalArgumentException("null league");
         }
@@ -37,7 +39,7 @@ public class LeagueServiceImpl implements LeagueService {
         		logger.error("Creating a league with a set id.");
                 throw new IllegalArgumentException("league id already set");
         }
-        leagueDAO.create(league);
+        leagueDAO.create(league);        
         logger.info("Created league. Id: " + league.getId() + " Name " + league.getName() + " Sport: " + league.getSport());
 	}
 
@@ -115,6 +117,7 @@ public class LeagueServiceImpl implements LeagueService {
 	    return leagueDAO.findLeaguesBySport(sport);
 	}
 		
+	@Override
 	public void addPlayer(User user, League league){
 		
 		if (user == null ){
@@ -142,6 +145,7 @@ public class LeagueServiceImpl implements LeagueService {
 		logger.info("Updated league.");
 	}
 	
+	@Override
 	public void generateMatches(League league){
 		if (league == null) {
 			logger.error("Generating matches for a null leauge.");
@@ -167,5 +171,55 @@ public class LeagueServiceImpl implements LeagueService {
 		logger.info("Updated league with new matches.");
 		updateLeague(league);		
 	}
+	
+	@Override
+	public List<PlayerResult> evaluateLeague(League league){
+		if (league == null) {
+			logger.error("Evaluating null leauge.");
+            throw new IllegalArgumentException("null league");
+	    }	
 		
+		ArrayList<PlayerResult> results = new ArrayList<PlayerResult>();
+		for(User user : league.getPlayers()){
+			PlayerResult playerResult = new PlayerResult(user, 0, 0, 0, 0, 0, 0);			
+			for(Match match : league.getMatches()){
+				if(match.getPlayer1().equals(user)){
+					
+					playerResult.setPlayerScore(playerResult.getPlayerScore() + match.getScorePlayer1());
+					playerResult.setOpponentsScore(playerResult.getOpponentsScore()+ match.getScorePlayer2());
+					//won
+					if(match.getScorePlayer1() >  match.getScorePlayer2()){
+						playerResult.setWonCount(playerResult.getWonCount()+1);		
+						playerResult.setPoints(playerResult.getPoints()+2);
+					//drawn	
+					} else if(match.getScorePlayer1() ==  match.getScorePlayer2()){
+						playerResult.setDrawnCount(playerResult.getDrawnCount()+1);
+						playerResult.setPoints(playerResult.getPoints()+1);
+					//lost	
+					} else
+						playerResult.setLostCount(playerResult.getLostCount()+1);						
+									
+				} 
+				if (match.getPlayer2().equals(user)){
+					playerResult.setPlayerScore(playerResult.getPlayerScore() + match.getScorePlayer2());
+					playerResult.setOpponentsScore(playerResult.getOpponentsScore()+ match.getScorePlayer1());
+					//won
+					if(match.getScorePlayer2() >  match.getScorePlayer1()){
+						playerResult.setWonCount(playerResult.getWonCount()+1);		
+						playerResult.setPoints(playerResult.getPoints()+2);
+					//drawn	
+					} else if(match.getScorePlayer2() ==  match.getScorePlayer1()){
+						playerResult.setDrawnCount(playerResult.getDrawnCount()+1);
+						playerResult.setPoints(playerResult.getPoints()+1);
+					//lost	
+					} else
+						playerResult.setLostCount(playerResult.getLostCount()+1);					
+									
+				}
+			results.add(playerResult);
+			}
+			Collections.sort(results);
+		}
+		return results;
+	}
 }
