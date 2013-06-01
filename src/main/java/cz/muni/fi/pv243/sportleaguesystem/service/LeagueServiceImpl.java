@@ -184,6 +184,10 @@ public class LeagueServiceImpl implements LeagueService {
 		for(User user : league.getPlayers()){
 			PlayerResult playerResult = new PlayerResult(user, 0, 0, 0, 0, 0, 0);			
 			for(Match match : league.getMatches()){
+				//skip not evaluated match
+				if ((match.getScorePlayer1()== null) || (match.getScorePlayer2()== null))
+					continue;
+				
 				if(match.getPlayer1().equals(user)){
 					
 					playerResult.setPlayerScore(playerResult.getPlayerScore() + match.getScorePlayer1());
