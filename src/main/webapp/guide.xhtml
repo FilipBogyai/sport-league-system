@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:param name="currentTitle" value="Guide" />
+	
+	<ui:define name="content">
+		<div class="header_01">Player Guide</div>
+
+		<div class="section_w480">
+			<div class="image_wrapper fl_img">
+				<img src="#{request.contextPath}/resources/css/images/templatemo_image_03.jpg" alt="Our HQ" />
+			</div>
+			<p class="em_text">
+				Once again welcome. We are exceptionally pleased that you decided to use this portal
+				and registered here in order to create your player profile. On this particular page
+				you'll find everything you'll need to jumpstart your glamouring sport career.
+			</p>
+			<p>Please follow the steps in the following section to start playing as soon as possible.</p>
+		</div>
+
+		<div class="section_w480">
+
+			<div class="header_03">What to do</div>
+
+			<div class="section_w270">
+
+				<ul class="content_list_01">
+					<li>In order to start playing as soon as possible please click on Sports tab and pick your
+					    favourite sports.</li>
+					<li>Navigate to each sport's leagues, pick those you deem worthy of your skills and click sign in
+					    button.</li>
+					<li>Now all the leagues you have signed in are present under My Leagues tab.</li>
+					<li>Once other players add themselves into some of your chosen leagues and league supervisor
+					    generates matches for you, you can enter My Matches to view them. Here you will find
+					    anything you need to know about your rivals and you can contact them in order to schedule 
+					    a meeting.</li>
+					<li>After match has been played you can enter its outcome in the respective fields. After
+					    your rival does the same it is up to league supervisor to accept these data. Your points
+					    will be given to you shortly after being done so.</li>
+				</ul>
+			</div>
+
+			<div class="cleaner"></div>
+		</div>
+	</ui:define>
+</ui:composition>
