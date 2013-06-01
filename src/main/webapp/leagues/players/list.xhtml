@@ -24,21 +24,21 @@
             <br />
 
 			<h:panelGroup rendered="#{empty leaguePlayersController.players}">
-				<em>No user was found.</em>
+				<em>No player was found.</em>
 			</h:panelGroup>
-			<h:dataTable var="user" value="#{leaguePlayersController.players}"
-				rendered="#{not empty users}" styleClass="simpletablestyle" id="table">
+			<h:dataTable var="player" value="#{leaguePlayersController.players}"
+				rendered="#{not empty leaguePlayersController.players}" styleClass="simpletablestyle" id="table">
 				<h:column>
 					<f:facet name="header">First Name</f:facet>
-	                #{user.firstName}
+	                #{player.firstName}
 	            </h:column>
 	            <h:column>
 					<f:facet name="header">Last Name</f:facet>
-	                #{user.lastName}
+	                #{player.lastName}
 	            </h:column>
 	            <h:column>
 					<f:facet name="header">Phone Number</f:facet>
-	                #{user.phoneNumber}
+	                #{player.phoneNumber}
 	            </h:column>
 			</h:dataTable>
 			<div class="cleaner"></div>
