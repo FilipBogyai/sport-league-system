@@ -78,7 +78,6 @@
 		<web-resource-collection>
 			<web-resource-name>authorized</web-resource-name>
 			<url-pattern>/sports/*</url-pattern>
-			<url-pattern>/leagues/*</url-pattern>
 			<url-pattern>/userleagues/*</url-pattern>
 			<url-pattern>/accounts/*</url-pattern>
 			<url-pattern>/matches/*</url-pattern>
