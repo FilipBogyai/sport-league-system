@@ -7,6 +7,8 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
+
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.MatchDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.PrincipalDAO;
@@ -20,6 +22,9 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 @ApplicationScoped
 public class PrincipalServiceImpl implements PrincipalService {
 
+	@Inject
+	private Logger logger;
+	
 	@Inject
 	private PrincipalDAO principalDAO;
 	
@@ -35,42 +40,52 @@ public class PrincipalServiceImpl implements PrincipalService {
 	@Override
 	public void create(Principal principal) {
 		if (principal == null) {
+			logger.error("Creating null principal.");
 			throw new IllegalArgumentException("null principal");
 		}
 		if (principal.getLoginName() == null) {
+			logger.error("Creating principal with null loginName.");
 			throw new IllegalArgumentException("null loginName");
 		}
 		if (principal.getPassword() == null) {
+			logger.error("Creating principal with null password.");
 			throw new IllegalArgumentException("null password");
 		}
 		principal.setPassword(hashPassword(principal.getPassword()));
 		principalDAO.create(principal);
+		logger.info("Created principal. " + principal);
 	}
 
 	@Override
 	public void update(Principal principal) {
 		if (principal == null) {
+			logger.error("Updating null principal");
 			throw new IllegalArgumentException("null principal");
 		}
 		if (principal.getLoginName() == null) {
+			logger.error("Updating principal with null loginName.");
 			throw new IllegalArgumentException("null loginName");
 		}
 		if (principal.getPassword() == null) {
+			logger.error("Updating principal with null password.");
 			throw new IllegalArgumentException("null password");
 		}
 		if (principalDAO.get(principal.getLoginName()) == null) {
+			logger.error("Updating nonexistent principal.");
 			throw new IllegalArgumentException("nonexistent principal");
 		}
 		Principal tempPrincipal = findPrincipalByLoginName(principal.getLoginName());
 		if (!tempPrincipal.getPassword().equals(principal.getPassword()))
 			principal.setPassword(hashPassword(principal.getPassword()));
 		principalDAO.update(principal);
+		logger.info("Updated principal with loginName=" + principal.getLoginName());
 
 	}
 
 	@Override
 	public void delete(Principal principal) {
 		if (principal == null) {
+			logger.error("Deleting null principal");
 			throw new IllegalArgumentException("null principal");
 		}
 		User user = principal.getUser();
@@ -85,26 +100,32 @@ public class PrincipalServiceImpl implements PrincipalService {
 			leagueDAO.update(league);
 		}		
 		principalDAO.delete(principal);
+		logger.info("Deleted principal with loginName=" + principal.getLoginName());
 	}
 
 	@Override
 	public List<Principal> findAll() {
+		logger.info("Returning a list of all principals.");
 		return principalDAO.findAll();
 	}
 
 	@Override
 	public Principal findUserByUser(User user) {
 		if (user == null) {
+			logger.error("Trying to find principal by null user.");
 			throw new IllegalArgumentException("null user");
 		}
+		logger.info("Returning all principals found by user with id=" + user.getId());
 		return principalDAO.findPrincipalByUser(user);
 	}
 	
 	@Override
 	public Principal findPrincipalByLoginName(String loginName) {
 		if (loginName == null || "".equals(loginName.trim())) {
-			throw new IllegalArgumentException("loginName cannot be null");
+			logger.error("Trying to find principal by null loginName.");
+			throw new IllegalArgumentException("null loginName");
 		}
+		logger.info("Returning all principals found by loginName=" + loginName);
 		return principalDAO.get(loginName); 
 	}
 	
@@ -124,7 +145,7 @@ public class PrincipalServiceImpl implements PrincipalService {
 	    	}catch(NoSuchAlgorithmException ex){
 	    		
 	    	}    	
-    	
+    	logger.info("Returning hashed password.");
 		return hexString.toString();
 	}
 
