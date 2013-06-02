@@ -41,7 +41,7 @@ public class LeagueServiceImpl implements LeagueService {
                 throw new IllegalArgumentException("league id already set");
         }
         leagueDAO.create(league);        
-        logger.info("Created league. Id: " + league.getId() + " Name " + league.getName() + " Sport: " + league.getSport());
+        logger.info("Created league. " + league.toString());
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class LeagueServiceImpl implements LeagueService {
 	        throw new IllegalArgumentException("league does not exist");
 	    }
 	    leagueDAO.update(league);
-	    logger.info("Updated league: Id: " + league.getId() + " Name: " + league.getName() + " Sport: " + league.getSport());
+	    logger.info("Updated league with Id=" + league.getId());
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class LeagueServiceImpl implements LeagueService {
 			logger.error("Getting league with null id.");
             throw new IllegalArgumentException("null id");
 	    }
-		logger.info("Returning league with id: " + id);
+		logger.info("Returning league with id=" + id);
 	    return leagueDAO.get(id);
 	}
 
@@ -75,7 +75,7 @@ public class LeagueServiceImpl implements LeagueService {
             throw new IllegalArgumentException("null league");
 	    }
 	    leagueDAO.delete(league);
-		logger.info("Deleted league. Id: " + league.getId() + " Name: " + league.getName() + " Sport: " + league.getSport());
+		logger.info("Deleted league withc id=" + league.getId());
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class LeagueServiceImpl implements LeagueService {
 				leagueMap.put(league, false);
 			}
 		}
-	    logger.info("Returning leagues found for user - Id: " + user.getId() + " Name: " + user.getFirstName() + " " + user.getLastName());
+	    logger.info("Returning leagues found for user with Id=" + user.getId());
 	    return leagueMap;
 	}
 	
@@ -114,7 +114,7 @@ public class LeagueServiceImpl implements LeagueService {
 			logger.error("Finding leagues by null sport.");
             throw new IllegalArgumentException("null sport");
 	    }
-		logger.info("Returning all leagues found by sport - id: " + sport.getId() + " name: " + sport.getName());
+		logger.info("Returning all leagues found by sport with id=" + sport.getId());
 	    return leagueDAO.findLeaguesBySport(sport);
 	}
 		
@@ -141,8 +141,8 @@ public class LeagueServiceImpl implements LeagueService {
 		league = getById(league.getId());
 		if(!league.getPlayers().contains(user)) {
 			league.getPlayers().add(user);
-			logger.info("User :"+user.getId().toString()+" was registered to league: "+league.getId().toString());
-		}
+			logger.info("User with id" + user.getId() + " was registered to league with id=" + league.getId());
+		} 
 		updateLeague(league);
 		logger.info("Updated league.");
 	}
@@ -170,7 +170,7 @@ public class LeagueServiceImpl implements LeagueService {
 		league = getById(league.getId());
 		if(league.getPlayers().contains(user)) {
 			league.getPlayers().remove(user);
-			logger.info("User :"+user.getId().toString()+" was removed from league: "+league.getId().toString());
+			logger.info("User with id=" + user.getId() + " was removed from league with id=" + league.getId());
 		}
 		updateLeague(league);
 		logger.info("Updated league.");
@@ -181,7 +181,7 @@ public class LeagueServiceImpl implements LeagueService {
 		if (league == null) {
 			logger.error("Generating matches for a null leauge.");
             throw new IllegalArgumentException("null league");
-	    }		
+	    }
 		league = getById(league.getId());
 		List<User> players = new ArrayList<User>(league.getPlayers());
 		int count = players.size();
@@ -200,7 +200,7 @@ public class LeagueServiceImpl implements LeagueService {
 			league.getMatches().add(match);
 		}
 		logger.info("Updated league with new matches.");
-		updateLeague(league);		
+		updateLeague(league);
 	}
 	
 	@Override
@@ -255,6 +255,7 @@ public class LeagueServiceImpl implements LeagueService {
 			results.add(playerResult);
 		}
 		Collections.sort(results);
+		logger.info("Returning results.");
 		return results;
 	}
 }
