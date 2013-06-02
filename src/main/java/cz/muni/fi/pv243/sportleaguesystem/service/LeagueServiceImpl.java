@@ -182,7 +182,15 @@ public class LeagueServiceImpl implements LeagueService {
 			logger.error("Generating matches for a null leauge.");
             throw new IllegalArgumentException("null league");
 	    }
+		if (league.getId() == null) {
+			logger.error("Generating matches for a league with null id.");
+			throw new IllegalArgumentException("null league id");
+		}
 		league = getById(league.getId());
+		if (league == null) {
+			logger.error("Generating matches for a nonexistent league.");
+			throw new IllegalArgumentException("nonexistent league");
+		}
 		List<User> players = new ArrayList<User>(league.getPlayers());
 		int count = players.size();
 		Random randomGenerator = new Random();
