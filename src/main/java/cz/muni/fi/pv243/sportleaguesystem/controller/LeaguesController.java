@@ -38,6 +38,7 @@ public class LeaguesController {
 	
 	private List<League> leagues;
 	private Principal principal;
+	private League league;
 
 	@Produces
 	@Named
@@ -45,9 +46,20 @@ public class LeaguesController {
 		return leagues;
 	}
 	
+	public String signOut() {
+		leagueService.removePlayer(principal.getUser(), league);
+		return "index?faces-redirect=true";
+	}
+	
 	@PostConstruct
 	public void populateLeagues() {
         if (facesContext.getViewRoot().getViewId().startsWith("/userleagues")) {
+        	Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+        	String leagueId = params.get("leagueID");
+        	
+        	if (leagueId != null)
+    			league = leagueService.getById(Long.parseLong(leagueId));
+        	
             String remote = securityHelper.getRemoteUser();
             principal = principalService.findPrincipalByLoginName(remote);
 

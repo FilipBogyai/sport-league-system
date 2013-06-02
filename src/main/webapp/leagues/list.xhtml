@@ -17,6 +17,7 @@
                     <th>Sport</th>
                     <th>League Matches</th>
                     <th>League Results</th>
+                    <c:if test="#{actionBase == '/userleagues'}"><th></th></c:if>
                 </tr>
                 </thead>
                 <c:forEach items="#{leagues}" var="league">
@@ -34,6 +35,17 @@
                                 <f:param name="leagueID" value="#{league.id}"/>
                             </h:link>
                         </td>
+                        <c:if test="#{actionBase == '/userleagues'}">
+                        	<td>
+                        		<h:form>
+									<h:commandLink id="signout" action="#{leaguesController.signOut}">
+										<f:param name="leagueID" value="#{league.id}" />
+										<img src="#{request.contextPath}/resources/css/images/leave_icon.png"
+											 alt="Sign Out" />
+									</h:commandLink>
+								</h:form>
+                        	</td>
+                        </c:if>
                     </tr>
                 </c:forEach>
             </table>
