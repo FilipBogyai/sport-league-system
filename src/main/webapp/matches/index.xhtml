@@ -50,13 +50,11 @@
                                 <td class="left">#{wrapper.match.player2.firstName} #{wrapper.match.player2.lastName}</td>
                                 <td>#{wrapper.match.location}</td>
                                 <td>
-                                    <c:if test="#{wrapper.canEdit}">
-                                        <h:link outcome="/matches/edit">
-                                            <f:param name="matchID" value="#{wrapper.match.id}"/>
-                                            <img src="#{request.contextPath}/resources/css/images/edit_icon.png"
-                                                 alt="Edit"/>
-                                        </h:link>
-                                    </c:if>
+                                    <h:link outcome="/matches/edit">
+                                        <f:param name="matchID" value="#{wrapper.match.id}"/>
+                                        <img src="#{request.contextPath}/resources/css/images/edit_icon.png"
+                                             alt="Edit"/>
+                                    </h:link>
                                 </td>
                             </tr>
                         </c:forEach>

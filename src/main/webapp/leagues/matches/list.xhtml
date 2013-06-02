@@ -16,7 +16,7 @@
 						<h:link value="Back to leagues" outcome="#{actionBase}/index" />
 					</div>
 				</td>
-				<c:if test="#{securityHelper.isInRole('LEAGUE_SUPERVISOR')}">
+				<c:if test="#{securityHelper.isInRole('LEAGUE_SUPERVISOR') and actionBase == '/leagues'}">
 					<td>
 						<div class="button_01">
 							<h:form>
@@ -57,9 +57,11 @@
 							<th>
 								<div style="width: 154px">Location</div>
 							</th>
+							<c:if test="#{actionBase == '/leagues'}">
 							<th>
 								<div style="width: 40px; height: 1px;"></div>
 							</th>
+							</c:if>
 						</tr>
 					</thead>
 					<c:forEach items="#{matchesController.matches}" var="matchesMap">
@@ -77,7 +79,8 @@
 								<td class="left">#{wrapper.match.player2.firstName}
 									#{wrapper.match.player2.lastName}</td>
 								<td>#{wrapper.match.location}</td>
-								<td><c:if test="#{wrapper.canEdit}">
+								<c:if test="#{wrapper.canEdit and actionBase == '/leagues'}">
+									<td>
 										<h:link outcome="#{actionBase}/matches/edit">
 											<f:param name="leagueID" value="#{wrapper.match.league.id}" />
 											<f:param name="matchID" value="#{wrapper.match.id}" />
@@ -85,7 +88,8 @@
 												src="#{request.contextPath}/resources/css/images/edit_icon.png"
 												alt="Edit" />
 										</h:link>
-									</c:if></td>
+									</td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</c:forEach>
