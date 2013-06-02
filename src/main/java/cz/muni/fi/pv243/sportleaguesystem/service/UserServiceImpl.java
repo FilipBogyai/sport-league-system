@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 			throw new IllegalArgumentException("user id assigned");
 		}
 		userDAO.create(user);
-		logger.info("Created user:" + user.toString());
+		logger.info("Created user. " + user);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 			throw new IllegalArgumentException("nonexistent user");
 		}
 		userDAO.update(user);
-		logger.info("Updated user. Id: " + user.toString());
+		logger.info("Updated user with id=" + user.getId());
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 			logger.error("Getting a user by null id.");
 			throw new IllegalArgumentException("null id");
 		}
-		logger.info("Returning user with id: " + id);
+		logger.info("Returning user with id=" + id);
 		return userDAO.get(id);
 	}
 
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
 		}
 		logger.info("Removed user from all leagues.");
 		principalDAO.delete(principalDAO.findPrincipalByUser(user));
-		logger.info("Deleted user.");
+		logger.info("Deleted user with id=" + user.getId());
 		// Object principal cascaduje delete a preto vymaze zaroven aj usera
 		//userDAO.delete(user);
 	}
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
 			logger.error("Trying to find a user by null name.");
 			throw new IllegalArgumentException("null name");
 		}
-		logger.info("Returning users with name: " + name);
+		logger.info("Returning users with name=" + name);
 		return userDAO.findUsersByName(name);
 	}
 	
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
 			league.getPlayers().add(user);
 		}
 		leagueDAO.update(league);
-		logger.info("Registered user:\n " + user.toString() + "\nto league: \n" + league.toString());
+		logger.info("Registered user with id=" + user.getId() + " to league with id=" + league.getId());
 	}
 
 }
