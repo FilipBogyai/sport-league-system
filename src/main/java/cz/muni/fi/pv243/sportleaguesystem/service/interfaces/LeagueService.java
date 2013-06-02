@@ -80,6 +80,15 @@ public interface LeagueService {
     void addPlayer(User user, League league);
     
     /**
+     * Removes user from the given league
+     * 
+     * @param User user who will be removed from league
+     * @param League league in which user played
+     * @throws IllegalArgumentException if parameters is null.   
+     */
+    void removePlayer(User user, League league);
+    
+    /**
      * Creates new round of matches for players registered into league
      *     
      * @param League league in which matches will be generated

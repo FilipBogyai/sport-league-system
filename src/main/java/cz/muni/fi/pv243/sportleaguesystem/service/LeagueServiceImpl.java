@@ -141,6 +141,36 @@ public class LeagueServiceImpl implements LeagueService {
 		league = getById(league.getId());
 		if(!league.getPlayers().contains(user)) {
 			league.getPlayers().add(user);
+			logger.info("User :"+user.getId().toString()+" was registered to league: "+league.getId().toString());
+		}
+		updateLeague(league);
+		logger.info("Updated league.");
+	}
+	
+	@Override
+	public void removePlayer(User user, League league){
+		
+		if (user == null ){
+			logger.error("Removing a null player from league");
+			throw new IllegalArgumentException("null user");
+		}
+		if (user.getId() == null ){
+			logger.error("Removing a player with null id from league");
+			throw new IllegalArgumentException("null user id");
+		}
+		if (league == null) {
+			logger.error("Removing a player from null league");
+			throw new IllegalArgumentException("null league");
+		}
+		if (league.getId() == null) {
+			logger.error("Removing a player from league with null id");
+			throw new IllegalArgumentException("null league id");
+		}
+		
+		league = getById(league.getId());
+		if(league.getPlayers().contains(user)) {
+			league.getPlayers().remove(user);
+			logger.info("User :"+user.getId().toString()+" was removed from league: "+league.getId().toString());
 		}
 		updateLeague(league);
 		logger.info("Updated league.");
