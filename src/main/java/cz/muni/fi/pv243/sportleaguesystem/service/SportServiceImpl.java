@@ -26,11 +26,11 @@ public class SportServiceImpl implements SportService {
 			throw new IllegalArgumentException("null sport");
 		}
 		if (sport.getId() != null) {
-			logger.error("Creating a sport that has a set id: " + sport.getId());
+			logger.error("Creating a sport that has a set id.");
 			throw new IllegalArgumentException("id already set");
 		}
 		sportDAO.create(sport);
-		logger.info("Created new sport. Id: " + sport.getId() + " Name: " + sport.getName());
+		logger.info("Created new sport. " + sport);
 	}
 
 	@Override
@@ -44,17 +44,17 @@ public class SportServiceImpl implements SportService {
 			throw new IllegalArgumentException("nonexistent sport");
 		}
 		sportDAO.update(sport);
-		logger.info("Sport updated - Id: " + sport.getId() + " Name: " + sport.getName());
+		logger.info("Updated sport with id=" + sport.getId());
 		
 	}
 
 	@Override
 	public Sport getById(Long id) {
 		if (id == null) {
-			logger.error("Getting a sport with null ID.");
+			logger.error("Getting a sport with null id.");
 			throw new IllegalArgumentException("null id");
 		}
-		logger.info("Returning sport with id " + id);
+		logger.info("Returning sport with id=" + id);
 		return sportDAO.get(id);
 	}
 
@@ -71,7 +71,7 @@ public class SportServiceImpl implements SportService {
 			throw new IllegalArgumentException("null sport");
 		}
 		sportDAO.delete(sport);
-		logger.info("Deleted sport - Id: " + sport.getId() + " name " + sport.getName());
+		logger.info("Deleted sport with id=" + sport.getId());
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class SportServiceImpl implements SportService {
 			logger.error("Trying to find a sport with null name.");
 			throw new IllegalArgumentException("null name");
 		}
-		logger.info("Returning sports found by Name: " + name);
+		logger.info("Returning sports found by name=" + name);
 		return sportDAO.findSportsByName(name);
 	}
 
