@@ -110,7 +110,7 @@ public class PrincipalServiceImpl implements PrincipalService {
 	}
 
 	@Override
-	public Principal findUserByUser(User user) {
+	public Principal findPrincipalByUser(User user) {
 		if (user == null) {
 			logger.error("Trying to find principal by null user.");
 			throw new IllegalArgumentException("null user");

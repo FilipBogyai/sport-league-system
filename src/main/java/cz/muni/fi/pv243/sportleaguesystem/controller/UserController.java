@@ -75,7 +75,7 @@ public class UserController {
 		
 		if (userId != null) {
 			User user = userService.getById(Long.parseLong(userId));
-			currentUser = principalService.findUserByUser(user);
+			currentUser = principalService.findPrincipalByUser(user);
 		}
 	}
 }
