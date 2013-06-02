@@ -1,91 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html">
-    <div class="header_01">Matches in #{matchesController.league.name}:</div>
-    <h:messages infoClass="valid" globalOnly="true"/>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
-    <table>
-        <tr>
-            <td>
-                <div class="button_01">
-                    <h:link value="Back to leagues" outcome="#{actionBase}/index"/>
-                </div>
-            </td>
-            <c:if test="#{securityHelper.isInRole('LEAGUE_SUPERVISOR')}">
-                <td>
-                    <div class="button_01">
-                        <h:form>
-                            <h:commandLink id="add" action="#{matchesController.generateMatches}"
-                                           value="Generate matches">
-                                <f:param name="leagueID" value="#{matchesController.league.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                    </div>
-                </td>
-            </c:if>
-        </tr>
-    </table>
-    <br/>
+		<div class="header_01">Matches in
+			#{matchesController.league.name}:</div>
+		<h:messages infoClass="valid" globalOnly="true" />
 
-    <c:choose>
-        <c:when test="#{empty matchesController.matches}">
-            <em>No match was found.</em>
-        </c:when>
-        <c:otherwise>
-            <table id="table">
-                <thead>
-                <tr>
-                    <th>
-                        <div style="width: 180px;">Time</div>
-                    </th>
-                    <th>
-                        <div style="width: 175px">Player 1</div>
-                    </th>
-                    <th>
-                        <div style="width: 80px">Score</div>
-                    </th>
-                    <th>
-                        <div style="width: 175px">Player 2</div>
-                    </th>
-                    <th>
-                        <div style="width: 154px">Location</div>
-                    </th>
-                    <th>
-                        <div style="width: 40px; height: 1px;"></div>
-                    </th>
-                </tr>
-                </thead>
-                <c:forEach items="#{matchesController.matches}" var="matchesMap">
-                    <tr class="matches-date-row">
-                        <td>#{matchesMap.key}</td>
-                        <td colspan="5"></td>
-                    </tr>
-                    <c:forEach items="#{matchesMap.value}" var="wrapper">
-                        <tr>
-                            <td>#{wrapper.date}</td>
-                            <td class="right">#{wrapper.match.player1.firstName} #{wrapper.match.player1.lastName}</td>
-                            <td>#{wrapper.match.scorePlayer1} - #{wrapper.match.scorePlayer2}</td>
-                            <td class="left">#{wrapper.match.player2.firstName} #{wrapper.match.player2.lastName}</td>
-                            <td>#{wrapper.match.location}</td>
-                            <td>
-                                <c:if test="#{wrapper.canEdit}">
-                                    <h:link outcome="#{actionBase}/matches/edit">
-                                        <f:param name="leagueID" value="#{wrapper.match.league.id}"/>
-                                        <f:param name="matchID" value="#{wrapper.match.id}"/>
-                                        <img src="#{request.contextPath}/resources/css/images/edit_icon.png"
-                                             alt="Edit"/>
-                                    </h:link>
-                                </c:if>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </c:forEach>
-            </table>
-        </c:otherwise>
-    </c:choose>
+		<table>
+			<tr>
+				<td>
+					<div class="button_01">
+						<h:link value="Back to leagues" outcome="#{actionBase}/index" />
+					</div>
+				</td>
+				<c:if test="#{securityHelper.isInRole('LEAGUE_SUPERVISOR')}">
+					<td>
+						<div class="button_01">
+							<h:form>
+								<h:commandLink id="add"
+									action="#{matchesController.generateMatches}"
+									value="Generate matches">
+									<f:param name="leagueID" value="#{matchesController.league.id}" />
+								</h:commandLink>
+							</h:form>
+						</div>
+					</td>
+				</c:if>
+			</tr>
+		</table>
+		<br />
 
-    <div class="margin_bottom_50"></div>
+		<div style="margin-bottom: 50px">
+		<c:choose>
+			<c:when test="#{empty matchesController.matches}">
+				<em>No match was found.</em>
+			</c:when>
+			<c:otherwise>
+				<table id="table">
+					<thead>
+						<tr>
+							<th>
+								<div style="width: 180px;">Time</div>
+							</th>
+							<th>
+								<div style="width: 175px">Player 1</div>
+							</th>
+							<th>
+								<div style="width: 80px">Score</div>
+							</th>
+							<th>
+								<div style="width: 175px">Player 2</div>
+							</th>
+							<th>
+								<div style="width: 154px">Location</div>
+							</th>
+							<th>
+								<div style="width: 40px; height: 1px;"></div>
+							</th>
+						</tr>
+					</thead>
+					<c:forEach items="#{matchesController.matches}" var="matchesMap">
+						<tr class="matches-date-row">
+							<td>#{matchesMap.key}</td>
+							<td colspan="5"></td>
+						</tr>
+						<c:forEach items="#{matchesMap.value}" var="wrapper">
+							<tr>
+								<td>#{wrapper.date}</td>
+								<td class="right">#{wrapper.match.player1.firstName}
+									#{wrapper.match.player1.lastName}</td>
+								<td>#{wrapper.match.scorePlayer1} -
+									#{wrapper.match.scorePlayer2}</td>
+								<td class="left">#{wrapper.match.player2.firstName}
+									#{wrapper.match.player2.lastName}</td>
+								<td>#{wrapper.match.location}</td>
+								<td><c:if test="#{wrapper.canEdit}">
+										<h:link outcome="#{actionBase}/matches/edit">
+											<f:param name="leagueID" value="#{wrapper.match.league.id}" />
+											<f:param name="matchID" value="#{wrapper.match.id}" />
+											<img
+												src="#{request.contextPath}/resources/css/images/edit_icon.png"
+												alt="Edit" />
+										</h:link>
+									</c:if></td>
+							</tr>
+						</c:forEach>
+					</c:forEach>
+				</table>
+			</c:otherwise>
+		</c:choose>
+		</div>
+
+		<div class="header_03">Players signed in #{matchesController.league.name}:</div>
+
+		<h:panelGroup rendered="#{empty leaguePlayersController.players}">
+			<em>No player was found.</em>
+		</h:panelGroup>
+		
+		<h:dataTable var="player" value="#{leaguePlayersController.players}"
+			rendered="#{not empty leaguePlayersController.players}"
+			styleClass="simpletablestyle" id="table" style="width: 480px; margin: 0 auto;">
+			<h:column>
+				<f:facet name="header">First Name</f:facet>
+	                #{player.firstName}
+	            </h:column>
+			<h:column>
+				<f:facet name="header">Last Name</f:facet>
+	                #{player.lastName}
+	            </h:column>
+			<h:column>
+				<f:facet name="header">Phone Number</f:facet>
+	                #{player.phoneNumber}
+	            </h:column>
+		</h:dataTable>
+		<div class="cleaner"></div>
+
+	<div class="margin_bottom_50"></div>
 </ui:composition>

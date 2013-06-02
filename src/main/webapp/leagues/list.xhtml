@@ -16,7 +16,6 @@
                     <th>Description</th>
                     <th>Sport</th>
                     <th>League Matches</th>
-                    <th>League Players</th>
                     <th>League Results</th>
                 </tr>
                 </thead>
@@ -27,11 +26,6 @@
                         <td>#{league.sport.name}</td>
                         <td>
                             <h:link value="View matches" outcome="#{actionBase}/matches/index">
-                                <f:param name="leagueID" value="#{league.id}"/>
-                            </h:link>
-                        </td>
-                        <td>
-                            <h:link value="View players" outcome="#{actionBase}/players/index">
                                 <f:param name="leagueID" value="#{league.id}"/>
                             </h:link>
                         </td>
