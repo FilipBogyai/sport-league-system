@@ -36,11 +36,9 @@ public class Match {
     @Size(min = 2 , max = 30, message="A match's location must contain between 2 and 30 characters")
     private String location;
     
-    @Future
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
-    
-    @Future
+       
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 

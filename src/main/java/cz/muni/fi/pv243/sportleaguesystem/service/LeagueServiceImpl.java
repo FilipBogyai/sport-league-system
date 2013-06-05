@@ -13,8 +13,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.hibernate.transform.ToListResultTransformer;
 
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
+import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.UserDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
 import cz.muni.fi.pv243.sportleaguesystem.entities.PlayerResult;
@@ -25,10 +27,15 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.LeagueService;
 @ApplicationScoped
 public class LeagueServiceImpl implements LeagueService {
 
+	private static final long SIGNED_OUT_ID = 2L ; 
+	
 	@Inject
 	private Logger logger;
 	@Inject
 	private LeagueDAO leagueDAO;
+	
+	@Inject
+	private UserDAO userDAO;
 		
 	@Override
 	public void createLeague(League league) {
@@ -169,6 +176,14 @@ public class LeagueServiceImpl implements LeagueService {
 		
 		league = getById(league.getId());
 		if(league.getPlayers().contains(user)) {
+			for( Match match : league.getMatches()){
+				if(match.getPlayer1().equals(user)){
+					match.setPlayer1(userDAO.get(SIGNED_OUT_ID));					
+				}
+				if(match.getPlayer2().equals(user)){
+					match.setPlayer2(userDAO.get(SIGNED_OUT_ID));					
+				}				
+			}			
 			league.getPlayers().remove(user);
 			logger.info("User with id=" + user.getId() + " was removed from league with id=" + league.getId());
 		}
