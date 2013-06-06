@@ -175,6 +175,14 @@ input[type="submit"]:active {
 	font-size: 18px;
 }
 
+.header_04 {
+	clear: both;
+	color: #ffffff;
+	padding: 5px 0 10px 0;
+	font-size: 16px;
+	font-variant: small-caps;
+}
+
 .em_text {
 	color: #ffffff;
 }
