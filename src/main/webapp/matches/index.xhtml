@@ -34,42 +34,49 @@
 					<c:forEach items="#{myMatchesMap.value}" var="leagueWrapper">
 						<div class="header_04">#{leagueWrapper.league.name}</div>
 
-						<table id="table">
-							<thead>
-								<tr>
-									<th><div style="width: 180px;">Time</div></th>
-									<th><div style="width: 175px">Player 1</div></th>
-									<th><div style="width: 80px">Score</div></th>
-									<th><div style="width: 175px">Player 2</div></th>
-									<th><div style="width: 154px">Location</div></th>
-									<th><div style="width: 40px; height: 1px;"></div></th>
-								</tr>
-							</thead>
-							<c:forEach items="#{leagueWrapper.matches}" var="matchesMap">
-								<tr class="matches-date-row">
-									<td>#{matchesMap.key}</td>
-									<td colspan="5"></td>
-								</tr>
-								<c:forEach items="#{matchesMap.value}" var="wrapper">
-									<tr>
-										<td>#{wrapper.date}</td>
-										<td class="right">#{wrapper.match.player1.firstName}
-											#{wrapper.match.player1.lastName}</td>
-										<td>#{wrapper.match.scorePlayer1} -
-											#{wrapper.match.scorePlayer2}</td>
-										<td class="left">#{wrapper.match.player2.firstName}
-											#{wrapper.match.player2.lastName}</td>
-										<td>#{wrapper.match.location}</td>
-										<td><h:link outcome="/matches/edit">
-												<f:param name="matchID" value="#{wrapper.match.id}" />
-												<img
-													src="#{request.contextPath}/resources/css/images/finish_flags.png"
-													alt="Edit" />
-											</h:link></td>
-									</tr>
-								</c:forEach>
-							</c:forEach>
-						</table>
+						<c:choose>
+							<c:when test="#{empty leagueWrapper.matches}">
+								<em>No match was found.</em>
+							</c:when>
+							<c:otherwise>
+								<table id="table">
+									<thead>
+										<tr>
+											<th><div style="width: 180px;">Time</div></th>
+											<th><div style="width: 175px">Player 1</div></th>
+											<th><div style="width: 80px">Score</div></th>
+											<th><div style="width: 175px">Player 2</div></th>
+											<th><div style="width: 154px">Location</div></th>
+											<th><div style="width: 40px; height: 1px;"></div></th>
+										</tr>
+									</thead>
+									<c:forEach items="#{leagueWrapper.matches}" var="matchesMap">
+										<tr class="matches-date-row">
+											<td>#{matchesMap.key}</td>
+											<td colspan="5"></td>
+										</tr>
+										<c:forEach items="#{matchesMap.value}" var="wrapper">
+											<tr>
+												<td>#{wrapper.date}</td>
+												<td class="right">#{wrapper.match.player1.firstName}
+													#{wrapper.match.player1.lastName}</td>
+												<td>#{wrapper.match.scorePlayer1} -
+													#{wrapper.match.scorePlayer2}</td>
+												<td class="left">#{wrapper.match.player2.firstName}
+													#{wrapper.match.player2.lastName}</td>
+												<td>#{wrapper.match.location}</td>
+												<td><h:link outcome="/matches/edit">
+														<f:param name="matchID" value="#{wrapper.match.id}" />
+														<img
+															src="#{request.contextPath}/resources/css/images/finish_flags.png"
+															alt="Edit" />
+													</h:link></td>
+											</tr>
+										</c:forEach>
+									</c:forEach>
+								</table>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</c:forEach>
 			</c:otherwise>
