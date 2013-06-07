@@ -14,37 +14,37 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import cz.muni.fi.pv243.sportleaguesystem.entities.User;
-import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.UserService;
+import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
+import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 
-@Path("/users")
+@Path("/sports")
 @RequestScoped
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-public class UserRESTService {
-
+public class SportRESTService {
+	
 	@Inject
-	private UserService userService;
+	private SportService sportService;
 	
 	@GET
-	public List<User> listAllUsers(@QueryParam("name") @DefaultValue("") String name) {
-		List<User> users = null;
+	public List<Sport> listAllSports(@QueryParam("name") @DefaultValue("") String name) {
+		List<Sport> users = null;
 		if (!"".equals(name)) {
-			users = userService.findByName(name);
+			users = sportService.findSportsByName(name);
 		} else {
-			users = userService.getAll();
+			users = sportService.getAll();
 		}
 		return users;
 	}
 	
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
-	public User lookupUserById(@PathParam("id") Long id) {
-		User user = userService.getById(id);
-		if (user == null) {
+	public Sport lookupSportById(@PathParam("id") Long id) {
+		Sport sport = sportService.getById(id);
+		if (sport == null) {
 			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-					.entity("User with id " + id + " wasn't found")
+					.entity("Sport with id " + id + " wasn't found")
 					.build());
 		}
-		return user;
+		return sport;
 	}
 }

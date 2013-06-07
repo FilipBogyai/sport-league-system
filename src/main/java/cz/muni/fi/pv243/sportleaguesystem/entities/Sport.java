@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -16,6 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 * @author Filip Bogyai
 */
 @Entity
+@XmlRootElement
 public class Sport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
