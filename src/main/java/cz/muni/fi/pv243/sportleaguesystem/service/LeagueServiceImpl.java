@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
-import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
-import org.hibernate.transform.ToListResultTransformer;
+import org.jboss.ejb3.annotation.SecurityDomain;
 
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.UserDAO;
@@ -24,19 +24,23 @@ import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.LeagueService;
 
-@ApplicationScoped
+@SecurityDomain("sport")
+@RolesAllowed({"ADMIN", "LEAGUE_SUPERVISOR", "PLAYER"})
+@Stateless
 public class LeagueServiceImpl implements LeagueService {
 
 	private static final long SIGNED_OUT_ID = 2L ; 
 	
 	@Inject
 	private Logger logger;
+	
 	@Inject
 	private LeagueDAO leagueDAO;
 	
 	@Inject
 	private UserDAO userDAO;
 		
+	@RolesAllowed("ADMIN")
 	@Override
 	public void createLeague(League league) {
         if (league == null) {        		
@@ -75,6 +79,7 @@ public class LeagueServiceImpl implements LeagueService {
 	    return leagueDAO.get(id);
 	}
 
+	@RolesAllowed("ADMIN")
 	@Override
 	public void deleteLeague(League league) {
 		if (league == null) {
@@ -108,13 +113,13 @@ public class LeagueServiceImpl implements LeagueService {
 	    logger.info("Returning leagues found for user with Id=" + user.getId());
 	    return leagueMap;
 	}
-	
+
 	@Override
 	public List<League> findAll(){
 		logger.info("Returning all leagues.");
 		return leagueDAO.findAll();		
 	}
-	
+
 	@Override
 	public List<League> findBySport(Sport sport) {
 		if (sport == null) {
@@ -124,7 +129,7 @@ public class LeagueServiceImpl implements LeagueService {
 		logger.info("Returning all leagues found by sport with id=" + sport.getId());
 	    return leagueDAO.findLeaguesBySport(sport);
 	}
-		
+	
 	@Override
 	public void addPlayer(User user, League league){
 		
@@ -153,7 +158,7 @@ public class LeagueServiceImpl implements LeagueService {
 		updateLeague(league);
 		logger.info("Updated league.");
 	}
-	
+
 	@Override
 	public void removePlayer(User user, League league){
 		
@@ -190,7 +195,7 @@ public class LeagueServiceImpl implements LeagueService {
 		updateLeague(league);
 		logger.info("Updated league.");
 	}
-	
+
 	@Override
 	public Map<Sport, List<League>> findLeaguesOrderedBySport(User user) {
 		if (user == null ){
@@ -209,6 +214,7 @@ public class LeagueServiceImpl implements LeagueService {
 		return sortedLeagues;
 	}
 	
+	@RolesAllowed("LEAGUE_SUPERVISOR")
 	@Override
 	public void generateMatches(League league){
 		if (league == null) {
@@ -243,7 +249,7 @@ public class LeagueServiceImpl implements LeagueService {
 		logger.info("Updated league with new matches.");
 		updateLeague(league);
 	}
-	
+
 	@Override
 	public List<PlayerResult> evaluateLeague(League league){
 		if (league == null) {

@@ -3,10 +3,12 @@ package cz.muni.fi.pv243.sportleaguesystem.service;
 import java.util.Date;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.jboss.ejb3.annotation.SecurityDomain;
 
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.MatchDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
@@ -14,7 +16,9 @@ import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.MatchService;
 
-@ApplicationScoped
+@SecurityDomain("sport")
+@RolesAllowed({"ADMIN", "LEAGUE_SUPERVISOR", "PLAYER"})
+@Stateless
 public class MatchServiceImpl implements MatchService {
 
 	@Inject
@@ -23,6 +27,7 @@ public class MatchServiceImpl implements MatchService {
 	@Inject
 	private MatchDAO matchDAO;
 	
+	@RolesAllowed("LEAGUE_SUPERVISOR")
 	@Override
 	public void createMatch(Match match) {
 		if (match == null) {
@@ -36,7 +41,6 @@ public class MatchServiceImpl implements MatchService {
 	    matchDAO.create(match);
 	    logger.info("Created match: " + match);
 	}
-
 	
 	@Override
 	public void updateMatch(Match match) {
@@ -52,7 +56,6 @@ public class MatchServiceImpl implements MatchService {
 	    logger.info("Updated match with id=" + match.getId());
 	}
 	
-
 	@Override
 	public Match getById(Long id) {
 		if (id == null) {
@@ -63,6 +66,7 @@ public class MatchServiceImpl implements MatchService {
 	    return matchDAO.get(id);
 	}
 
+	@RolesAllowed("LEAGUE_SUPERVISOR")
 	@Override
 	public void deleteMatch(Match match) {
 		if (match == null) {
@@ -100,7 +104,7 @@ public class MatchServiceImpl implements MatchService {
 		logger.info("Returning matches found from " + from + " to " + to + ".");
 		return matchDAO.findMatchesByDate(from, to);
 	}
-	
+
 	@Override
 	public List<Match> findByDate(Date from, Date to, League league) {
 		if (from == null) {

@@ -2,10 +2,13 @@ package cz.muni.fi.pv243.sportleaguesystem.service;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.jboss.ejb3.annotation.SecurityDomain;
 
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.MatchDAO;
@@ -16,7 +19,9 @@ import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.UserService;
 
-@ApplicationScoped
+@SecurityDomain("sport")
+@RolesAllowed({"ADMIN", "LEAGUE_SUPERVISOR", "PLAYER"})
+@Stateless
 public class UserServiceImpl implements UserService {
 
 	@Inject
@@ -33,7 +38,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Inject
 	private PrincipalDAO principalDAO;
-	
+		
+	@PermitAll
 	@Override
 	public void createUser(User user) {
 		if (user == null) {
@@ -47,7 +53,7 @@ public class UserServiceImpl implements UserService {
 		userDAO.create(user);
 		logger.info("Created user. " + user);
 	}
-
+	
 	@Override
 	public void updateUser(User user) {
 		if (user == null) {
@@ -79,6 +85,7 @@ public class UserServiceImpl implements UserService {
 		return userDAO.findAll();
 	}
 
+	@RolesAllowed("ADMIN")
 	@Override
 	public void deleteUser(User user) {
 		if (user == null) {
