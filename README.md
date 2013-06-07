@@ -4,9 +4,13 @@ SportLeagueSystem
 What is it?
 -----------
 
-This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on JBoss Enterprise Application Platform 6 or JBoss AS 7.1. 
+System pre vedenie sportovej ligy. Webova aplikacia sluzi pre jednotlivcov, ktory hladaju spoluhracov pre (tenis, squash, ping pong..). Po odohrani zapasov mozu zadavat vysledky zapasov. Tie sa vyhodnocuju a v tabulke mozno vidiet aktualne poradie hracov. System bude pridelovat hracom ich superov, s ktorymi sa potom oni dohodnu na case a mieste konania hry. Sezona moze trvat tyzden/mesiac a hraci dostavaju kazdy den/tyzden noveho supera s ktorym maju odohrat zapas. Definovane su 3 role: hraci, spravca pre jednotlive sporty (riadi v danej sportovej lige..) a admin (uprava nastaveni systemu, pridanie novej ligy a vsetko ostatne).
 
-This project is setup to allow you to create a compliant Java EE 6 application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
+
+About techologies
+----------------- 
+
+This is a compliant Java EE 6 application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0, Bean Validation 1.0, log4j and Picketbox JAAS.
 
 
 System requirements
@@ -20,7 +24,7 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.html/#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must Configure Maven in order to test the application.
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7.1
@@ -33,7 +37,7 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7.1
         For Windows: JBOSS_HOME\bin\standalone.bat
 
 
-Build and Deploy the Quickstart
+Build and Deploy the project
 -------------------------
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.html/#buildanddeploy) for complete instructions and additional options._
@@ -66,7 +70,7 @@ Undeploy the Archive
 Run the Arquillian tests
 ----------------------------
 
-This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
+This project provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
 
 _NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.html/#arquilliantests) for complete instructions and additional options._
 
@@ -75,18 +79,4 @@ _NOTE: The following commands assume you have configured your Maven user setting
 3. Type the following command to run the test goal with the following profile activated:
 
         mvn clean test -Parq-jbossas-remote 
-
-
-Run the Quickstart in JBoss Developer Studio or Eclipse
--------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.html/#useeclipse) 
-
-
-Debug the Application
-------------------------------------
-
-If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
-
-        mvn dependency:sources
-        mvn dependency:resolve -Dclassifier=javadoc
 
