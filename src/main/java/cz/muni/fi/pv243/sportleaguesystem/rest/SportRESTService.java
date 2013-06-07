@@ -27,13 +27,13 @@ public class SportRESTService {
 	
 	@GET
 	public List<Sport> listAllSports(@QueryParam("name") @DefaultValue("") String name) {
-		List<Sport> users = null;
+		List<Sport> sports = null;
 		if (!"".equals(name)) {
-			users = sportService.findSportsByName(name);
+			sports = sportService.findSportsByName(name);
 		} else {
-			users = sportService.getAll();
+			sports = sportService.getAll();
 		}
-		return users;
+		return sports;
 	}
 	
 	@GET

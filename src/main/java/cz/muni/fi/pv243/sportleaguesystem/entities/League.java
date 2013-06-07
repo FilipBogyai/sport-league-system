@@ -16,7 +16,10 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -27,6 +30,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Filip Bogyai
  */
 @Entity
+@XmlRootElement
 public class League {
 	
     @Id
@@ -83,12 +87,16 @@ public class League {
 	public void setSport(Sport sport) {
 		this.sport = sport;
 	}
+	@XmlTransient
+	@JsonIgnore
 	public List<User> getPlayers() {
 		return players;
 	}
 	public void setPlayers(List<User> players) {
 		this.players = players;
 	}
+	@XmlTransient
+	@JsonIgnore
 	public List<Match> getMatches() {
 		return matches;
 	}
