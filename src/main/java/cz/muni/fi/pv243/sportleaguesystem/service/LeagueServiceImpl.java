@@ -192,6 +192,24 @@ public class LeagueServiceImpl implements LeagueService {
 	}
 	
 	@Override
+	public Map<Sport, List<League>> findLeaguesOrderedBySport(User user) {
+		if (user == null ){
+			logger.error("Removing a null player from league");
+			throw new IllegalArgumentException("null user");
+		}
+		List<League> leagues = user.getLeagues();
+		Map<Sport, List<League>> sortedLeagues = new HashMap<Sport, List<League>>();
+		for (League league : leagues) {
+			if (!sortedLeagues.containsKey(league.getSport()))
+				sortedLeagues.put(league.getSport(), new ArrayList<League>());
+			List<League> temp = sortedLeagues.get(league.getSport());
+			temp.add(league);
+			sortedLeagues.put(league.getSport(), temp);
+		}
+		return sortedLeagues;
+	}
+	
+	@Override
 	public void generateMatches(League league){
 		if (league == null) {
 			logger.error("Generating matches for a null leauge.");

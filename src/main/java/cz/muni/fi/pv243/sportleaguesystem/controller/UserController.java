@@ -66,12 +66,12 @@ public class UserController {
 		String remote = securityHelper.getRemoteUser();
 		Principal principal = principalService.findPrincipalByLoginName(remote);
 		
-		//TODO remove currently logged user from selection
 		if (filterName != null && !"".equals(filterName.trim()))
 			users = userService.findByName(filterName);
 		else
 			users = userService.getAll();
 		users.remove(principal.getUser());
+		users.remove(userService.getById(2l));
 		
 		if (userId != null) {
 			User user = userService.getById(Long.parseLong(userId));

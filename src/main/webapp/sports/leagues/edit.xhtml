@@ -24,17 +24,17 @@
 					<h:panelGrid columns="2">
 						<h:column>
 							<div class="button_01">
-								<h:commandLink id="save" action="#{leagueController.save}"
+								<h:commandLink id="save" action="#{sportLeaguesController.save}"
 									value="Save Changes">
 									<f:param name="leagueID" value="#{newLeague.id}" />
-									<f:param name="sportID" value="#{leagueController.sportId}" />
+									<f:param name="sportID" value="#{sportLeaguesController.sportId}" />
 								</h:commandLink>
 							</div>
 						</h:column>
 						<h:column>
 							<div class="button_01">
 								<h:link value="Go Back" outcome="/sports/leagues/index">
-									<f:param name="sportID" value="#{leagueController.sportId}" />
+									<f:param name="sportID" value="#{sportLeaguesController.sportId}" />
 								</h:link>
 							</div>
 						</h:column>
