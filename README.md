@@ -97,9 +97,9 @@ _NOTE: The following build command assumes you have configured your Maven user s
 	
 	To run the tests, type the following command:
 
-		mvn clean test -Parq-jbossas-remote 
+		mvn clean test -Parq-jbossas-remote
 
-		
+
 Running the application on two nodes
 ------------------------------------
 
@@ -114,3 +114,8 @@ To run the application on two different nodes, complete the following steps:
 		-c standalone-ha.xml -Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100
 
 		
+Preview on OpenShift
+--------------------
+
+Application deployed on URL: <http://sportleague-jbosstle.rhcloud.com/>
+
