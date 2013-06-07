@@ -33,6 +33,7 @@
 		</table>
 		<br />
 
+		<div style="margin-bottom: 50px">
 		<c:choose>
 			<c:when test="#{empty matchesController.matches}">
 				<em>No match was found.</em>
@@ -95,6 +96,7 @@
 				</table>
 			</c:otherwise>
 		</c:choose>
+		</div>
 
 		<div class="header_03">Players signed in #{matchesController.league.name}:</div>
 

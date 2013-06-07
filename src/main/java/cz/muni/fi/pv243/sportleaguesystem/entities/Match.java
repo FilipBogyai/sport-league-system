@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
@@ -14,6 +15,7 @@ import javax.validation.constraints.*;
 */
 @Entity
 @Table(name="Game")
+@XmlRootElement
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,8 +51,6 @@ public class Match {
     @Min(value = 0)
     @Max(value = 200)
     private Integer scorePlayer2;
-        
-    private boolean approved;
     
 	public Long getId() {
 		return id;
@@ -105,12 +105,6 @@ public class Match {
 	}
 	public void setScorePlayer2(Integer scorePlayer2) {
 		this.scorePlayer2 = scorePlayer2;
-	}
-	public boolean isApproved() {
-		return approved;
-	}
-	public void setApproved(boolean approved) {
-		this.approved = approved;
 	}
     
 	@Override
