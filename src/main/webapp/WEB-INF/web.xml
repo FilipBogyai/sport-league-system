@@ -4,6 +4,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
 	<display-name>SportLeagueSystem</display-name>
+	
+	<context-param>
+        <param-name>resteasy.media.type.mappings</param-name>
+        <param-value>json : application/json, xml : application/xml</param-value>
+    </context-param>
 
 	<!-- Change to "Production" when you are ready to deploy -->
 	<context-param>
@@ -81,6 +86,7 @@
 			<url-pattern>/userleagues/*</url-pattern>
 			<url-pattern>/accounts/*</url-pattern>
 			<url-pattern>/matches/*</url-pattern>
+			<url-pattern>/rest/*</url-pattern>
 			<url-pattern>/index.xhtml</url-pattern>
 			<url-pattern>/index.jsf</url-pattern>
 		</web-resource-collection>

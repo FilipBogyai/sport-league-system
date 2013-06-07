@@ -13,7 +13,10 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,6 +26,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 * @author Filip Bogyai
 */
 @Entity
+@XmlRootElement
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,6 +87,8 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 	
+	@JsonIgnore
+	@XmlTransient
 	public List<League> getLeagues() {
 		return leagues;
 	}

@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService {
 		logger.info("Updated user with id=" + user.getId());
 	}
 
+	@RolesAllowed("ADMIN")
 	@Override
 	public User getById(Long id) {
 		if (id == null) {
@@ -79,6 +80,7 @@ public class UserServiceImpl implements UserService {
 		return userDAO.get(id);
 	}
 
+	@RolesAllowed("ADMIN")
 	@Override
 	public List<User> getAll() {
 		logger.info("Returning all users.");
@@ -112,6 +114,7 @@ public class UserServiceImpl implements UserService {
 		//userDAO.delete(user);
 	}
 
+	@RolesAllowed("ADMIN")
 	@Override
 	public List<User> findByName(String name) {
 		if (name == null) {
