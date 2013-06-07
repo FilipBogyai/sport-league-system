@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
 
+import org.apache.log4j.Logger;
+
 import cz.muni.fi.pv243.sportleaguesystem.RolesEnum;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
@@ -19,6 +21,9 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 @Model
 public class PrincipalController {
 
+	@Inject
+	private Logger logger;
+	
 	@Inject
 	private FacesContext facesContext;
 	
@@ -51,15 +56,19 @@ public class PrincipalController {
 	}
 
 	public String register() {
+		logger.info("Preparing to register user.");
 		temporaryPassword = principal.getPassword();
 		try {
 			principalService.create(principal);
+			logger.info("Created principal");
 		} catch (EJBTransactionRolledbackException e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login name already exists", "This login is taken, please try another"));
+			logger.info("Creating a principal failed - login already exists.");
 			return "";
 		}
 		loginModule.setLoginName(principal.getLoginName());
 		loginModule.setPassword(temporaryPassword);
+		logger.info("Logging in with loginName=" + principal.getLoginName());
 		return loginModule.login();
 	}
 
@@ -67,6 +76,7 @@ public class PrincipalController {
 		if (temporaryPassword != null && !"".equals(temporaryPassword.trim())) {
 			if (temporaryPassword.length() < 3 || temporaryPassword.length() > 32) {
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password must contain between 3 to 32 characters", "Password must contain between 3 to 32 characters"));
+				logger.info("Password saving failed - password shorter than 3 characters or longer than 32 characters.");
 				return "";
 			}
 			principal.setPassword(temporaryPassword);
