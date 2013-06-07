@@ -43,6 +43,7 @@ public class UserRESTService {
 		if (user == null) {
 			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
 					.entity("User with id " + id + " wasn't found")
+					.type(MediaType.APPLICATION_JSON)
 					.build());
 		}
 		return user;

@@ -43,6 +43,7 @@ public class SportRESTService {
 		if (sport == null) {
 			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
 					.entity("Sport with id " + id + " wasn't found")
+					.type(MediaType.APPLICATION_JSON)
 					.build());
 		}
 		return sport;

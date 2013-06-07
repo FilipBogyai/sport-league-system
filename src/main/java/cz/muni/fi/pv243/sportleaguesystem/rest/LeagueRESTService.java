@@ -2,6 +2,8 @@ package cz.muni.fi.pv243.sportleaguesystem.rest;
 
 import java.util.List;
 
+import javassist.NotFoundException;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.DefaultValue;
@@ -49,6 +51,7 @@ public class LeagueRESTService {
 			if (sports.size() != 1) {
 				throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
 						.entity("Sport with name " + sportName + " wasn't found or there are multiple sports with such a name")
+						.type(MediaType.APPLICATION_JSON)
 						.build());
 			}
 			leagues = leagueService.findBySport(sports.get(0));
@@ -65,6 +68,7 @@ public class LeagueRESTService {
 		if (league == null) {
 			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
 					.entity("League with id " + id + " wasn't found")
+					.type(MediaType.APPLICATION_JSON)
 					.build());
 		}
 		return league;
@@ -89,7 +93,8 @@ public class LeagueRESTService {
 	public Response generateMatches(@PathParam("id") Long id) {
 		League league = lookupLeagueById(id);
 		leagueService.generateMatches(league);
-		String result = "New matches generated";
-		return Response.ok(result).build();
+		return Response.ok("New matches generated")
+					   .type(MediaType.APPLICATION_JSON)
+					   .build();
 	}
 }
