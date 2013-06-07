@@ -100,10 +100,10 @@ _NOTE: The following build command assumes you have configured your Maven user s
 		mvn clean test -Parq-jbossas-remote
 
 
-Restfull Services
------------------
+RESTful Web Services
+--------------------
 
-As well as web interface, authorized users can use Rest to browse sports, leagues, users and matches.
+As well as web interface, authorized users can use REST to browse sports, leagues, users and matches.
 Services are registered at respective urls (braces delimit optional parameters):
 
 	http://localhost:8080/SportLeagueSystem/rest/sports{?name=<sport_name>}
