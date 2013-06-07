@@ -4,7 +4,7 @@ SportLeagueSystem
 What is it?
 -----------
 
-System pre vedenie sportovej ligy. Webova aplikacia sluzi pre jednotlivcov, ktory hladaju spoluhracov pre (tenis, squash, ping pong..). Po odohrani zapasov mozu zadavat vysledky zapasov. Tie sa vyhodnocuju a v tabulke mozno vidiet aktualne poradie hracov. System bude pridelovat hracom ich superov, s ktorymi sa potom oni dohodnu na case a mieste konania hry. Sezona moze trvat tyzden/mesiac a hraci dostavaju kazdy den/tyzden noveho supera s ktorym maju odohrat zapas. Definovane su 3 role: hraci, spravca pre jednotlive sporty (riadi v danej sportovej lige..) a admin (uprava nastaveni systemu, pridanie novej ligy a vsetko ostatne).
+System pre vedenie sportovej ligy. Webova aplikacia sluzi pre jednotlivcov, ktory hladaju spoluhracov pre (tenis, squash, ping pong...). Po odohrani zapasov mozu zadavat vysledky zapasov. Tie sa vyhodnocuju a v tabulke mozno vidiet aktualne poradie hracov. System bude pridelovat hracom ich superov, s ktorymi sa potom oni dohodnu na case a mieste konania hry. Sezona moze trvat tyzden/mesiac a hraci dostavaju kazdy den/tyzden noveho supera s ktorym maju odohrat zapas. Definovane su 3 role: hraci, spravca pre jednotlive sporty (riadi v danej sportovej lige...) a admin (uprava nastaveni systemu, pridanie novej ligy a vsetko ostatne).
 
 
 About techologies
@@ -16,67 +16,101 @@ This is a compliant Java EE 6 application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7.1. 
-
-
-Configure Maven
----------------
-
-If you have not yet done so, you must Configure Maven in order to test the application.
+- JDK 1.6 or higher
+- Maven 3.0 or higher
+- JBoss AS 7.1.1
+- MySQL Community Server 
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7.1
+Setting up the database
+-----------------------
+
+1. Install MySQL Community Server, set username/password as Admin/Admin
+2. Install the MySQL connector
+	- Download the MySQL Driver and module.xml from <http://www.edisk.cz/stahni/04703/driver.zip_829.07KB.html>
+	- Extract the archive and copy it into %JBOSS_HOME%\modules\com\mysql\main The file structure should be as follows:	
+		
+			%JBOSS_HOME%\modules\com\mysql\main\module.xml
+			%JBOSS_HOME%\modules\com\mysql\main\mysql-connector-java-5.1.25-bin.jar
+
+3. Add a MySQL driver entry to standalone-ha.xml
+	- Add the following to the drivers list (between the <drivers> and </drivers> tag):
+			
+			<driver name="mysql" module="com.mysql">
+				<xa-datasource-class>com.mysql.jdbc.Driver</xa-datasource-class>
+			</driver>
+
+
+Setting up the security domain
+------------------------------
+
+Add the following security domain to standalone-ha.xml:
+
+	<security-domain name="sport" cache-type="default">
+	       <authentication>
+			<login-module code="Remoting" flag="optional">
+				<module-option name="password-stacking" value="useFirstPass"/>
+			</login-module>                        
+			<login-module code="Database" flag="required">
+				<module-option name="dsJndiName" value="java:jboss/datasources/SportLeagueSystemDS"/>
+				<module-option name="principalsQuery" value="SELECT password FROM Principal WHERE loginname = ?"/>
+				<module-option name="rolesQuery" value="SELECT role, 'Roles' FROM Principal WHERE loginname = ?"/>
+				<module-option name="password-stacking" value="useFirstPass"/>
+				<module-option name="hashAlgorithm" value="MD5"/>
+				<module-option name="hashEncoding" value="hex"/>
+			</login-module>
+		</authentication>
+	</security-domain>
+		
+		
+Deploying the application
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+_NOTE: The following build command assumes you have configured your Maven user settings._
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+1. **Start the JBoss AS**
 
+	Run the following commands:
+		
+		For Linux:   JBOSS_HOME/bin/standalone.sh
+		For Windows: JBOSS_HOME\bin\standalone.bat
 
-Build and Deploy the project
--------------------------
+2. **Build and deploy the project**
+	
+	Type this command into the command line to build and deploy the archive:
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.html/#buildanddeploy) for complete instructions and additional options._
+		mvn clean package jboss-as:deploy
 
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
-3. Type this command to build and deploy the archive:
+	This will deploy target/SportLeagueSystem.war to the running instance of the server.
 
-        mvn clean package jboss-as:deploy
+3. **Access the application**
+	
+	The Applicattion can be accessed at the following URL: <http://localhost:8080/SportLeagueSystem/>
 
-4. This will deploy `target/SportLeagueSystem.war` to the running instance of the server.
+4. **Undeploy the application**
+	
+	To undeploy, simply type this command into the command line:
 
+		mvn jboss-as:undeploy	
 
-Access the application 
----------------------
- 
-The application will be running at the following URL: <http://localhost:8080/SportLeagueSystem/>.
+5. **Run Arquillian tests**
+	
+	To run the tests, type the following command:
 
+		mvn clean test -Parq-jbossas-remote 
 
-Undeploy the Archive
---------------------
+		
+Running the application on two nodes
+------------------------------------
 
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
-3. When you are finished testing, type this command to undeploy the archive:
+To run the application on two different nodes, complete the following steps:
 
-        mvn jboss-as:undeploy
+1. Make two physical copies of the JBoss AS
+2. Copy the .war archive into the JBOSS_HOME/standalone/deployment folder of both servers
+3. Complete the environmental setup for both servers
+4. Run the servers with the following arguments:
+		
+		-c standalone-ha.xml
+		-c standalone-ha.xml -Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100
 
-
-Run the Arquillian tests
-----------------------------
-
-This project provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
-
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.html/#arquilliantests) for complete instructions and additional options._
-
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
-3. Type the following command to run the test goal with the following profile activated:
-
-        mvn clean test -Parq-jbossas-remote 
-
+		
