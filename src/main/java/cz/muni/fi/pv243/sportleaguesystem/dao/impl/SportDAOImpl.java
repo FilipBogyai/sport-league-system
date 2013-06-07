@@ -8,11 +8,12 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.jboss.ejb3.annotation.Clustered;
+
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.SportDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 
-
-
+@Clustered
 @Stateless
 public class SportDAOImpl implements SportDAO{
 

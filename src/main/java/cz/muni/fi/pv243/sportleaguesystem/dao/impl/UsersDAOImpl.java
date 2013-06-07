@@ -7,12 +7,12 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.jboss.ejb3.annotation.Clustered;
+
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.UserDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 
-
-
-
+@Clustered
 @Stateless
 public class UsersDAOImpl implements UserDAO{
 

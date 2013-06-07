@@ -8,11 +8,14 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.jboss.ejb3.annotation.Clustered;
+
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.MatchDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 
+@Clustered
 @Stateless
 public class MatchDAOImpl implements MatchDAO{
 
