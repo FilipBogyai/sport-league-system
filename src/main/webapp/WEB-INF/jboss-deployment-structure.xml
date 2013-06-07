@@ -1,11 +1,8 @@
 <jboss-deployment-structure>
     <deployment>
-        <!-- Exclusions allow you to prevent the server from automatically adding some dependencies -->
         <exclusions>
+        	<!-- Excludes log4j from the automatically loaded dependencies by the server to use maven log4j -->
             <module name="org.apache.log4j"/>
-            <!--<module name="org.log4j"/> 
-            <module name="org.apache.commons.logging"/> 
-            <module name="org.jboss.logging"/>-->
         </exclusions>
     </deployment>
 </jboss-deployment-structure>

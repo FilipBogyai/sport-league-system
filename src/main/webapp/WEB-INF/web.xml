@@ -109,4 +109,7 @@
 	<security-role>
 		<role-name>ADMIN</role-name>
 	</security-role>
+	
+	<!-- Enables HTTP Session Replication -->
+	<distributable/>
 </web-app>

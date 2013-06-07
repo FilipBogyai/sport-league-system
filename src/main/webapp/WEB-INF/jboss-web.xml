@@ -1,4 +1,18 @@
 <?xml version="1.0"?>
 <jboss-web>
     <security-domain>sport</security-domain>
+    
+    <!-- Configuration for session replication-->
+    <replication-config>
+        <replication-trigger>SET_AND_NON_PRIMITIVE_GET</replication-trigger>
+        <replication-granularity>SESSION</replication-granularity>
+    </replication-config>
+    <!-- Jboss AS 7 can't crunch this apparently, should work on AS 6 according to DOCs
+	<valve>
+		<class-name>org.jboss.web.tomcat.service.sso.ClusteredSingleSignOn</class-name>
+		<param>
+			<param-name>maxEmptyLife</param-name>
+			<param-value>900</param-value>
+		</param>
+	</valve> -->
 </jboss-web>
