@@ -10,7 +10,7 @@ System pre vedenie sportovej ligy. Webova aplikacia sluzi pre jednotlivcov, ktor
 About techologies
 ----------------- 
 
-This is a compliant Java EE 6 application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0, Bean Validation 1.0, log4j and Picketbox JAAS.
+This is a compliant Java EE 6 application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0, Bean Validation 1.0, log4j, RESTEasy and Picketbox JAAS.
 
 
 System requirements
@@ -100,6 +100,31 @@ _NOTE: The following build command assumes you have configured your Maven user s
 		mvn clean test -Parq-jbossas-remote
 
 
+Restfull Services
+-----------------
+
+As well as web interface, authorized users can use Rest to browse sports, leagues, users and matches.
+Services are registered at respective urls (braces delimit optional parameters):
+
+	http://localhost:8080/SportLeagueSystem/rest/sports{?name=<sport_name>}
+	http://localhost:8080/SportLeagueSystem/rest/sports/<sport_id>
+	
+	For administrators only:
+	http://localhost:8080/SportLeagueSystem/rest/users{?name=<user_name>}
+	http://localhost:8080/SportLeagueSystem/rest/users/<user_id>
+	
+	http://localhost:8080/SportLeagueSystem/rest/leagues{?sport=<sport_name>}
+	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>
+	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>/players
+	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>/matches
+	
+	For league supervisors only:
+	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>/matches/generate
+	
+	http://localhost:8080/SportLeagueSystem/rest/leagues/matches
+	http://localhost:8080/SportLeagueSystem/rest/leagues/matches/<match_id>
+
+
 Running the application on two nodes
 ------------------------------------
 
@@ -114,8 +139,8 @@ To run the application on two different nodes, complete the following steps:
 		-c standalone-ha.xml -Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100
 
 		
-Preview on OpenShift
---------------------
+OpenShift
+---------
 
-Application deployed on URL: <http://sportleague-jbosstle.rhcloud.com/>
+Application is deployed on Openshift with URL: <http://sportleague-jbosstle.rhcloud.com/>
 
