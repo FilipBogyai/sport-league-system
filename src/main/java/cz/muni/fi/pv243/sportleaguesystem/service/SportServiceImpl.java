@@ -2,15 +2,20 @@ package cz.muni.fi.pv243.sportleaguesystem.service;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.jboss.ejb3.annotation.SecurityDomain;
+
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.SportDAO;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 
-@ApplicationScoped
+@SecurityDomain("sport")
+@RolesAllowed({"ADMIN", "LEAGUE_SUPERVISOR", "PLAYER"})
+@Stateless
 public class SportServiceImpl implements SportService {
 
 	@Inject
@@ -19,6 +24,7 @@ public class SportServiceImpl implements SportService {
 	@Inject
 	private SportDAO sportDAO;
 	
+	@RolesAllowed("ADMIN")
 	@Override
 	public void createSport(Sport sport) {
 		if (sport == null) {
@@ -32,7 +38,8 @@ public class SportServiceImpl implements SportService {
 		sportDAO.create(sport);
 		logger.info("Created new sport. " + sport);
 	}
-
+	
+	@RolesAllowed("ADMIN")
 	@Override
 	public void updateSport(Sport sport) {
 		if (sport == null) {
@@ -64,6 +71,7 @@ public class SportServiceImpl implements SportService {
 		return sportDAO.findAll();
 	}
 
+	@RolesAllowed("ADMIN")
 	@Override
 	public void deleteSport(Sport sport) {
 		if (sport == null) {

@@ -71,6 +71,15 @@ public interface LeagueService {
     List<League> findBySport(Sport sport);
     
     /**
+     * Return list of leagues filtered by sport for specific user
+     * 
+     * @param user user
+     * @throws IllegalArgumentException if parameter is null.
+     * @return list of leagues sorted by sport stored in map
+     */
+    Map<Sport, List<League>> findLeaguesOrderedBySport(User user);
+    
+    /**
      * Registers user into the given league
      * 
      * @param User user who will be registered into league

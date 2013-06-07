@@ -4,10 +4,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.jboss.ejb3.annotation.SecurityDomain;
 
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.LeagueDAO;
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.MatchDAO;
@@ -19,7 +22,9 @@ import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 
-@ApplicationScoped
+@SecurityDomain("sport")
+@RolesAllowed({"ADMIN", "LEAGUE_SUPERVISOR", "PLAYER"})
+@Stateless
 public class PrincipalServiceImpl implements PrincipalService {
 
 	@Inject
@@ -37,6 +42,7 @@ public class PrincipalServiceImpl implements PrincipalService {
 	@Inject
 	LeagueDAO leagueDAO;
 	
+	@PermitAll
 	@Override
 	public void create(Principal principal) {
 		if (principal == null) {
@@ -81,7 +87,8 @@ public class PrincipalServiceImpl implements PrincipalService {
 		logger.info("Updated principal with loginName=" + principal.getLoginName());
 
 	}
-
+	
+	@RolesAllowed("ADMIN")
 	@Override
 	public void delete(Principal principal) {
 		if (principal == null) {
@@ -102,7 +109,7 @@ public class PrincipalServiceImpl implements PrincipalService {
 		principalDAO.delete(principal);
 		logger.info("Deleted principal with loginName=" + principal.getLoginName());
 	}
-
+	
 	@Override
 	public List<Principal> findAll() {
 		logger.info("Returning a list of all principals.");
@@ -129,6 +136,7 @@ public class PrincipalServiceImpl implements PrincipalService {
 		return principalDAO.get(loginName); 
 	}
 	
+	@PermitAll
 	public String hashPassword(String password){
 		
 		StringBuffer hexString = new StringBuffer();

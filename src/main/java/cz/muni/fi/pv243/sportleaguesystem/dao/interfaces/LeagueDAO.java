@@ -2,8 +2,6 @@ package cz.muni.fi.pv243.sportleaguesystem.dao.interfaces;
 
 import java.util.List;
 
-import javax.validation.ConstraintViolationException;
-
 import cz.muni.fi.pv243.sportleaguesystem.entities.League;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;

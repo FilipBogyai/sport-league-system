@@ -8,8 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import cz.muni.fi.pv243.sportleaguesystem.dao.interfaces.PrincipalDAO;
-import cz.muni.fi.pv243.sportleaguesystem.entities.League;
-import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
 import cz.muni.fi.pv243.sportleaguesystem.entities.Principal;
 import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 
