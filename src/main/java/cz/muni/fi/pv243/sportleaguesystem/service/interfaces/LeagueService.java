@@ -104,5 +104,7 @@ public interface LeagueService {
      * @return list of players sorted by their point   
      */
     List<PlayerResult> evaluateLeague(League league);
+
+	Map<Sport, List<League>> findLeaguesOrderedBySport(User user);
     
 }
