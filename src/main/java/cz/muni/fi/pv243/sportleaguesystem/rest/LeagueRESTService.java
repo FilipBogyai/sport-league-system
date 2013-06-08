@@ -84,6 +84,13 @@ public class LeagueRESTService {
         League league = lookupLeagueById(id);
         return league.getMatches();
     }
+    
+    @GET
+    @Path("/{id:[0-9][0-9]*}/evaluate")
+    public List<PlayerResult> evaluateLeague(@PathParam("id") Long id) {
+        League league = lookupLeagueById(id);
+        return leagueService.evaluateLeague(league);
+    }
 
     @GET
     @Path("/{id:[0-9][0-9]*}/matches/generate")
@@ -93,12 +100,5 @@ public class LeagueRESTService {
         return Response.ok("New matches generated")
                 .type(MediaType.APPLICATION_JSON)
                 .build();
-    }
-
-    @GET
-    @Path("/{id:[0-9][0-9]*}/matches/evaluate")
-    public List<PlayerResult> evaluateLeague(@PathParam("id") Long id) {
-        League league = lookupLeagueById(id);
-        return leagueService.evaluateLeague(league);
     }
 }
