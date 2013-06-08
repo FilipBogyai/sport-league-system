@@ -2,6 +2,7 @@ package cz.muni.fi.pv243.sportleaguesystem.rest;
 
 import java.util.List;
 
+import cz.muni.fi.pv243.sportleaguesystem.entities.*;
 import javassist.NotFoundException;
 
 import javax.enterprise.context.RequestScoped;
@@ -18,10 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import cz.muni.fi.pv243.sportleaguesystem.controller.SecurityHelper;
-import cz.muni.fi.pv243.sportleaguesystem.entities.League;
-import cz.muni.fi.pv243.sportleaguesystem.entities.Match;
-import cz.muni.fi.pv243.sportleaguesystem.entities.Sport;
-import cz.muni.fi.pv243.sportleaguesystem.entities.User;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.LeagueService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.PrincipalService;
 import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
@@ -96,5 +93,12 @@ public class LeagueRESTService {
         return Response.ok("New matches generated")
                 .type(MediaType.APPLICATION_JSON)
                 .build();
+    }
+
+    @GET
+    @Path("/{id:[0-9][0-9]*}/matches/evaluate")
+    public List<PlayerResult> evaluateLeague(@PathParam("id") Long id) {
+        League league = lookupLeagueById(id);
+        return leagueService.evaluateLeague(league);
     }
 }

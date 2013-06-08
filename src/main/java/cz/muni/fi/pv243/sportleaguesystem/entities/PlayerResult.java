@@ -1,8 +1,11 @@
 package cz.muni.fi.pv243.sportleaguesystem.entities;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author Marian Rusnak
  */
+@XmlRootElement
 public class PlayerResult implements Comparable<PlayerResult> {
     private User user;
     private int points;
@@ -16,6 +19,9 @@ public class PlayerResult implements Comparable<PlayerResult> {
         return user;
     }
 
+    public PlayerResult() {
+    	super();
+    }
 
     public PlayerResult(User user, int points, int wonCount, int drawnCount,
                         int lostCount, int playerScore, int opponentsScore) {
