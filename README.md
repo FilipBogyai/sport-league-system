@@ -104,16 +104,18 @@ RESTful Web Services
 --------------------
 
 As well as web interface, authorized users can use REST to browse sports, leagues, users and matches.
-Services are registered at respective urls (braces delimit optional parameters):
+Responses from REST Services can be displayed in either XML or JSON format by adding ".json" or ".xml"
+at the end of url (before query string). Default content type is XML because it is more user-friendly.
+Services are registered at respective urls (square brackets delimit optional parameters):
 
-	http://localhost:8080/SportLeagueSystem/rest/sports{?name=<sport_name>}
+	http://localhost:8080/SportLeagueSystem/rest/sports[?name=<sport_name>]
 	http://localhost:8080/SportLeagueSystem/rest/sports/<sport_id>
 	
 	For administrators only:
-	http://localhost:8080/SportLeagueSystem/rest/users{?name=<user_name>}
+	http://localhost:8080/SportLeagueSystem/rest/users[?name=<user_name>]
 	http://localhost:8080/SportLeagueSystem/rest/users/<user_id>
 	
-	http://localhost:8080/SportLeagueSystem/rest/leagues{?sport=<sport_name>}
+	http://localhost:8080/SportLeagueSystem/rest/leagues[?sport=<sport_name>]
 	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>
 	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>/players
 	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>/matches
