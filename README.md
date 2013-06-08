@@ -25,7 +25,8 @@ System requirements
 Setting up the database
 -----------------------
 
-1. Install MySQL Community Server, set username/password as Admin/Admin
+1. Install MySQL Community Server, set username/password as admin/admin
+2. Create empty database named sportleaguesystem
 2. Install the MySQL connector
 	- Download the MySQL Driver and module.xml from <http://www.edisk.cz/stahni/04703/driver.zip_829.07KB.html>
 	- Extract the archive and copy it into %JBOSS_HOME%\modules\com\mysql\main The file structure should be as follows:	
