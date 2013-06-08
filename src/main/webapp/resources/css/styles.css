@@ -123,6 +123,13 @@ img {
 	text-decoration: none;
 }
 
+.button_01 a.wide {
+    width: auto;
+    background-image: none;
+    background-color: #e8c521;
+    border: 1px solid #000000;
+}
+
 input[type="submit"] {
 	clear: both;
 	display: block;
