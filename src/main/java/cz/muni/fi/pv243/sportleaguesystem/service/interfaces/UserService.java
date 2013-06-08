@@ -15,18 +15,10 @@ public interface UserService {
     /**
      * Adds new User to the database.
      * 
-     * @param User User to add.   
+     * @param user User to add.
      * @throws IllegalArgumentException if parameter is null or if user id is already assigned.
      */
     void createUser(User user);
-
-    /**
-     * Updates existing User.
-     * 
-     * @param User User to update (specified by id) with new attributes.   
-     * @throws IllegalArgumentException if parameter is null or if user does not exist.   
-     */
-    void updateUser(User user);
 
     /**
      * Returns User with given id.
@@ -47,7 +39,7 @@ public interface UserService {
     /**
      * Removes existing User.
      * 
-     * @param User User to remove (specified by id).   
+     * @param user User to remove (specified by id).
      * @throws IllegalArgumentException if parameter is null.   
      */
     void deleteUser(User user);
@@ -64,8 +56,8 @@ public interface UserService {
     /**
      * Registers user into the given league
      * 
-     * @param User user who will be registered into league
-     * @param League league in which user will play
+     * @param user user who will be registered into league
+     * @param league league in which user will play
      * @throws IllegalArgumentException if parameters is null.   
      */
     void registerToLeague(User user, League league);

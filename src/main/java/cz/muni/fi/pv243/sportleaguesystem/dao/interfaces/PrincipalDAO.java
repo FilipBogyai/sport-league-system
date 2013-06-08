@@ -41,19 +41,11 @@ public interface PrincipalDAO {
    void delete(Principal principal);
    
    /**
-    * Returns list of all principals in the database.
-    * 
-    * @return all principals in the DB or empty list if there are none.   
-    */
-   List<Principal> findAll();
-   
-   /**
     * Returns principal of given user.
     * 
     * @param user of requested pricipal
     * @return principal of given user
     */
    Principal findPrincipalByUser(User user);
-   
-   
+
 }

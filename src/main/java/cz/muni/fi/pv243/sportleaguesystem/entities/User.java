@@ -22,89 +22,88 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
-*
-* @author Filip Bogyai
-*/
+ * @author Filip Bogyai
+ */
 @Entity
 @XmlRootElement
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; 
-    
+    private Long id;
+
     @NotNull(message = "First name cannot be null")
     @NotEmpty(message = "First name cannot be empty")
     @Size(min = 1, max = 20, message = "First name must contain between 1 to 20 characters")
     @Pattern(regexp = "[A-Za-z]+", message = "First name must contain only letters")
     private String firstName;
-    
+
     @NotNull(message = "Last name cannot be null")
     @NotEmpty(message = "Last name cannot be empty")
     @Size(min = 1, max = 20, message = "Last name must contain between 1 to 20 characters")
     @Pattern(regexp = "[A-Za-z]+", message = "Last name must contain only letters")
     private String lastName;
-    
+
     @NotNull(message = "Phone number cannot be null")
     @NotEmpty(message = "Phone number cannot be empty")
     @Size(min = 1, max = 20, message = "Phone number must contain between 1 to 20 characters")
     @Digits(fraction = 0, integer = 20, message = "Phone number can only contain digits")
     @Column(name = "phone_number")
     private String phoneNumber;
-    
-    @ManyToMany(mappedBy="players")
+
+    @ManyToMany(mappedBy = "players")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<League> leagues;
-            
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	
-	@JsonIgnore
-	@XmlTransient
-	public List<League> getLeagues() {
-		return leagues;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public void setLeagues(List<League> leagues) {
-		this.leagues = leagues;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	@Override
+    @JsonIgnore
+    @XmlTransient
+    public List<League> getLeagues() {
+        return leagues;
+    }
+
+    public void setLeagues(List<League> leagues) {
+        this.leagues = leagues;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-	
-	@Override
+
+    @Override
     public boolean equals(Object object) {
         if (!(object instanceof User)) {
             return false;
@@ -116,10 +115,10 @@ public class User {
         return true;
     }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName="
-				+ lastName  + "]";
-	}
-	
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", firstName=" + firstName + ", lastName="
+                + lastName + "]";
+    }
+
 }

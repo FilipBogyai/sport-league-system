@@ -33,13 +33,6 @@ public interface PrincipalService {
    void delete(Principal principal);
    
    /**
-    * Returns list of all principals in the database.
-    * 
-    * @return all principals in the DB or empty list if there are none.   
-    */
-   List<Principal> findAll();
-   
-   /**
     * Returns principal of given user.
     * 
     * @param user of requested pricipal
@@ -51,8 +44,8 @@ public interface PrincipalService {
    /**
     * Returns principal with given loginName.
     * 
-    * @param user of requested pricipal
-    * @return principal of given user 
+    * @param loginName of requested pricipal
+    * @return principal of given loginName
     * @throws IllegalArgumentException if parameter is null.  
     */
    Principal findPrincipalByLoginName(String loginName);

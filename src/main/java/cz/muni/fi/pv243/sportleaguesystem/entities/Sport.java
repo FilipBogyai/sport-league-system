@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Sport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    private Long id;
     
     @NotNull(message="Name cannot be null")
     @NotEmpty(message="Name cannot be empty")

@@ -1,4 +1,5 @@
 package cz.muni.fi.pv243.sportleaguesystem.test;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,46 +25,45 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class SortingTest {
-   @Deployment
-   public static Archive<?> createTestArchive() {
-      return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addClasses(PlayerResult.class, Resources.class, User.class, League.class, Match.class, Sport.class)
-            .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-            // Deploy our test datasource
-            .addAsWebInfResource("test-ds.xml", "test-ds.xml");
-   }
-
-   
-
-   @Inject
-   Logger log;
+    @Deployment
+    public static Archive<?> createTestArchive() {
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+                .addClasses(PlayerResult.class, Resources.class, User.class, League.class, Match.class, Sport.class)
+                .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                        // Deploy our test datasource
+                .addAsWebInfResource("test-ds.xml", "test-ds.xml");
+    }
 
 
-   @Test
-   public void sorResults(){
-	   User user = new User();
-	   user.setFirstName("Ferko");
-	   
-	   PlayerResult playerResult1 = new PlayerResult(user, 2, 0, 0, 0, 0, 0);
-	   PlayerResult playerResult2 = new PlayerResult(user, 4, 0, 0, 0, 0, 0);
-	   PlayerResult playerResult3 = new PlayerResult(user, 1, 0, 0, 0, 0, 0);
-	   PlayerResult playerResult4 = new PlayerResult(user, 6, 0, 0, 0, 0, 0);
-	   
-	   List<PlayerResult> results = new ArrayList<PlayerResult>();
-	   results.add(playerResult1);
-	   results.add(playerResult2);
-	   results.add(playerResult3);
-	   results.add(playerResult4);
-	   for(PlayerResult playerResult : results){
-		   log.info(playerResult.toString());		   
-	   }
-	   
-	   Collections.sort(results);
-	   log.info("zoradene");
-	   for(PlayerResult playerResult : results){
-		   log.info(playerResult.toString());		   
-	   }
-	   
-   }
+    @Inject
+    Logger log;
+
+
+    @Test
+    public void sorResults() {
+        User user = new User();
+        user.setFirstName("Ferko");
+
+        PlayerResult playerResult1 = new PlayerResult(user, 2, 0, 0, 0, 0, 0);
+        PlayerResult playerResult2 = new PlayerResult(user, 4, 0, 0, 0, 0, 0);
+        PlayerResult playerResult3 = new PlayerResult(user, 1, 0, 0, 0, 0, 0);
+        PlayerResult playerResult4 = new PlayerResult(user, 6, 0, 0, 0, 0, 0);
+
+        List<PlayerResult> results = new ArrayList<PlayerResult>();
+        results.add(playerResult1);
+        results.add(playerResult2);
+        results.add(playerResult3);
+        results.add(playerResult4);
+        for (PlayerResult playerResult : results) {
+            log.info(playerResult.toString());
+        }
+
+        Collections.sort(results);
+        log.info("zoradene");
+        for (PlayerResult playerResult : results) {
+            log.info(playerResult.toString());
+        }
+
+    }
 }

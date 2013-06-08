@@ -21,31 +21,31 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 @RequestScoped
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 public class SportRESTService {
-	
-	@Inject
-	private SportService sportService;
-	
-	@GET
-	public List<Sport> listAllSports(@QueryParam("name") @DefaultValue("") String name) {
-		List<Sport> sports = null;
-		if (!"".equals(name)) {
-			sports = sportService.findSportsByName(name);
-		} else {
-			sports = sportService.getAll();
-		}
-		return sports;
-	}
-	
-	@GET
-	@Path("/{id:[0-9][0-9]*}")
-	public Sport lookupSportById(@PathParam("id") Long id) {
-		Sport sport = sportService.getById(id);
-		if (sport == null) {
-			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-					.entity("Sport with id " + id + " wasn't found")
-					.type(MediaType.APPLICATION_JSON)
-					.build());
-		}
-		return sport;
-	}
+
+    @Inject
+    private SportService sportService;
+
+    @GET
+    public List<Sport> listAllSports(@QueryParam("name") @DefaultValue("") String name) {
+        List<Sport> sports;
+        if (!"".equals(name)) {
+            sports = sportService.findSportsByName(name);
+        } else {
+            sports = sportService.getAll();
+        }
+        return sports;
+    }
+
+    @GET
+    @Path("/{id:[0-9][0-9]*}")
+    public Sport lookupSportById(@PathParam("id") Long id) {
+        Sport sport = sportService.getById(id);
+        if (sport == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("Sport with id " + id + " wasn't found")
+                    .type(MediaType.APPLICATION_JSON)
+                    .build());
+        }
+        return sport;
+    }
 }

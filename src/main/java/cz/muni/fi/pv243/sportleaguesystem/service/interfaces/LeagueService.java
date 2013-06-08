@@ -16,7 +16,7 @@ public interface LeagueService {
 	/**
      * Adds new League to the database.
      *
-     * @param League League to add.
+     * @param league League to add.
      * @throws IllegalArgumentException if parameter is null or id is already assigned.   
      */
     void createLeague(League league);
@@ -24,7 +24,7 @@ public interface LeagueService {
     /**
      * Updates existing League.
      *
-     * @param League League to update (specified by id) with new attributes.
+     * @param league League to update (specified by id) with new attributes.
      * @throws IllegalArgumentException if parameter is null or if league does not exist.
      */
     void updateLeague(League league);
@@ -82,8 +82,8 @@ public interface LeagueService {
     /**
      * Registers user into the given league
      * 
-     * @param User user who will be registered into league
-     * @param League league in which user will play
+     * @param user user who will be registered into league
+     * @param league league in which user will play
      * @throws IllegalArgumentException if parameters is null.   
      */
     void addPlayer(User user, League league);
@@ -91,8 +91,8 @@ public interface LeagueService {
     /**
      * Removes user from the given league
      * 
-     * @param User user who will be removed from league
-     * @param League league in which user played
+     * @param user user who will be removed from league
+     * @param league league in which user played
      * @throws IllegalArgumentException if parameters is null.   
      */
     void removePlayer(User user, League league);
@@ -100,7 +100,7 @@ public interface LeagueService {
     /**
      * Creates new round of matches for players registered into league
      *     
-     * @param League league in which matches will be generated
+     * @param league league in which matches will be generated
      * @throws IllegalArgumentException if parameters is null.   
      */
     void generateMatches(League league);
@@ -108,7 +108,7 @@ public interface LeagueService {
     /**
      * Return list of  player's results sorted by their points descending 
      *     
-     * @param League league which will be evaluated
+     * @param league league which will be evaluated
      * @throws IllegalArgumentException if parameters is null.
      * @return list of players sorted by their point   
      */

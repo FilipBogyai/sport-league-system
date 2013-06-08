@@ -80,11 +80,11 @@ public class MatchesController {
     public Map<String, List<MatchWrapper>> getMatches() {
         return matches;
     }
-    
+
     @Produces
     @Named
     public Map<Sport, List<LeagueWrapper>> getMyMatches() {
-    	return myMatches;
+        return myMatches;
     }
 
     public String generateMatches() {
@@ -111,8 +111,8 @@ public class MatchesController {
             if (league != null) {
                 matches = createMatchesList(league.getMatches());
             } else {
-            	if (!matchService.findByUser(principal.getUser()).isEmpty())
-            		myMatches = createMyMatchesList(principal.getUser());
+                if (!matchService.findByUser(principal.getUser()).isEmpty())
+                    myMatches = createMyMatchesList(principal.getUser());
             }
         } else {
             Match tmpMatch = matchService.getById(Long.parseLong(matchId));
@@ -154,21 +154,21 @@ public class MatchesController {
         }
         return matches;
     }
-    
+
     private Map<Sport, List<LeagueWrapper>> createMyMatchesList(User user) throws ParseException {
-    	Map<Sport, List<League>> orderedLeagues = leagueService.findLeaguesOrderedBySport(user);
-    	Map<Sport, List<LeagueWrapper>> myMatches = new HashMap<Sport, List<LeagueWrapper>>();
-    	
-    	for (Sport sport : orderedLeagues.keySet()) {
-			myMatches.put(sport, new ArrayList<LeagueWrapper>());
-			for (League league : orderedLeagues.get(sport)) {
-				LeagueWrapper wrapper = new LeagueWrapper();
-				wrapper.league = league;
-				wrapper.matches = createMatchesList(getMatchesByUser(league, user));
-				myMatches.get(sport).add(wrapper);
-			}
-		}
-    	return myMatches;
+        Map<Sport, List<League>> orderedLeagues = leagueService.findLeaguesOrderedBySport(user);
+        Map<Sport, List<LeagueWrapper>> myMatches = new HashMap<Sport, List<LeagueWrapper>>();
+
+        for (Sport sport : orderedLeagues.keySet()) {
+            myMatches.put(sport, new ArrayList<LeagueWrapper>());
+            for (League league : orderedLeagues.get(sport)) {
+                LeagueWrapper wrapper = new LeagueWrapper();
+                wrapper.league = league;
+                wrapper.matches = createMatchesList(getMatchesByUser(league, user));
+                myMatches.get(sport).add(wrapper);
+            }
+        }
+        return myMatches;
     }
 
     private String getMatchDateString(Match match) throws ParseException {
@@ -196,7 +196,7 @@ public class MatchesController {
         return builder.toString();
     }
 
-    private String getDateKey(Date date) throws ParseException {
+    private String getDateKey(Date date) {
         if (date == null) return "Date not set";
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(date);
@@ -206,14 +206,14 @@ public class MatchesController {
         String scoreStr = params.get(param);
         return (!scoreStr.trim().equals("")) ? new Integer(scoreStr) : null;
     }
-    
+
     private List<Match> getMatchesByUser(League league, User user) {
-    	List<Match> matchesList = new ArrayList<Match>();
-    	for (Match match : league.getMatches()) {
-			if (match.getPlayer1().equals(user) || match.getPlayer2().equals(user))
-				matchesList.add(match);
-		}
-    	return matchesList;
+        List<Match> matchesList = new ArrayList<Match>();
+        for (Match match : league.getMatches()) {
+            if (match.getPlayer1().equals(user) || match.getPlayer2().equals(user))
+                matchesList.add(match);
+        }
+        return matchesList;
     }
 
     public class MatchWrapper {
@@ -248,27 +248,27 @@ public class MatchesController {
             this.canEdit = canEdit;
         }
     }
-    
+
     public class LeagueWrapper {
-    	private League league;
-    	private Map<String, List<MatchWrapper>> matches;
-		
-    	@Produces
-    	public League getLeague() {
-			return league;
-		}
-		
-    	public void setLeague(League league) {
-			this.league = league;
-		}
-		
-    	@Produces
-    	public Map<String, List<MatchWrapper>> getMatches() {
-			return matches;
-		}
-		
-    	public void setMatches(Map<String, List<MatchWrapper>> matches) {
-			this.matches = matches;
-		}
+        private League league;
+        private Map<String, List<MatchWrapper>> matches;
+
+        @Produces
+        public League getLeague() {
+            return league;
+        }
+
+        public void setLeague(League league) {
+            this.league = league;
+        }
+
+        @Produces
+        public Map<String, List<MatchWrapper>> getMatches() {
+            return matches;
+        }
+
+        public void setMatches(Map<String, List<MatchWrapper>> matches) {
+            this.matches = matches;
+        }
     }
 }

@@ -12,15 +12,17 @@ public interface SportService {
 	
 	/**
      * Adds new Sport to the database.
+     *
      * @throws IllegalArgumentException if parameter is null or if sport id is already assigned.   
-     * @param Sport Sport to add.    
+     * @param sport Sport to add.
      */
     void createSport(Sport sport);
 
     /**
      * Updates existing Sport.
+     *
      * @throws IllegalArgumentException if parameter is null or if sport does not exist.
-     * @param Sport Sport to update (specified by id) with new attributes.   
+     * @param sport Sport to update (specified by id) with new attributes.
      */
     void updateSport(Sport sport);
 
@@ -43,7 +45,7 @@ public interface SportService {
     /**
      * Removes existing Sport.
      * 
-     * @param Sport Sport to remove (specified by id).
+     * @param sport Sport to remove (specified by id).
      * @throws IllegalArgumentException if parameter is null.   
      */
     void deleteSport(Sport sport);

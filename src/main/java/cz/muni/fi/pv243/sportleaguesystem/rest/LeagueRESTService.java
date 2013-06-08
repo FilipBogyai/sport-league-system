@@ -31,70 +31,70 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 public class LeagueRESTService {
 
-	@Inject
-	private LeagueService leagueService;
-	
-	@Inject
-	private SportService sportService;
-	
-	@Inject
-	private SecurityHelper securityHelper;
-	
-	@Inject
-	private PrincipalService principalService;
-	
-	@GET
-	public List<League> findAllLeagues(@QueryParam("sport") @DefaultValue("") String sportName) {
-		List<League> leagues = null;
-		if (!"".equals(sportName)) {
-			List<Sport> sports = sportService.findSportsByName(sportName);
-			if (sports.size() != 1) {
-				throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-						.entity("Sport with name " + sportName + " wasn't found or there are multiple sports with such a name")
-						.type(MediaType.APPLICATION_JSON)
-						.build());
-			}
-			leagues = leagueService.findBySport(sports.get(0));
-		} else {
-			leagues = leagueService.findAll();
-		}
-		return leagues;
-	}
-	
-	@GET
-	@Path("/{id:[0-9][0-9]*}")
-	public League lookupLeagueById(@PathParam("id") Long id) {
-		League league = leagueService.getById(id);
-		if (league == null) {
-			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-					.entity("League with id " + id + " wasn't found")
-					.type(MediaType.APPLICATION_JSON)
-					.build());
-		}
-		return league;
-	}
-	
-	@GET
-	@Path("/{id:[0-9][0-9]*}/players")
-	public List<User> findLeaguePlayers(@PathParam("id") Long id) {
-		League league = lookupLeagueById(id);
-		return league.getPlayers();
-	}
-	
-	@GET
-	@Path("/{id:[0-9][0-9]*}/matches")
-	public List<Match> findLeagueMatches(@PathParam("id") Long id) {
-		League league = lookupLeagueById(id);
-		return league.getMatches();
-	}
-	
-	@GET
-	@Path("/{id:[0-9][0-9]*}/matches/generate")
-	public Response generateMatches(@PathParam("id") Long id) {
-		League league = lookupLeagueById(id);
-		leagueService.generateMatches(league);
-		return Response.ok("New matches generated")
-					   .type(MediaType.APPLICATION_JSON)
-					   .build();
-	}
+    @Inject
+    private LeagueService leagueService;
+
+    @Inject
+    private SportService sportService;
+
+    @Inject
+    private SecurityHelper securityHelper;
+
+    @Inject
+    private PrincipalService principalService;
+
+    @GET
+    public List<League> findAllLeagues(@QueryParam("sport") @DefaultValue("") String sportName) {
+        List<League> leagues;
+        if (!"".equals(sportName)) {
+            List<Sport> sports = sportService.findSportsByName(sportName);
+            if (sports.size() != 1) {
+                throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                        .entity("Sport with name " + sportName + " wasn't found or there are multiple sports with such a name")
+                        .type(MediaType.APPLICATION_JSON)
+                        .build());
+            }
+            leagues = leagueService.findBySport(sports.get(0));
+        } else {
+            leagues = leagueService.findAll();
+        }
+        return leagues;
+    }
+
+    @GET
+    @Path("/{id:[0-9][0-9]*}")
+    public League lookupLeagueById(@PathParam("id") Long id) {
+        League league = leagueService.getById(id);
+        if (league == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("League with id " + id + " wasn't found")
+                    .type(MediaType.APPLICATION_JSON)
+                    .build());
+        }
+        return league;
+    }
+
+    @GET
+    @Path("/{id:[0-9][0-9]*}/players")
+    public List<User> findLeaguePlayers(@PathParam("id") Long id) {
+        League league = lookupLeagueById(id);
+        return league.getPlayers();
+    }
+
+    @GET
+    @Path("/{id:[0-9][0-9]*}/matches")
+    public List<Match> findLeagueMatches(@PathParam("id") Long id) {
+        League league = lookupLeagueById(id);
+        return league.getMatches();
+    }
+
+    @GET
+    @Path("/{id:[0-9][0-9]*}/matches/generate")
+    public Response generateMatches(@PathParam("id") Long id) {
+        League league = lookupLeagueById(id);
+        leagueService.generateMatches(league);
+        return Response.ok("New matches generated")
+                .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
 }

@@ -3,7 +3,7 @@ package cz.muni.fi.pv243.sportleaguesystem.entities;
 /**
  * @author Marian Rusnak
  */
-public class PlayerResult implements Comparable<PlayerResult>{
+public class PlayerResult implements Comparable<PlayerResult> {
     private User user;
     private int points;
     private int wonCount;
@@ -16,21 +16,21 @@ public class PlayerResult implements Comparable<PlayerResult>{
         return user;
     }
 
-    
+
     public PlayerResult(User user, int points, int wonCount, int drawnCount,
-			int lostCount, int playerScore, int opponentsScore) {
-		super();
-		this.user = user;
-		this.points = points;
-		this.wonCount = wonCount;
-		this.drawnCount = drawnCount;
-		this.lostCount = lostCount;
-		this.playerScore = playerScore;
-		this.opponentsScore = opponentsScore;
-	}
+                        int lostCount, int playerScore, int opponentsScore) {
+        super();
+        this.user = user;
+        this.points = points;
+        this.wonCount = wonCount;
+        this.drawnCount = drawnCount;
+        this.lostCount = lostCount;
+        this.playerScore = playerScore;
+        this.opponentsScore = opponentsScore;
+    }
 
 
-	public void setUser(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -82,18 +82,18 @@ public class PlayerResult implements Comparable<PlayerResult>{
         this.opponentsScore = opponentsScore;
     }
 
-	@Override
-	public int compareTo(PlayerResult o) {
-		return (o.getPoints() - points);
-	}
+    @Override
+    public int compareTo(PlayerResult o) {
+        return (o.getPoints() - points);
+    }
 
 
-	@Override
-	public String toString() {
-		return "PlayerResult [user=" + user + ", points=" + points
-				+ ", wonCount=" + wonCount + ", drawnCount=" + drawnCount
-				+ ", lostCount=" + lostCount + ", playerScore=" + playerScore
-				+ ", opponentsScore=" + opponentsScore + "]";
-	}    
-	
+    @Override
+    public String toString() {
+        return "PlayerResult [user=" + user + ", points=" + points
+                + ", wonCount=" + wonCount + ", drawnCount=" + drawnCount
+                + ", lostCount=" + lostCount + ", playerScore=" + playerScore
+                + ", opponentsScore=" + opponentsScore + "]";
+    }
+
 }

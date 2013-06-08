@@ -22,30 +22,30 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.UserService;
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 public class UserRESTService {
 
-	@Inject
-	private UserService userService;
-	
-	@GET
-	public List<User> listAllUsers(@QueryParam("name") @DefaultValue("") String name) {
-		List<User> users = null;
-		if (!"".equals(name)) {
-			users = userService.findByName(name);
-		} else {
-			users = userService.getAll();
-		}
-		return users;
-	}
-	
-	@GET
-	@Path("/{id:[0-9][0-9]*}")
-	public User lookupUserById(@PathParam("id") Long id) {
-		User user = userService.getById(id);
-		if (user == null) {
-			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-					.entity("User with id " + id + " wasn't found")
-					.type(MediaType.APPLICATION_JSON)
-					.build());
-		}
-		return user;
-	}
+    @Inject
+    private UserService userService;
+
+    @GET
+    public List<User> listAllUsers(@QueryParam("name") @DefaultValue("") String name) {
+        List<User> users;
+        if (!"".equals(name)) {
+            users = userService.findByName(name);
+        } else {
+            users = userService.getAll();
+        }
+        return users;
+    }
+
+    @GET
+    @Path("/{id:[0-9][0-9]*}")
+    public User lookupUserById(@PathParam("id") Long id) {
+        User user = userService.getById(id);
+        if (user == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("User with id " + id + " wasn't found")
+                    .type(MediaType.APPLICATION_JSON)
+                    .build());
+        }
+        return user;
+    }
 }

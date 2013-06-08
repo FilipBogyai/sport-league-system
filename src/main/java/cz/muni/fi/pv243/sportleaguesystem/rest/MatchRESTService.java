@@ -27,17 +27,9 @@ public class MatchRESTService {
 	@Inject
 	private MatchService matchService;
 	
-	@Inject
-	private LeagueService leagueService;
-	
 	@GET
 	public List<Match> findAllMatches() {
-		List<League> leagues = leagueService.findAll();
-		List<Match> matches = new ArrayList<Match>();
-		for (League league : leagues) {
-			matches.addAll(league.getMatches());
-		}
-		return matches;
+		return matchService.findAll();
 	}
 
 	@GET

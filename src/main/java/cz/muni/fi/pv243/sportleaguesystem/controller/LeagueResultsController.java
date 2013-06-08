@@ -17,34 +17,34 @@ import java.util.Map;
 @Model
 public class LeagueResultsController {
 
-	@Inject
-	private FacesContext facesContext;
+    @Inject
+    private FacesContext facesContext;
 
     @Inject
     private LeagueService leagueService;
-	
-	@Inject
-	private SecurityHelper securityHelper;
-	
-	private List<PlayerResult> playerResults;
+
+    @Inject
+    private SecurityHelper securityHelper;
+
+    private List<PlayerResult> playerResults;
     private League resultsLeague;
 
-	@Produces
-	@Named
-	public List<PlayerResult> getPlayerResults() {
-		return playerResults;
-	}
+    @Produces
+    @Named
+    public List<PlayerResult> getPlayerResults() {
+        return playerResults;
+    }
 
     @Produces
     @Named
     public League getResultsLeague() {
         return resultsLeague;
     }
-	
-	@PostConstruct
-	public void init() {
-		Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
-		String leagueId = params.get("leagueID");
+
+    @PostConstruct
+    public void init() {
+        Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+        String leagueId = params.get("leagueID");
 
         if (leagueId == null) return;
 
@@ -53,5 +53,5 @@ public class LeagueResultsController {
         if (resultsLeague == null) return;
 
         playerResults = leagueService.evaluateLeague(resultsLeague);
-	}
+    }
 }

@@ -39,25 +39,25 @@ import cz.muni.fi.pv243.sportleaguesystem.util.Resources;
 @RunWith(Arquillian.class)
 public class UserDAOImplTest {
 
-	@Deployment
-	 public static Archive<?> createTestArchive() {
-		 return ShrinkWrap.create(WebArchive.class,"test.war")
-				 .addClasses(Sport.class,League.class,Resources.class,SportDAOImpl.class,SportDAO.class,
-						 LeagueDAO.class,LeagueDAOImpl.class,Match.class,User.class,MatchDAO.class,MatchDAOImpl.class,
-						 UserDAO.class,UsersDAOImpl.class)
-				 .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-				 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-				// Deploy our test datasource
-		        .addAsWebInfResource("test-ds.xml", "test-ds.xml");
-		 
-	 }
-	
-	@Inject
-	UserDAO userDAO;
-	
-	@Test
+    @Deployment
+    public static Archive<?> createTestArchive() {
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+                .addClasses(Sport.class, League.class, Resources.class, SportDAOImpl.class, SportDAO.class,
+                        LeagueDAO.class, LeagueDAOImpl.class, Match.class, User.class, MatchDAO.class, MatchDAOImpl.class,
+                        UserDAO.class, UsersDAOImpl.class)
+                .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                        // Deploy our test datasource
+                .addAsWebInfResource("test-ds.xml", "test-ds.xml");
+
+    }
+
+    @Inject
+    UserDAO userDAO;
+
+    @Test
     public void testCreate() {
-        User user = buildUser("Jozko", "Mrkvicka","0903123456");
+        User user = buildUser("Jozko", "Mrkvicka", "0903123456");
         userDAO.create(user);
 
         User user2 = userDAO.get(user.getId());
@@ -68,21 +68,21 @@ public class UserDAOImplTest {
 
     @Test(expected = Exception.class)
     public void testCreateWithNotNullId() {
-    	User user = buildUser("Jozko", "Mrkvicka","0903123456");
+        User user = buildUser("Jozko", "Mrkvicka", "0903123456");
         user.setId(5l);
 
-        userDAO.create(user);         
+        userDAO.create(user);
     }
 
     @Test(expected = Exception.class)
     public void testCreateWithNull() {
-    	
-        userDAO.create(null);           
+
+        userDAO.create(null);
     }
 
     @Test
     public void testGet() {
-    	User user = buildUser("Jozko", "Mrkvicka","0903123456");
+        User user = buildUser("Jozko", "Mrkvicka", "0903123456");
         userDAO.create(user);
 
         User user1 = userDAO.get(user.getId());
@@ -92,18 +92,18 @@ public class UserDAOImplTest {
         assertThat(user1, is(equalTo(user2)));
         assertThat(user1.getFirstName(), is(equalTo(user2.getFirstName())));
         assertThat(user1.getLastName(), is(equalTo(user2.getLastName())));
-        assertThat(user1.getPhoneNumber(),is(equalTo(user2.getPhoneNumber())));
-        }
+        assertThat(user1.getPhoneNumber(), is(equalTo(user2.getPhoneNumber())));
+    }
 
     @Test(expected = Exception.class)
     public void testGetWithNull() {
-      
-    	userDAO.get(null);            
+
+        userDAO.get(null);
     }
 
     @Test
     public void testUpdate() {
-    	User user1 = buildUser("first", "last","666666");
+        User user1 = buildUser("first", "last", "666666");
         userDAO.create(user1);
 
         user1.setFirstName("Jozko");
@@ -115,21 +115,21 @@ public class UserDAOImplTest {
 
         assertThat(user2.getFirstName(), is(equalTo("Jozko")));
         assertThat(user2.getLastName(), is(equalTo("Mrkvicka")));
-        assertThat(user2.getPhoneNumber(), is(equalTo("0903123456")));       
+        assertThat(user2.getPhoneNumber(), is(equalTo("0903123456")));
     }
 
     @Test(expected = Exception.class)
     public void testUpdateWithNull() {
-        
-            userDAO.update(null);           
+
+        userDAO.update(null);
     }
 
     @Test
     public void testDelete() {
-    	User user1 = buildUser("Jozko", "Mrkvicka","0903123456");
+        User user1 = buildUser("Jozko", "Mrkvicka", "0903123456");
         userDAO.create(user1);
 
-        User user2 = buildUser("Ferko", "Slany","0903654321");
+        User user2 = buildUser("Ferko", "Slany", "0903654321");
         userDAO.create(user2);
 
         assertThat(userDAO.get(user1.getId()), is(notNullValue()));
@@ -143,8 +143,8 @@ public class UserDAOImplTest {
 
     @Test(expected = Exception.class)
     public void testDeleteWithNull() {
-       
-    	userDAO.delete(null);            
+
+        userDAO.delete(null);
     }
 
     @Test
@@ -154,20 +154,20 @@ public class UserDAOImplTest {
         }
         assertTrue(userDAO.findAll().isEmpty());
 
-        User user1 = buildUser("Jozko", "Mrkvicka","0903123456");
+        User user1 = buildUser("Jozko", "Mrkvicka", "0903123456");
         userDAO.create(user1);
 
-        User user2 = buildUser("Ferko", "Slany","0903654321");
+        User user2 = buildUser("Ferko", "Slany", "0903654321");
         userDAO.create(user2);
 
         assertThat(userDAO.findAll(), hasItems(user1, user2));
     }
 
-    public static User buildUser(String firstName,String lastName, String phoneNumber){
-		User user = new User();
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setPhoneNumber(phoneNumber);
-		return user;		
-	}
+    public static User buildUser(String firstName, String lastName, String phoneNumber) {
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPhoneNumber(phoneNumber);
+        return user;
+    }
 }

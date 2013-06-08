@@ -12,18 +12,12 @@ import java.util.List;
  * @author Marian Rusnak
  */
 public interface MatchService {
-	
-	/**
-     * Creates a new Match in the database.
-     *
-     * @throws IllegalArgumentException if parameter is null or if match id is already assigned. 
-     * @param Match Match to create.    
-     */
-    void createMatch(Match match);
 
     /**
-     * TODO
-     * @param match
+     * Updates existing Match.
+     *
+     * @throws IllegalArgumentException if parameter is null or doesn't exist.
+     * @param match match to update
      */
     void updateMatch(Match match);
 
@@ -37,51 +31,19 @@ public interface MatchService {
     Match getById(Long id);
 
     /**
-     * Removes existing Match it from database
-     * 
-     * @throws IllegalArgumentException if parameter is null.   
-     * @param Match Match to remove.    
+     * Returns all Matches or empty list if no match exists.
+     *
+     * @return all Matches or empty list if there are none.
      */
-    void deleteMatch(Match match);
+    List<Match> findAll();
 
     /**		
      * Return all Matches of given user.		
      *		
-     * @param client client		
+     * @param user user
      * @throws IllegalArgumentException if parameter is null.   
      * @return Matches of given user.		     	
      */		
     List<Match> findByUser(User user);
 
-    /**
-     * Return Matches within given date interval.
-     * 
-     * @param from start of the interval
-     * @param to end of the interval
-     * @throws IllegalArgumentException if parameter is null or if from date is after to date.   
-     * @return Matches within given date interval.    
-     */
-    List<Match> findByDate(Date from, Date to);
-
-    /**
-     * Return Matches withing given date interval in given league.
-     * 
-     * @param from start of the interval
-     * @param to end of the interval
-     * @param league league
-     * @throws IllegalArgumentException if parameter is null or if from date is after to date.   
-     * @return Matches withing given date interval in given league.     
-     */
-	List<Match> findByDate(Date from, Date to, League league);
-	
-	/**
-     * Return Matches withing given date interval and player.
-     * 
-     * @param from start of the interval
-     * @param to end of the interval
-     * @param user user
-     * @throws IllegalArgumentException if parameter is null or if from date is after to date.   
-     * @return Matches withing given date interval and player.     
-     */
-	List<Match> findByDate(Date from, Date to, User user);
 }

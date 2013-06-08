@@ -21,58 +21,58 @@ import cz.muni.fi.pv243.sportleaguesystem.service.interfaces.SportService;
 
 @Model
 public class SportController {
-	
-	@Inject
-	private FacesContext facesContext;
-	
-	@Inject
-	private SportService sportService;
-	
-	private List<Sport> sports;
-	private Sport newSport;
 
-	@Produces
-	@Named
-	public Sport getNewSport() {
-		return newSport;
-	}
+    @Inject
+    private FacesContext facesContext;
 
-	@Produces
-	@Named
-	public List<Sport> getSports() {
-		return sports;
-	}
-	
-	public String add() {
-		sportService.createSport(newSport);
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "New Sport added successfully"));
-		return "index?faces-redirect=true";
-	}
-	
-	public String save() {
-		sportService.updateSport(newSport);
-		return "index?faces-redirect=true";
-	}
-	
-	public String remove() {
-		sportService.deleteSport(newSport);
-		return "index?faces-redirect=true";
-	}
-	
-	@PostConstruct
-	public void populateSports() {
-		Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
-		String filterName = params.get("filterName");
-		String sportId = params.get("sportID");
-		
-		if (filterName != null && !"".equals(filterName.trim()))
-			sports = sportService.findSportsByName(filterName);
-		else
-			sports = sportService.getAll();
-		
-		if (sportId != null)
-			newSport = sportService.getById(Long.parseLong(sportId));
-		else
-			newSport = new Sport();
-	}
+    @Inject
+    private SportService sportService;
+
+    private List<Sport> sports;
+    private Sport newSport;
+
+    @Produces
+    @Named
+    public Sport getNewSport() {
+        return newSport;
+    }
+
+    @Produces
+    @Named
+    public List<Sport> getSports() {
+        return sports;
+    }
+
+    public String add() {
+        sportService.createSport(newSport);
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Added!", "New Sport added successfully"));
+        return "index?faces-redirect=true";
+    }
+
+    public String save() {
+        sportService.updateSport(newSport);
+        return "index?faces-redirect=true";
+    }
+
+    public String remove() {
+        sportService.deleteSport(newSport);
+        return "index?faces-redirect=true";
+    }
+
+    @PostConstruct
+    public void populateSports() {
+        Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+        String filterName = params.get("filterName");
+        String sportId = params.get("sportID");
+
+        if (filterName != null && !"".equals(filterName.trim()))
+            sports = sportService.findSportsByName(filterName);
+        else
+            sports = sportService.getAll();
+
+        if (sportId != null)
+            newSport = sportService.getById(Long.parseLong(sportId));
+        else
+            newSport = new Sport();
+    }
 }
