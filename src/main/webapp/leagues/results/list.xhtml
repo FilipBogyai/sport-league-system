@@ -1,58 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
-		<div class="header_01">Results in #{leagueResultsController.resultsLeague.name}</div>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <div class="header_01">Results in #{leagueResultsController.resultsLeague.name}</div>
 
-		<div class="section_w480">
-			<div class="image_wrapper fl_img">
-				<img src="#{request.contextPath}/resources/css/images/result.jpg"
-					alt="User" />
-			</div>
-			<p class="em_text">On this page below you can view
-			results of the league selected on the previous page.</p>
-		</div>
+    <div class="section_w480">
+        <div class="image_wrapper fl_img">
+            <img src="#{request.contextPath}/resources/css/images/result.jpg"
+                 alt="User"/>
+        </div>
+        <p class="em_text">On this page below you can view
+            results of the league selected on the previous page.</p>
+    </div>
 
-		<div class="section_w480">
+    <div class="section_w480">
 
-			<div class="header_03">Results:</div>
+        <div class="header_03">Results:</div>
 
-            <div class="button_01">
-                <h:link value="Back to leagues" outcome="#{actionBase}/index"/>
-            </div>
-            <br />
+        <div class="button_01">
+            <h:link value="Back to leagues" outcome="#{actionBase}/index"/>
+        </div>
+        <br/>
 
-			<h:panelGroup rendered="#{empty playerResults}">
-				<em>No result was found.</em>
-			</h:panelGroup>
-			<h:dataTable var="result" value="#{playerResults}"
-				rendered="#{not empty playerResults}" styleClass="simpletablestyle" id="table">
-				<h:column>
-					<f:facet name="header">Player</f:facet>
-	                #{result.user.firstName} #{result.user.lastName}
-                </h:column>
-	            <h:column>
-					<f:facet name="header">W</f:facet>
-	                #{result.wonCount}
-	            </h:column>
-                <h:column>
-                    <f:facet name="header">D</f:facet>
-                    #{result.drawnCount}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">L</f:facet>
-                    #{result.lostCount}
-                </h:column>
-	            <h:column>
-					<f:facet name="header">Score</f:facet>
-	                #{result.playerScore} : #{result.opponentsScore}
-	            </h:column>
-                <h:column>
-                    <f:facet name="header">Points</f:facet>
-                    #{result.points}
-                </h:column>
-			</h:dataTable>
-			<div class="cleaner"></div>
-		</div>
+        <c:choose>
+            <c:when test="#{empty playerResults}">
+                <em>No league was found.</em>
+            </c:when>
+            <c:otherwise>
+                <table id="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Player</th>
+                        <th>W</th>
+                        <th>D</th>
+                        <th>L</th>
+                        <th>Score</th>
+                        <th>Points</th>
+                    </tr>
+                    </thead>
+                    <c:forEach items="#{playerResults}" var="result" varStatus="loop">
+                        <tr>
+                            <td>#{loop.index + 1}</td>
+                            <td>#{result.user.firstName} #{result.user.lastName}</td>
+                            <td>#{result.wonCount}</td>
+                            <td>#{result.drawnCount}</td>
+                            <td>#{result.lostCount}</td>
+                            <td>#{result.playerScore} : #{result.opponentsScore}</td>
+                            <td>#{result.points}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:otherwise>
+        </c:choose>
+
+        <div class="cleaner"></div>
+    </div>
 </ui:composition>
