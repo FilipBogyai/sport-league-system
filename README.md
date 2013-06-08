@@ -119,6 +119,7 @@ Services are registered at respective urls (square brackets delimit optional par
 	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>
 	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>/players
 	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>/matches
+	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>/evaluate
 	
 	For league supervisors only:
 	http://localhost:8080/SportLeagueSystem/rest/leagues/<league_id>/matches/generate
